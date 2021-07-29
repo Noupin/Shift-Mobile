@@ -31,9 +31,9 @@ export const FTextInput: FC<ITextInput> = ({placeholder, onChangeText, value, st
     <Neumorphic style={[style, {position: 'relative'}]}>
       <TextInput {...props} placeholder={placeholder} onChangeText={onChangeText}
         value={value} placeholderTextColor={placeholderTextColor} secureTextEntry={hidden}
-        style={{alignSelf: 'stretch', textAlign: alignText, padding: padding}}/>
+        style={{alignSelf: 'stretch', textAlign: alignText, padding: padding, color: theme.colors.text}}/>
       <View style={{position: 'absolute', top: 0, bottom: 0, right: 0, marginRight: 10, justifyContent: 'center'}}>
-        <Icon name={hidden ? "visibility" : "visibility-off"} type="material"
+        <Icon name={hidden ? "visibility" : "visibility-off"} type="material" color={theme.colors.text}
         onPress={() => setHidden(prev => !prev)}/>
       </View>
     </Neumorphic>
@@ -41,7 +41,7 @@ export const FTextInput: FC<ITextInput> = ({placeholder, onChangeText, value, st
     <Neumorphic style={[style, {position: 'relative'}]}>
       <TextInput {...props} placeholder={placeholder} onChangeText={onChangeText}
         value={value} placeholderTextColor={placeholderTextColor} secureTextEntry={secureTextEntry}
-        style={{alignSelf: 'stretch', textAlign: alignText, padding: padding}}/>
+        style={{alignSelf: 'stretch', textAlign: alignText, padding: padding, color: theme.colors.text}}/>
     </Neumorphic>
   );
 }
