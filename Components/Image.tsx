@@ -1,18 +1,21 @@
 //Third Party Imports
-import React, { FC } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { Image, ImageProps } from 'react-native'
 
 
 interface IImage extends ImageProps{
   imageSrc: string
-  width?: number
-  height?: number
 }
 
 export const FImage: FC<IImage> = ({imageSrc, style, source, ...props}) => {
+  const [fullAspectRatio, setFullAspectRatio] = useState(1)
+
+  useEffect(() => {
+    Image.getSize(imageSrc, (width, height) => {setFullAspectRatio(width/height)})
+  }, [imageSrc])
 
   return(
     <Image source={{ uri: imageSrc }} {...props}
-      style={{ width: '100%', aspectRatio: 1, resizeMode: 'contain'}}/>
+      style={[{ width: '100%', maxHeight: '100%', alignSelf: 'center', aspectRatio: fullAspectRatio}, style]}/>
   );
 }

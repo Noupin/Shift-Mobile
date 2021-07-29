@@ -45,7 +45,7 @@ export const User: FC<IUser> = ({elevatedState, setElevatedState, username}) => 
       <UserComponent elevatedState={elevatedState} setElevatedState={setElevatedState}
         setOwner={setOwner} username={username}/>
       <FlatList data={userShifts} renderItem={(item) => <FText>{item.item.title}</FText>}
-        keyExtractor={item => String(item.id)}/>
+        keyExtractor={item => String(item.id)} style={{marginTop: 10}}/>
     </View>
   );
 }
