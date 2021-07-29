@@ -1,16 +1,16 @@
 //Third Party Imports
 import 'react-native-gesture-handler';
 import React, { useState, useEffect } from 'react';
+import { Dimensions, StatusBar } from 'react-native';
 import { AppearanceProvider } from 'react-native-appearance';
 import { NavigationContainer } from '@react-navigation/native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 //First Party Imports
 import { IElevatedState } from './Interfaces/ElevatedState';
 import { DrawerNavigator } from './Modules/DrawerNavigator';
 import { DARK_THEME, defaultShiftTitle, DEFUALT_FRONT_END_SETTINGS,
          isDarkMode, LIGHT_THEME } from './constants';
-import { StatusBar } from 'react-native';
 import { getFrontEndSettings, setFrontEndSettings } from './Helpers/FrontEndSettings';
 import { setAuthenticated, setCurrentUser } from './Helpers/User';
 import { isTokenExpired } from './Helpers/Token';
@@ -18,6 +18,10 @@ import { ApiInstances } from './Helpers/Api';
 import Base64 from './Helpers/Base64';
 import { useRefresh } from './Hooks/Refresh';
 import { navigationRef } from './Helpers/Navigation';
+import { FButton } from './Components/Button';
+import { Neumorphic } from './Components/Neumorphic';
+import { FText } from './Components/Text';
+import { MainStyles } from './Styles/MainStyles';
 
 
 export default function App() {
@@ -34,7 +38,14 @@ export default function App() {
   });
 
   const fetchRefresh = useRefresh(setElevatedState)
+  const [showMsg, setShowMsg] = useState(false);
 
+
+  useEffect(() => {
+    if(!elevatedState.msg) return;
+
+    setShowMsg(true);
+  }, [elevatedState.msg]);
 
   useEffect(() => {
     async function initialFrontEnd(){
@@ -79,6 +90,20 @@ export default function App() {
   return (
     <>
       <StatusBar barStyle={isDarkMode[elevatedState.frontEndSettings.colorTheme]() ? 'light-content' : 'dark-content'} translucent={true}/>
+        {showMsg ?
+        <SafeAreaView style={{backgroundColor: "#cce5ff"}}>
+          <Neumorphic style={[{alignSelf: 'stretch', margin: 10, padding: 15, flexDirection: 'row',
+          justifyContent: 'space-between', width: Dimensions.get('window').width*0.9}, MainStyles.borderRadius2]}>
+            <FText>
+              {elevatedState.msg}
+            </FText>
+            <Neumorphic>
+              <FButton onPress={() => setShowMsg(false)} style={[{padding: 10}, MainStyles.borderRadius2]}>
+                <FText>Close</FText>
+              </FButton>
+            </Neumorphic>
+          </Neumorphic> 
+        </SafeAreaView>: null}
       <SafeAreaProvider>
         <AppearanceProvider>
           <NavigationContainer ref={navigationRef}
