@@ -3,7 +3,7 @@ import React, { FC, useState } from 'react';
 import 'react-native-gesture-handler';
 import { Icon } from 'react-native-elements';
 import { useTheme } from '@react-navigation/native';
-import { TextInput, TextInputProps, View } from 'react-native';
+import { TextInput, TextInputProps, TextStyle, View } from 'react-native';
 
 //First Party Imports
 import { Neumorphic } from './Neumorphic';
@@ -13,7 +13,7 @@ import { booleanString } from '../Types/FrontEndTypes';
 
 interface ITextInput extends TextInputProps{
   padding?: string | number
-  alignText?: "left" | "center" | "right" | "auto" | "justify"
+  alignText?: TextStyle['textAlign']
 }
 
 export const FTextInput: FC<ITextInput> = ({placeholder, onChangeText, value, style,

@@ -1,7 +1,7 @@
 //Third Party Imports
 import React, { FC, useState, useEffect } from 'react';
 import 'react-native-gesture-handler';
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
@@ -13,6 +13,7 @@ import { IElevatedStateProps } from '../Interfaces/ElevatedStateProps';
 import { FText } from '../Components/Text';
 import { useFetch } from '../Hooks/Fetch';
 import { LoginOperationRequest, LoginRequest, LoginResponse } from '../Swagger';
+import { Neumorphic } from '../Components/Neumorphic';
 
 
 const LoginStyle = StyleSheet.create({
@@ -90,6 +91,20 @@ export const Login: FC<IElevatedStateProps> = ({elevatedState, setElevatedState}
 
   return (
       <View style={[LoginStyle.container]}>
+        {loginErrorMessage !== "" ?
+        <Neumorphic style={[{ margin: 10, padding: 15, flexDirection: 'row', backgroundColor: '#f8d7da',
+        justifyContent: 'space-between', width: Dimensions.get('window').width*0.9}, MainStyles.borderRadius2]}>
+          <FText>
+            {loginErrorMessage}
+          </FText>
+          <Neumorphic>
+            <FButton onPress={() => {
+              setLoginErrorMessage("")
+            }} style={[{padding: 10}, MainStyles.borderRadius2]}>
+              <FText>Close</FText>
+            </FButton>
+          </Neumorphic>
+        </Neumorphic> : null}
         <View></View>
         <View style={MainStyles.center}>
           <View style={{flexDirection: 'row'}}>
