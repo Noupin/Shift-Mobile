@@ -12,6 +12,7 @@ import { validateFileList } from '../../Helpers/Files';
 import { API_BASE_URL, imageTypes } from '../../constants';
 import { MainStyles } from '../../Styles/MainStyles';
 import { Icon } from 'react-native-elements';
+import { Neumorphic } from '../Neumorphic';
 
 
 interface IUserMedia{
@@ -25,8 +26,11 @@ interface IUserMedia{
 
 export const UserMediaComponent: FC<IUserMedia> = ({setElevatedState, profilePictureURL, editing, setProfilePicture, setProfilePictureURL}): ReactElement => {
   let profileMediaComponent = (
-    <FMedia srcString={profilePictureURL} style={[MainStyles.borderRadius2, {padding: 10}]}/>
-    //<FMedia srcString={`${API_BASE_URL}/api/content/video/default.mp4`} style={{padding: 10}}/>
+    <Neumorphic style={{padding: 5}}>
+      {//<FMedia srcString={profilePictureURL} style={[MainStyles.borderRadius2]}/>
+}
+      <FMedia srcString={`${API_BASE_URL}/api/content/video/default.mp4`} style={{padding: 10}}/>
+    </Neumorphic>
   )
 
   if (editing){

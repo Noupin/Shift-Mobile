@@ -12,6 +12,6 @@ export const FVideo: FC<IVideo> = ({videoSrc, style, ...props}) => {
 
   return(
     <Video ref={video} style={{width: '100%', aspectRatio: 1, backgroundColor: "#ececec" }}
-      source={{ uri: videoSrc }} resizeMode="contain" {...props}/>
+      source={{ uri: videoSrc }} resizeMode="contain" controls={true} {...props}/>
   );
 }
