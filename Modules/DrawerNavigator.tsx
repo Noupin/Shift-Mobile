@@ -90,7 +90,7 @@ export const DrawerNavigator: FC<IElevatedStateProps> = ({elevatedState, setElev
       </Drawer.Screen>
       <Drawer.Screen name="User">
         {() => <Template elevatedState={elevatedState} setElevatedState={setElevatedState}
-        component={<User username={"Noup"} elevatedState={elevatedState} setElevatedState={setElevatedState}/>}/>}
+        component={<User username={elevatedState.currentUser.username} elevatedState={elevatedState} setElevatedState={setElevatedState}/>}/>}
       </Drawer.Screen>
       <Drawer.Screen name="Shift">
         {() => <Template elevatedState={elevatedState} setElevatedState={setElevatedState}

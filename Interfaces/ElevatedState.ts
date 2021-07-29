@@ -1,5 +1,6 @@
 //First Party Imports
 import { ApiInstances } from "../Helpers/Api";
+import { User } from "../Swagger";
 import { IFrontEndSettings } from "./FrontEndSettings";
 
 
@@ -13,4 +14,5 @@ export interface IElevatedState{
     accessToken: string
     APIInstaces: ApiInstances
     frontEndSettings: IFrontEndSettings
+    currentUser: User
 }

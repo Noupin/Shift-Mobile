@@ -9,10 +9,10 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 //First Party Imports
 import { IElevatedState } from './Interfaces/ElevatedState';
 import { DrawerNavigator } from './Modules/DrawerNavigator';
-import { DARK_THEME, defaultShiftTitle, DEFUALT_FRONT_END_SETTINGS,
+import { DARK_THEME, defaultShiftTitle, DEFAULT_USER, DEFUALT_FRONT_END_SETTINGS,
          isDarkMode, LIGHT_THEME } from './constants';
 import { getFrontEndSettings, setFrontEndSettings } from './Helpers/FrontEndSettings';
-import { setAuthenticated, setCurrentUser } from './Helpers/User';
+import { currentUser, setAuthenticated, setCurrentUser } from './Helpers/User';
 import { isTokenExpired } from './Helpers/Token';
 import { ApiInstances } from './Helpers/Api';
 import Base64 from './Helpers/Base64';
@@ -35,6 +35,7 @@ export default function App() {
     accessToken: "",
     APIInstaces: new ApiInstances(""),
     frontEndSettings: DEFUALT_FRONT_END_SETTINGS,
+    currentUser: DEFAULT_USER,
   });
 
   const fetchRefresh = useRefresh(setElevatedState)
@@ -53,7 +54,13 @@ export default function App() {
       setElevatedState(prev => ({...prev, frontEndSettings: frontEndSettings}))
     }
 
+    async function initialUser(){
+      const user = await currentUser()
+      setElevatedState(prev => ({...prev, currentUser: user}))
+    }
+
     initialFrontEnd()
+    initialUser()
   }, [])
 
   useEffect(() => {
@@ -66,7 +73,10 @@ export default function App() {
     
 
     const JWTBody = JSON.parse(Base64.atob(elevatedState.accessToken.split('.')[1]))
-    if(JWTBody.user) setCurrentUser(JWTBody.user);
+    if(JWTBody.user){
+      setCurrentUser(JWTBody.user);
+      setElevatedState(prev => ({...prev, currentUser: JWTBody.user}))
+    }
 
     elevatedState.APIInstaces.apiKey = elevatedState.accessToken
     var authenticated = isTokenExpired(elevatedState.accessToken)
