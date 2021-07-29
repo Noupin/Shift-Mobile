@@ -67,7 +67,8 @@ export const Register: FC<IElevatedStateProps> = ({elevatedState, setElevatedSta
           <View style={{flex: 4}}>
             <FTextInput placeholder="Password" onChangeText={setPassword} value={password}
               style={[{marginVertical: 10}, MainStyles.center, MainStyles.borderRadius2]}
-              autoCapitalize="none" autoCorrect={false} alignText="center" padding={10}/>
+              autoCapitalize="none" autoCorrect={false} alignText="center" padding={10}
+              secureTextEntry={true}/>
           </View>
           <View style={{flex: 1}}></View>
         </View>
@@ -76,7 +77,8 @@ export const Register: FC<IElevatedStateProps> = ({elevatedState, setElevatedSta
           <View style={{flex: 4}}>
             <FTextInput placeholder="Confirm Password" onChangeText={setConfirmPassword} value={confirmPassword}
               style={[{marginVertical: 10}, MainStyles.center, MainStyles.borderRadius2]}
-              autoCapitalize="none" autoCorrect={false} alignText="center" padding={10}/>
+              autoCapitalize="none" autoCorrect={false} alignText="center" padding={10}
+              secureTextEntry={true}/>
           </View>
           <View style={{flex: 1}}></View>
         </View>
