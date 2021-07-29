@@ -1,7 +1,7 @@
 //Third Party Imports
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import 'react-native-gesture-handler';
-import { View, Image, TouchableOpacity } from 'react-native';
+import { View, Image, TouchableOpacity, Dimensions } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { DrawerActions, useNavigation } from '@react-navigation/native';
 
@@ -13,6 +13,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { isDarkMode, TOP_BAR_SIZE } from '../constants';
 import { IElevatedStateProps } from '../Interfaces/ElevatedStateProps';
 import { useTheme } from '@react-navigation/native';
+import { Neumorphic } from '../Components/Neumorphic';
+import { FText } from '../Components/Text';
 
 
 interface ITemplate extends IElevatedStateProps{
@@ -22,6 +24,16 @@ interface ITemplate extends IElevatedStateProps{
 export const Template: FC<ITemplate> = ({ component, elevatedState }) => {
   const navigation = useNavigation();
   const theme = useTheme()
+
+  const [showMsg, setShowMsg] = useState(false);
+
+
+  useEffect(() => {
+    if(!elevatedState.msg) return;
+
+    setShowMsg(true);
+  }, [elevatedState.msg]);
+
 
   return (
     <SafeAreaView style={[MainStyles.container, {width: "100%"}]}>
@@ -41,6 +53,18 @@ export const Template: FC<ITemplate> = ({ component, elevatedState }) => {
             <Icon name='settings' size={20} color={theme.colors.text}/>
           </FButton>
         </View>
+        {showMsg ?
+        <Neumorphic style={[{alignSelf: 'stretch', margin: 10, padding: 15, flexDirection: 'row',
+        justifyContent: 'space-between', width: Dimensions.get('window').width*0.9}, MainStyles.borderRadius2]}>
+          <FText>
+            {elevatedState.msg}
+          </FText>
+          <Neumorphic>
+            <FButton onPress={() => setShowMsg(false)} style={[{padding: 10}, MainStyles.borderRadius2]}>
+              <FText>Close</FText>
+            </FButton>
+          </Neumorphic>
+        </Neumorphic> : null}
         <View style={[MainStyles.container, {justifyContent: 'space-between'}]}>
           {component}
         </View>

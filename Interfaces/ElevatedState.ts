@@ -4,6 +4,7 @@ import { IFrontEndSettings } from "./FrontEndSettings";
 
 
 export interface IElevatedState{
+    msg: string
     authenticated: boolean
     shiftUUID: string
     shiftTitle: string

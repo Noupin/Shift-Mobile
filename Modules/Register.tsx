@@ -1,6 +1,5 @@
 //Third Party Imports
-import React, { FC } from 'react';
-import { useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import 'react-native-gesture-handler';
 import { StyleSheet } from 'react-native';
 import { View } from 'react-native';
@@ -12,6 +11,8 @@ import { MainStyles } from '../Styles/MainStyles';
 import { FTextInput } from '../Components/TextInput';
 import { IElevatedStateProps } from '../Interfaces/ElevatedStateProps';
 import { FText } from '../Components/Text';
+import { useFetch } from '../Hooks/Fetch';
+import { RegisterResponse, RegisterRequest, RegisterOperationRequest } from '../Swagger';
 
 
 const RegisterStyle = StyleSheet.create({
@@ -38,6 +39,73 @@ export const Register: FC<IElevatedStateProps> = ({elevatedState, setElevatedSta
     confirmPassword: false
   })
   const [registerErrorMessage, setResgisterErrorMessage] = useState("");
+
+  const [fetching, setFetching] = useState(false);
+  const [registerResponse, setRegisterResponse] = useState<RegisterResponse>();
+  const fetchRegister = useFetch(elevatedState.APIInstaces.Authenticate,
+                                 elevatedState.APIInstaces.Authenticate.register,
+                                 elevatedState, setElevatedState, setRegisterResponse, setFetching)
+
+
+  useEffect(() => {
+    if(!fetching) return;
+
+    setResigterErrors({
+      username: false,
+      email: false,
+      password: false,
+      confirmPassword: false
+    })
+    setResgisterErrorMessage("")
+
+    if (password !== confirmPassword){
+      setResigterErrors(prev => ({...prev, confirmPassword: true}))
+      setResgisterErrorMessage("Make sure your passwords match.")
+      setFetching(false)
+
+      return;
+    }
+
+    const registerReqeustParams: RegisterRequest = {
+      username: username,
+      password: password,
+      email: email
+    }
+    const registerBody: RegisterOperationRequest = {
+      body: registerReqeustParams
+    }
+
+    fetchRegister(registerBody)
+  }, [fetching]);
+
+  useEffect(() => {
+    if(!registerResponse) return;
+
+    if(registerResponse.accessToken){
+      setElevatedState(prev => ({...prev, accessToken: registerResponse.accessToken!}))
+    }
+
+    if(registerResponse.usernameMessage){
+      setResigterErrors(prev => ({...prev, username: true}))
+      setResgisterErrorMessage(registerResponse.usernameMessage)
+    }
+
+    if(registerResponse.emailMessage){
+      setResigterErrors(prev => ({...prev, email: true}))
+      setResgisterErrorMessage(registerResponse.emailMessage)
+    }
+
+    if(registerResponse.passwordMessage){
+      setResigterErrors(prev => ({...prev, password: true}))
+      setResgisterErrorMessage(registerResponse.passwordMessage)
+    }
+  }, [registerResponse]);
+
+  useEffect(() => {
+    if(!elevatedState.authenticated) return;
+
+    navigation.navigate("Home")
+  }, [elevatedState.authenticated]);
 
 
   return (

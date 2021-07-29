@@ -22,6 +22,7 @@ import { navigationRef } from './Helpers/Navigation';
 
 export default function App() {
   const [elevatedState, setElevatedState] = useState<IElevatedState>({
+    msg: "",
     authenticated: false,
     shiftUUID: "",
     shiftTitle: defaultShiftTitle,
