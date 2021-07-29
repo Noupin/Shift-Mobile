@@ -52,9 +52,6 @@ const CustomDrawer: FC<ICustomDrawer> = ({elevatedState, setElevatedState, navig
           }}>
             <FText style={DrawerStyles.button}>Profile</FText>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("Shifts")}>
-            <FText style={DrawerStyles.button}>Shifts</FText>
-          </TouchableOpacity>
           </>}
         </View>
         <LowerNavComponent elevatedState={elevatedState} setElevatedState={setElevatedState}
