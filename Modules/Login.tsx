@@ -1,6 +1,5 @@
 //Third Party Imports
-import React, { FC } from 'react';
-import { useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import 'react-native-gesture-handler';
 import { StyleSheet } from 'react-native';
 import { View } from 'react-native';
@@ -12,6 +11,8 @@ import { MainStyles } from '../Styles/MainStyles';
 import { FTextInput } from '../Components/TextInput';
 import { IElevatedStateProps } from '../Interfaces/ElevatedStateProps';
 import { FText } from '../Components/Text';
+import { useFetch } from '../Hooks/Fetch';
+import { LoginOperationRequest, LoginRequest, LoginResponse } from '../Swagger';
 
 
 const LoginStyle = StyleSheet.create({
@@ -26,14 +27,66 @@ const LoginStyle = StyleSheet.create({
 export const Login: FC<IElevatedStateProps> = ({elevatedState, setElevatedState}) => {
   const navigation = useNavigation()
 
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
+  const [usernameOrEmail, setUsernameOrEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const [loginErrors, setLoginErrors] = useState({
     username: false,
     password: false
   })
   const [loginErrorMessage, setLoginErrorMessage] = useState("");
+
+  const [fetching, setFetching] = useState(false);
+  const [loginResponse, setLoginResponse] = useState<LoginResponse>(); 
+  const fetchLogin = useFetch(elevatedState.APIInstaces.Authenticate,
+                              elevatedState.APIInstaces.Authenticate.login,
+                              elevatedState, setElevatedState, setLoginResponse, setFetching)
+
+
+  useEffect(() => {
+    if(!fetching) return;
+
+    setLoginErrors({
+      username: false,
+      password: false
+    })
+    setLoginErrorMessage("")
+
+    const loginRequestParams: LoginRequest = {
+      usernameOrEmail: usernameOrEmail,
+      password: password,
+    }
+    const loginBody: LoginOperationRequest = {
+      body: loginRequestParams
+    }
+  
+    fetchLogin(loginBody)
+  }, [fetching]);
+
+  useEffect(() => {
+    if(!loginResponse) return;
+
+    if(loginResponse.accessToken){
+      setElevatedState(prev => ({...prev, accessToken: loginResponse.accessToken!}))
+    }
+
+    if(loginResponse.usernameMessage){
+      setLoginErrors(prev => ({...prev, username: true}))
+      setLoginErrorMessage(loginResponse.usernameMessage)
+    }
+
+    if(loginResponse.passwordMessage){
+      setLoginErrors(prev => ({...prev, password: true}))
+      setLoginErrorMessage(loginResponse.passwordMessage)
+    }
+
+  }, [loginResponse]);
+
+  useEffect(() => {
+    if(!elevatedState.accessToken) return;
+
+    navigation.navigate("Home")
+  }, [elevatedState.accessToken]);
 
   return (
       <View style={[LoginStyle.container]}>
@@ -42,9 +95,10 @@ export const Login: FC<IElevatedStateProps> = ({elevatedState, setElevatedState}
           <View style={{flexDirection: 'row'}}>
             <View style={{flex: 1}}></View>
             <View style={{flex: 4}}>
-              <FTextInput placeholder="Username/Email" onChangeText={setUsername}
+              <FTextInput placeholder="Username/Email" onChangeText={setUsernameOrEmail}
                 style={[{marginVertical: 10}, MainStyles.textCenter, MainStyles.borderRadius2]}
-                autoCapitalize="none" autoCorrect={false} alignText="center" padding={10}/>
+                autoCapitalize="none" autoCorrect={false} alignText="center" padding={10}
+                value={usernameOrEmail}/>
             </View>
             <View style={{flex: 1}}></View>
           </View>
@@ -60,7 +114,8 @@ export const Login: FC<IElevatedStateProps> = ({elevatedState, setElevatedState}
           <View style={{flexDirection: 'row'}}>
             <View style={{flex: 1}}></View>
             <View style={{flex: 2}}>
-              <FButton onPress={() => {}} style={[{padding: 10, marginTop: 20}, MainStyles.borderRadius2, MainStyles.center]}>
+              <FButton onPress={() => setFetching(true)}
+              style={[{padding: 10, marginTop: 20}, MainStyles.borderRadius2, MainStyles.center]}>
                 <FText>Login</FText>
               </FButton>
             </View>
