@@ -17,6 +17,7 @@ import { isTokenExpired } from './Helpers/Token';
 import { ApiInstances } from './Helpers/Api';
 import Base64 from './Helpers/Base64';
 import { useRefresh } from './Hooks/Refresh';
+import { navigationRef } from './Helpers/Navigation';
 
 
 export default function App() {
@@ -79,7 +80,8 @@ export default function App() {
       <StatusBar barStyle={isDarkMode[elevatedState.frontEndSettings.colorTheme]() ? 'light-content' : 'dark-content'} translucent={true}/>
       <SafeAreaProvider>
         <AppearanceProvider>
-          <NavigationContainer theme={isDarkMode[elevatedState.frontEndSettings.colorTheme]() ? DARK_THEME : LIGHT_THEME}>
+          <NavigationContainer ref={navigationRef}
+          theme={isDarkMode[elevatedState.frontEndSettings.colorTheme]() ? DARK_THEME : LIGHT_THEME}>
             <DrawerNavigator elevatedState={elevatedState} setElevatedState={setElevatedState}/>
           </NavigationContainer>
         </AppearanceProvider>

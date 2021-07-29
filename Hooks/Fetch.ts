@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 
 //First Party Imports
 import { AuthenticateAPIFactory } from "../Helpers/Api";
+import { navigate } from "../Helpers/Navigation";
 import { IElevatedStateProps } from "../Interfaces/ElevatedStateProps";
 
 
@@ -13,8 +14,6 @@ export function useFetch<T, U, V>(thisArg: U,
   elevatedState: IElevatedStateProps["elevatedState"], setElevatedState: IElevatedStateProps["setElevatedState"],
   setData: React.Dispatch<React.SetStateAction<V | undefined>> | ((requestParmaters: V, ...args: any[]) => void),
   setLoading?: React.Dispatch<React.SetStateAction<boolean>>): (requestParams?: T, ...args: any[]) => Promise<void>{
-
-  const navigation = useNavigation()
 
   const reqAgain = useRef(false)
   const reqParams = useRef<T>()
@@ -37,7 +36,7 @@ export function useFetch<T, U, V>(thisArg: U,
         error: Error("Your login has expired please login again"),
         accessToken: ""
       }));
-      navigation.navigate(`Login`)
+      navigate(`Login`)
     }
     if(setLoading) setLoading(false)
   }
@@ -51,7 +50,7 @@ export function useFetch<T, U, V>(thisArg: U,
     }
     catch(error){
       setElevatedState(prev => ({...prev, accessToken: "", error: error}))
-      navigation.navigate(`Login`)
+      navigate(`Login`)
     }
   }
 
@@ -71,7 +70,7 @@ export function useFetch<T, U, V>(thisArg: U,
       }
       else{
         setElevatedState((prev) => ({...prev, error: error, accessToken: ""}));
-        navigation.navigate(`Home`)
+        navigate(`Home`)
       }
     }
 

@@ -1,7 +1,6 @@
 //Third Party Imports
 import React, { FC } from 'react';
 import 'react-native-gesture-handler';
-import { useTheme } from '@react-navigation/native';
 import { useColorScheme } from 'react-native-appearance';
 import { View, TouchableOpacity } from 'react-native';
 import { createDrawerNavigator, DrawerContentComponentProps,
@@ -62,7 +61,6 @@ const CustomDrawer: FC<ICustomDrawer> = ({elevatedState, setElevatedState, navig
 }
 
 export const DrawerNavigator: FC<IElevatedStateProps> = ({elevatedState, setElevatedState}) => {
-  const scheme = useColorScheme()
 
   return (
     <Drawer.Navigator initialRouteName="Home"

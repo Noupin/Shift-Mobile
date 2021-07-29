@@ -1,5 +1,5 @@
 //Third Party Imports
-import React, { FC } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import 'react-native-gesture-handler';
 import { View, TouchableOpacity } from 'react-native';
 import { DrawerContentComponentProps, DrawerContentOptions } from '@react-navigation/drawer';
@@ -8,11 +8,34 @@ import { DrawerContentComponentProps, DrawerContentOptions } from '@react-naviga
 import { DrawerStyles } from '../Styles/DrawerStyles';
 import { IElevatedStateProps } from '../Interfaces/ElevatedStateProps';
 import { FText } from './Text';
+import { useFetch } from '../Hooks/Fetch';
+import { LogoutResponse } from '../Swagger';
 
 
 interface ICustomDrawer extends IElevatedStateProps, DrawerContentComponentProps<DrawerContentOptions>{}
 
 export const LowerNavComponent: FC<ICustomDrawer> = ({elevatedState, setElevatedState, navigation}) => {
+  const [fetching, setFetching] = useState(false);
+  const [logoutResponse, setLogoutResponse] = useState<LogoutResponse>();
+  const fetchLogout = useFetch(elevatedState.APIInstaces.Authenticate,
+                               elevatedState.APIInstaces.Authenticate.logout,
+                               elevatedState, setElevatedState, setLogoutResponse, setFetching)
+
+
+  useEffect(() => {
+    if(!fetching) return;
+
+    fetchLogout()
+  }, [fetching]);
+
+  useEffect(() => {
+    if (!logoutResponse) return;
+
+    setElevatedState((prev) => ({...prev, msg: logoutResponse.msg!, accessToken: "", authenticated: false}))
+    navigation.navigate("Home")
+  }, [logoutResponse]);
+
+
   let navComp = (
     <View>
       <TouchableOpacity onPress={() => navigation.navigate("Login")}>
@@ -30,7 +53,7 @@ export const LowerNavComponent: FC<ICustomDrawer> = ({elevatedState, setElevated
         <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
           <FText style={DrawerStyles.button}>Settings</FText>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity onPress={() => setFetching(true)}>
           <FText style={DrawerStyles.button}>Logout</FText>
         </TouchableOpacity>
       </View>

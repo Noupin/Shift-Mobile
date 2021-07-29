@@ -107,7 +107,8 @@ export const Login: FC<IElevatedStateProps> = ({elevatedState, setElevatedState}
             <View style={{flex: 4}}>
               <FTextInput placeholder="Password" onChangeText={setPassword} value={password}
                 style={[{marginVertical: 10}, MainStyles.textCenter, MainStyles.borderRadius2]}
-                autoCapitalize="none" autoCorrect={false} alignText="center" padding={10}/>
+                autoCapitalize="none" autoCorrect={false} alignText="center" padding={10}
+                secureTextEntry={true}/>
             </View>
             <View style={{flex: 1}}></View>
           </View>
