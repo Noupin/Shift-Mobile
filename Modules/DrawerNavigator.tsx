@@ -23,6 +23,7 @@ import { Load } from './Load';
 import { Inference } from './Inference';
 import { User } from './User';
 import { Shift } from './Shift';
+import { currentUser } from '../Helpers/User';
 
 
 const Drawer = createDrawerNavigator();
@@ -42,7 +43,13 @@ const CustomDrawer: FC<ICustomDrawer> = ({elevatedState, setElevatedState, navig
             <FText style={DrawerStyles.button}>Test Page</FText>
           </TouchableOpacity>
           {elevatedState.authenticated && <>
-          <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+          <TouchableOpacity onPress={() => {
+            async function getUsername(){
+              const username = (await currentUser()).username
+              navigation.navigate("User", {username: username})
+            }
+            getUsername()
+          }}>
             <FText style={DrawerStyles.button}>Profile</FText>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate("Shifts")}>
