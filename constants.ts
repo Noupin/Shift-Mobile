@@ -1,0 +1,73 @@
+//Third Party Imports
+import { Appearance } from 'react-native';
+import { DefaultTheme } from '@react-navigation/native';
+
+//First Party Imports
+import { User } from "./Swagger";
+import { IFrontEndSettings } from "./Interfaces/FrontEndSettings";
+
+
+export const videoTypes = ['mp4', 'webm', 'ogg']
+export const imageTypes = ['png', 'jpg', 'jpeg', 'heic']
+export const validMediaFileExtesnions = ['png', 'jpg', 'jpeg', 'gif', 'heic', 'mp4', 'm4a', 'mov']
+
+export const defaultShiftTitle = ""
+
+
+export const TRAIN_STATUS_INTERVAL = 1000;
+
+export const CATEGORIES_TO_GET = -1;
+export const CATEGORIES_TO_REMOVE = ["Featured"]
+
+
+export const DEFAULT_USER: User = {username: "", email: ""}
+
+export const DEFUALT_FRONT_END_SETTINGS: IFrontEndSettings = {
+  usePTM: true,
+  trainingShift: false,
+  trainView: 'basic',
+  colorTheme: 'light',
+  uiStyle: 'neumorphic',
+}
+
+export const isDarkMode = {
+  light: () => false,
+  dark: () => true,
+  adaptive: () => {return Appearance.getColorScheme() === 'dark'},
+}
+
+export const RADIUS_SIZE = 25
+export const TOP_BAR_SIZE = 30;
+
+export const DARK_THEME = {
+  dark: true,
+  colors: {
+    ...DefaultTheme.colors,
+    background: "#1f1f1f",
+    text: "#ececec",
+  },
+}
+
+export const LIGHT_THEME = {
+  dark: false,
+  colors: {
+    ...DefaultTheme.colors,
+    background: "#ececec",
+    text: "#1f1f1f",
+  },
+}
+
+export const ADDITIONAL_THEME_ATTRIBUTES = {
+  true: {
+    brightShadow: "rgba(255, 255, 255, 0.03)",
+    dimShadow: "rgba(0, 0, 0, 0.4)",
+    placeholderTextColor: '#ececec70',
+  },
+  false: {
+    brightShadow: "rgba(255, 255, 255, 0.4)",
+    dimShadow: "rgba(0, 0, 0, 0.05)",
+    placeholderTextColor: '#1f1f1f70',
+  }
+}
+
+export const API_BASE_URL = 'http://192.168.1.52'
