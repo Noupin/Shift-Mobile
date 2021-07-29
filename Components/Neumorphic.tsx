@@ -3,6 +3,11 @@ import React, { FC } from "react";
 import { View } from "react-native";
 import { ViewProps } from "react-native";
 import { StyleSheet } from 'react-native';
+import { useTheme } from '@react-navigation/native';
+
+//First Party Imports
+import { ADDITIONAL_THEME_ATTRIBUTES } from "../constants";
+import { booleanString } from "../Types/FrontEndTypes";
 
 
 interface INeurmorphic extends ViewProps{
@@ -11,11 +16,20 @@ interface INeurmorphic extends ViewProps{
   backgroundColor?: string
   upperShadow?: string
   bottomShadow?: string
+  includeTheme?: boolean
 }
 
 
-export const Neumorphic: FC<INeurmorphic> = ({children, style, radius=5, offset=5,
+export const Neumorphic: FC<INeurmorphic> = ({children, style, radius=5, offset=5, includeTheme=true,
   backgroundColor='#ececec', upperShadow='rgba(255, 255, 255, 0.4)', bottomShadow='rgba(0, 0, 0, 0.05)'}) => {
+  const theme = useTheme()
+
+  if(includeTheme){
+    const additionTheme = ADDITIONAL_THEME_ATTRIBUTES[String(theme.dark) as booleanString]
+    backgroundColor = theme.colors.background
+    upperShadow = additionTheme.brightShadow
+    bottomShadow = additionTheme.dimShadow
+  }
 
   const styles = StyleSheet.create({
     inner: {

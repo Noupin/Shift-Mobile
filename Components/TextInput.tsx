@@ -25,8 +25,7 @@ export const FTextInput: FC<ITextInput> = ({placeholder, onChangeText, value, st
   }
 
   return (
-    <Neumorphic style={style} backgroundColor={theme.colors.background}
-    upperShadow={additionTheme.brightShadow} bottomShadow={additionTheme.dimShadow}>
+    <Neumorphic style={style}>
       <TextInput {...props} placeholder={placeholder} onChangeText={onChangeText}
         value={value} placeholderTextColor={placeholderTextColor}
         style={{alignSelf: 'stretch', textAlign: alignText, padding: padding}}/>
