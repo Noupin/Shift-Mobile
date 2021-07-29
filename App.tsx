@@ -91,14 +91,17 @@ export default function App() {
     <>
       <StatusBar barStyle={isDarkMode[elevatedState.frontEndSettings.colorTheme]() ? 'light-content' : 'dark-content'} translucent={true}/>
         {showMsg ?
-        <SafeAreaView style={{backgroundColor: "#cce5ff"}}>
-          <Neumorphic style={[{alignSelf: 'stretch', margin: 10, padding: 15, flexDirection: 'row',
+        <SafeAreaView style={{backgroundColor: "#cce5ff", justifyContent: 'center', alignItems: 'center'}}>
+          <Neumorphic style={[{ margin: 10, padding: 15, flexDirection: 'row',
           justifyContent: 'space-between', width: Dimensions.get('window').width*0.9}, MainStyles.borderRadius2]}>
             <FText>
               {elevatedState.msg}
             </FText>
             <Neumorphic>
-              <FButton onPress={() => setShowMsg(false)} style={[{padding: 10}, MainStyles.borderRadius2]}>
+              <FButton onPress={() => {
+                setShowMsg(false)
+                setElevatedState((prev) => ({...prev, msg: ""}))
+              }} style={[{padding: 10}, MainStyles.borderRadius2]}>
                 <FText>Close</FText>
               </FButton>
             </Neumorphic>
