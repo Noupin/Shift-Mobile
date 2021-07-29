@@ -10,6 +10,7 @@ import { FText } from '../Components/Text';
 import { useFetch } from '../Hooks/Fetch';
 import { Shift, UserShiftsRequest, UserShiftsResponse } from '../Swagger';
 import { UserComponent } from '../Components/User/UserComponent';
+import { FHorizontalDivider } from '../Components/Divider/HorizontalDivider';
 
 
 interface IUser extends IElevatedStateProps{
@@ -44,6 +45,7 @@ export const User: FC<IUser> = ({elevatedState, setElevatedState, username}) => 
     <View style={{flex: 1, alignItems: "center", marginHorizontal: 10}}>
       <UserComponent elevatedState={elevatedState} setElevatedState={setElevatedState}
         setOwner={setOwner} username={username}/>
+      <FHorizontalDivider/>
       <FlatList data={userShifts} renderItem={(item) => <FText>{item.item.title}</FText>}
         keyExtractor={item => String(item.id)} style={{marginTop: 10}}/>
     </View>
