@@ -99,9 +99,11 @@ export const Login: FC<IElevatedStateProps> = ({elevatedState, setElevatedState}
         {loginErrorMessage !== "" ?
         <Neumorphic style={[{ margin: 10, padding: 15, flexDirection: 'row', backgroundColor: additionalTheme.errorBackground,
         justifyContent: 'space-between', width: Dimensions.get('window').width*0.9}, MainStyles.borderRadius2]}>
-          <FText>
-            {loginErrorMessage}
-          </FText>
+          <View style={{flexShrink: 1}}>
+            <FText>
+              {loginErrorMessage}
+            </FText>
+          </View>
           <Neumorphic>
             <FButton onPress={() => {
               setLoginErrorMessage("")

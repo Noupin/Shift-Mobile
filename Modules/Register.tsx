@@ -118,9 +118,11 @@ export const Register: FC<IElevatedStateProps> = ({elevatedState, setElevatedSta
       {registerErrorMessage !== "" ?
       <Neumorphic style={[{ margin: 10, padding: 15, flexDirection: 'row', backgroundColor: additionalTheme.errorBackground,
       justifyContent: 'space-between', width: Dimensions.get('window').width*0.9}, MainStyles.borderRadius2]}>
-        <FText>
-          {registerErrorMessage}
-        </FText>
+        <View style={{flexShrink: 1}}>
+          <FText>
+            {registerErrorMessage}
+          </FText>
+        </View>
         <Neumorphic>
           <FButton onPress={() => {
             setResgisterErrorMessage("")

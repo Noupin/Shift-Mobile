@@ -1,7 +1,7 @@
 //Third Party Imports
 import 'react-native-gesture-handler';
 import React, { useState, useEffect } from 'react';
-import { Dimensions, StatusBar } from 'react-native';
+import { Dimensions, StatusBar, View } from 'react-native';
 import { AppearanceProvider } from 'react-native-appearance';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
@@ -105,9 +105,11 @@ export default function App() {
       <SafeAreaView style={{backgroundColor: "#cce5ff", justifyContent: 'center', alignItems: 'center'}}>
         <Neumorphic style={[{ margin: 10, padding: 15, flexDirection: 'row',
         justifyContent: 'space-between', width: Dimensions.get('window').width*0.9}, MainStyles.borderRadius2]}>
-          <FText>
-            {elevatedState.msg}
-          </FText>
+          <View style={{flexShrink: 1}}>
+            <FText>
+              {elevatedState.msg}
+            </FText>
+          </View>
           <Neumorphic>
             <FButton onPress={() => {
               setShowMsg(false)
