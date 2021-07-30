@@ -16,6 +16,10 @@ import { MainStyles } from '../Styles/MainStyles';
 import { ShiftUserComponent } from '../Components/Shift/ShiftUserComponent';
 import { ShiftTitleComponent } from '../Components/Shift/ShiftTitleComponent';
 import { ShiftButtonsComponent } from '../Components/Shift/ShiftButtonsComponent';
+import { Neumorphic } from '../Components/Neumorphic';
+import { FMedia } from '../Components/Media';
+import { API_BASE_URL } from '../constants';
+import { Icon } from 'react-native-elements';
 
 
 interface IShift extends IElevatedStateProps{
@@ -63,9 +67,9 @@ export const Shift: FC<IShift> = ({elevatedState, setElevatedState, uuid}) => {
     if (!shiftGetResponse) return;
 
 
-    setShiftMediaURL(`${getCDNPrefix(shiftGetResponse.shift!.mediaFilename!)}${shiftGetResponse.shift!.mediaFilename!}`)
-    setBaseMediaURL(`${getCDNPrefix(shiftGetResponse.shift!.baseMediaFilename!)}${shiftGetResponse.shift!.baseMediaFilename!}`)
-    setMaskMediaURL(`${getCDNPrefix(shiftGetResponse.shift!.maskMediaFilename!)}${shiftGetResponse.shift!.maskMediaFilename!}`)
+    setShiftMediaURL(`${API_BASE_URL}${getCDNPrefix(shiftGetResponse.shift!.mediaFilename!)}${shiftGetResponse.shift!.mediaFilename!}`)
+    setBaseMediaURL(`${API_BASE_URL}${getCDNPrefix(shiftGetResponse.shift!.baseMediaFilename!)}${shiftGetResponse.shift!.baseMediaFilename!}`)
+    setMaskMediaURL(`${API_BASE_URL}${getCDNPrefix(shiftGetResponse.shift!.maskMediaFilename!)}${shiftGetResponse.shift!.maskMediaFilename!}`)
   }, [shiftGetResponse])
 
   useEffect(() => {
@@ -119,10 +123,32 @@ export const Shift: FC<IShift> = ({elevatedState, setElevatedState, uuid}) => {
       <ShiftButtonsComponent editing={editing} setEditing={setEditing}
         setSaving={setSaving} deleteShift={deleteShift}/>
       : <></>}
-      <View>
-        <FText>
-        Stufff
-        </FText>
+      <View style={[MainStyles.spreadColumn, {flex: 1}]}>
+        <View style={{flex: 3}}>
+          <Neumorphic style={[{padding: 5}, MainStyles.borderRadius2]}>
+            <FMedia style={MainStyles.borderRadius2} srcString={shiftMediaURL}/>
+          </Neumorphic>
+        </View>
+        <View style={[MainStyles.spreadRow, {flex: 1}]}>
+          <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
+            <Icon name='north-east' type='material' color={theme.colors.text}/>
+          </View>
+          <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
+            <Icon name='north-west' type='material' color={theme.colors.text}/>
+          </View>
+        </View>
+        <View style={[MainStyles.spreadRow, {flex: 2, margin: 5}]}>
+          <View style={{flex:1}}>
+            <Neumorphic style={[{padding: 5, marginHorizontal: 5}, MainStyles.borderRadius2]}>
+              <FMedia style={MainStyles.borderRadius2} srcString={baseMediaURL}/>
+            </Neumorphic>
+          </View>
+          <View style={{flex:1}}>
+            <Neumorphic style={[{padding: 5, marginHorizontal: 5}, MainStyles.borderRadius2]}>
+              <FMedia style={MainStyles.borderRadius2} srcString={maskMediaURL}/>
+            </Neumorphic>
+          </View>
+        </View>
       </View>
       {shiftGetResponse ? 
       <ShiftUserComponent owner={shiftGetResponse.owner} shift={shiftGetResponse.shift}/>

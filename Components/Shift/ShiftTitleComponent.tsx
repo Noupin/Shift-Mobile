@@ -24,7 +24,7 @@ export const ShiftTitleComponent: FC<IShiftTitle> = ({editing, setShiftChanges, 
 
   let shiftTitleComponent = (
     <View style={[MainStyles.spreadRow]}>
-      <View style={{flex: 1, alignItems: 'stretch'}}>
+      <View style={{flex: 1, alignItems: 'stretch', margin: 10}}>
         <FText style={{fontSize: 20, textAlign: 'center'}}>
           {shift!.title}
           {shift!.verified ? <Icon name='verified' type="material" color={theme.colors.text}/>
