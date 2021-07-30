@@ -27,11 +27,11 @@ export const FShiftCard: FC<IShiftCard> = ({children, style, shift, ...props}) =
     <TouchableOpacity {...props} onPress={() => {navigate("Shift", {uuid: shift.uuid})}}>
       <Neumorphic style={[style, {padding: 10, margin: 10}, MainStyles.borderRadius2]}>
         <View style={{position: 'relative'}}>
-          <FMedia style={[MainStyles.borderRadius2]}
+          <FMedia style={[MainStyles.borderRadius2, {height: "100%"}]}
           srcString={`${API_BASE_URL}${getCDNPrefix(shift.mediaFilename!)}${shift.mediaFilename}`}/>
           <BlurView blurType={theme.dark ? "dark" : "light"}
           style={[{position: 'absolute', bottom: 0, left: 0, padding: 5}, MainStyles.borderRadius2]}>
-            <FText>
+            <FText style={{fontSize: 20, fontWeight: '500'}}>
               {shift.title}
             </FText>
           </BlurView>
