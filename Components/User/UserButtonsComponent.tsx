@@ -26,7 +26,7 @@ interface IUserButtons{
 export const UserButtonComponent: FC<IUserButtons> = ({editing, setEditing, setSaving, setDeleting}): ReactElement => {
   const navigation = useNavigation()
   const theme = useTheme()
-  const additionTheme = ADDITIONAL_THEME_ATTRIBUTES[String(theme.dark) as booleanString]
+  const additionalTheme = ADDITIONAL_THEME_ATTRIBUTES[String(theme.dark) as booleanString]
 
   let userButtonComponent = (
     <View style={[MainStyles.spreadRow, {marginBottom: 10}]}>
@@ -42,8 +42,8 @@ export const UserButtonComponent: FC<IUserButtons> = ({editing, setEditing, setS
         <FButton onPress={() => setDeleting(true)}
         style={[MainStyles.borderRadius2, {justifyContent: 'center', alignSelf: 'stretch',
         flexDirection: 'row', marginHorizontal: 10, alignItems: 'center', padding: 5}]}>
-          <FText style={{color: additionTheme.errorText}}>Delete</FText>
-          <Icon name="delete" type="material" color={additionTheme.errorText}/>
+          <FText style={{color: additionalTheme.errorText}}>Delete</FText>
+          <Icon name="delete" type="material" color={additionalTheme.errorText}/>
         </FButton>
       </View>
     </View>
@@ -75,8 +75,8 @@ export const UserButtonComponent: FC<IUserButtons> = ({editing, setEditing, setS
           <View style={{flex: 1, alignItems: 'stretch'}}>
             <FButton onPress={() => setEditing(false)} style={[MainStyles.borderRadius2, {justifyContent: 'center', alignSelf: 'stretch',
               flexDirection: 'row', marginHorizontal: 10, alignItems: 'center', padding: 7}]}>
-              <FText style={{color: additionTheme.errorText}}>Cancel</FText>
-              <Icon name="block" type="material" color={additionTheme.errorText}/>
+              <FText style={{color: additionalTheme.errorText}}>Cancel</FText>
+              <Icon name="block" type="material" color={additionalTheme.errorText}/>
             </FButton>
           </View>
         </View>

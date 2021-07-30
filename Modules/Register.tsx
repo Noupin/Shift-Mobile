@@ -30,7 +30,7 @@ const RegisterStyle = StyleSheet.create({
 export const Register: FC<IElevatedStateProps> = ({elevatedState, setElevatedState}) => {
   const navigation = useNavigation()
   const theme = useTheme()
-  const additionTheme = ADDITIONAL_THEME_ATTRIBUTES[String(theme.dark) as booleanString]
+  const additionalTheme = ADDITIONAL_THEME_ATTRIBUTES[String(theme.dark) as booleanString]
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -116,7 +116,7 @@ export const Register: FC<IElevatedStateProps> = ({elevatedState, setElevatedSta
   return (
     <View style={[RegisterStyle.container]}>
       {registerErrorMessage !== "" ?
-      <Neumorphic style={[{ margin: 10, padding: 15, flexDirection: 'row', backgroundColor: additionTheme.errorBackground,
+      <Neumorphic style={[{ margin: 10, padding: 15, flexDirection: 'row', backgroundColor: additionalTheme.errorBackground,
       justifyContent: 'space-between', width: Dimensions.get('window').width*0.9}, MainStyles.borderRadius2]}>
         <FText>
           {registerErrorMessage}
@@ -136,7 +136,7 @@ export const Register: FC<IElevatedStateProps> = ({elevatedState, setElevatedSta
           <View style={{flex: 4}}>
             <FTextInput placeholder="Username" onChangeText={setUsername} value={username}
               style={[{marginVertical: 10}, MainStyles.center, MainStyles.borderRadius2,
-              registerErrors.username && {backgroundColor: additionTheme.errorBackground}]}
+              registerErrors.username && {backgroundColor: additionalTheme.errorBackground}]}
               autoCapitalize="none" autoCorrect={false} alignText="center" padding={10}/>
           </View>
           <View style={{flex: 1}}></View>
@@ -146,7 +146,7 @@ export const Register: FC<IElevatedStateProps> = ({elevatedState, setElevatedSta
           <View style={{flex: 4}}>
             <FTextInput placeholder="Email" onChangeText={setEmail} value={email}
               style={[{marginVertical: 10}, MainStyles.center, MainStyles.borderRadius2,
-              registerErrors.email && {backgroundColor: additionTheme.errorBackground}]}
+              registerErrors.email && {backgroundColor: additionalTheme.errorBackground}]}
               autoCapitalize="none" autoCorrect={false} alignText="center" padding={10}/>
           </View>
           <View style={{flex: 1}}></View>
@@ -156,7 +156,7 @@ export const Register: FC<IElevatedStateProps> = ({elevatedState, setElevatedSta
           <View style={{flex: 4}}>
             <FTextInput placeholder="Password" onChangeText={setPassword} value={password}
               style={[{marginVertical: 10}, MainStyles.center, MainStyles.borderRadius2,
-              registerErrors.password && {backgroundColor: additionTheme.errorBackground}]}
+              registerErrors.password && {backgroundColor: additionalTheme.errorBackground}]}
               autoCapitalize="none" autoCorrect={false} alignText="center" padding={10}
               secureTextEntry={true}/>
           </View>
@@ -167,7 +167,7 @@ export const Register: FC<IElevatedStateProps> = ({elevatedState, setElevatedSta
           <View style={{flex: 4}}>
             <FTextInput placeholder="Confirm Password" onChangeText={setConfirmPassword} value={confirmPassword}
               style={[{marginVertical: 10}, MainStyles.center, MainStyles.borderRadius2,
-              registerErrors.confirmPassword && {backgroundColor: additionTheme.errorBackground}]}
+              registerErrors.confirmPassword && {backgroundColor: additionalTheme.errorBackground}]}
               autoCapitalize="none" autoCorrect={false} alignText="center" padding={10}
               secureTextEntry={true}/>
           </View>

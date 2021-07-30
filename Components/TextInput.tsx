@@ -19,12 +19,12 @@ interface ITextInput extends TextInputProps{
 export const FTextInput: FC<ITextInput> = ({placeholder, onChangeText, value, style,
   padding, alignText, placeholderTextColor, secureTextEntry, ...props}) => {
   const theme = useTheme()
-  const additionTheme = ADDITIONAL_THEME_ATTRIBUTES[String(theme.dark) as booleanString]
+  const additionalTheme = ADDITIONAL_THEME_ATTRIBUTES[String(theme.dark) as booleanString]
 
   const [hidden, setHidden] = useState(true)
 
   if(!placeholderTextColor){
-    placeholderTextColor = additionTheme.placeholderTextColor
+    placeholderTextColor = additionalTheme.placeholderTextColor
   }
 
   return ( secureTextEntry ?
