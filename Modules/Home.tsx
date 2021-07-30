@@ -7,12 +7,13 @@ import { View } from 'react-native';
 import { IElevatedStateProps } from '../Interfaces/ElevatedStateProps';
 import { FText } from '../Components/Text';
 import { FlatList } from 'react-native-gesture-handler';
-import { CATEGORIES_TO_GET, CATEGORIES_TO_REMOVE, CATEGORY_HEIGHT } from '../constants';
+import { BOTTOM_SAFE_AREA_MARGIN, CATEGORIES_TO_GET, CATEGORIES_TO_REMOVE, CATEGORY_HEIGHT } from '../constants';
 import { useFetch } from '../Hooks/Fetch';
 import { CategoriesResponse, Shift, NewShiftsResponse, PopularShiftsResponse,
   ShiftCategoryResponse, CategoriesRequest, CategoryRequest} from '../Swagger';
 import { ShiftCategories } from '../Interfaces/ShiftCategory';
 import { FShiftCard } from '../Components/ShiftCard';
+import { Load } from './Load';
 
 
 interface IHome extends IElevatedStateProps{}
@@ -93,30 +94,35 @@ export const Home: FC<IHome> = ({elevatedState, setElevatedState}) => {
 
 
   return (
-    <View style={{flexDirection: 'row', flex: 1}}>
-      <View style={[{flexDirection: 'column', flex: 1}]}>
-        <View style={{flexDirection: 'column', height: CATEGORY_HEIGHT}}>
-          <FText style={{marginLeft: 15, marginTop: 10, fontWeight: 'bold', fontSize: 20}}>
-            Featured
-          </FText>
-          <FlatList horizontal data={featuredShifts} keyExtractor={item => String(item.id)}
-          renderItem={(item) => <FShiftCard shift={item.item}/>}/>
-        </View>
-        <View style={{flexDirection: 'column', height: CATEGORY_HEIGHT}}>
-          <FText style={{marginLeft: 15, marginTop: 10, fontWeight: 'bold', fontSize: 20}}>
-            Popular
-          </FText>
-          <FlatList horizontal data={popularShifts} keyExtractor={item => String(item.id)}
-          renderItem={(item) => <FShiftCard shift={item.item}/>}/>
-        </View>
-        <View style={{flexDirection: 'column', height: CATEGORY_HEIGHT}}>
-          <FText style={{marginLeft: 15, marginTop: 10, fontWeight: 'bold', fontSize: 20}}>
-            New
-          </FText>
-          <FlatList horizontal data={newShifts} keyExtractor={item => String(item.id)}
-          renderItem={(item) => <FShiftCard shift={item.item}/>}/>
+    <>
+      <View style={{flexDirection: 'row', flex: 1}}>
+        <View style={[{flexDirection: 'column', flex: 1}]}>
+          <View style={{flexDirection: 'column', height: CATEGORY_HEIGHT}}>
+            <FText style={{marginLeft: 15, marginTop: 10, fontWeight: 'bold', fontSize: 20}}>
+              Featured
+            </FText>
+            <FlatList horizontal data={featuredShifts} keyExtractor={item => String(item.id)}
+            renderItem={(item) => <FShiftCard shift={item.item}/>}/>
+          </View>
+          <View style={{flexDirection: 'column', height: CATEGORY_HEIGHT}}>
+            <FText style={{marginLeft: 15, marginTop: 10, fontWeight: 'bold', fontSize: 20}}>
+              Popular
+            </FText>
+            <FlatList horizontal data={popularShifts} keyExtractor={item => String(item.id)}
+            renderItem={(item) => <FShiftCard shift={item.item}/>}/>
+          </View>
+          <View style={{flexDirection: 'column', height: CATEGORY_HEIGHT}}>
+            <FText style={{marginLeft: 15, marginTop: 10, fontWeight: 'bold', fontSize: 20}}>
+              New
+            </FText>
+            <FlatList horizontal data={newShifts} keyExtractor={item => String(item.id)}
+            renderItem={(item) => <FShiftCard shift={item.item}/>}/>
+          </View>
         </View>
       </View>
-    </View>
+      <View style={{position: 'absolute', bottom: -BOTTOM_SAFE_AREA_MARGIN, left: 0, right: 0}}>
+        <Load elevatedState={elevatedState} setElevatedState={setElevatedState}/>
+      </View>
+    </>
   );
 }

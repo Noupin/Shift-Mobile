@@ -17,7 +17,6 @@ import { LowerNavComponent } from '../Components/LowerNavComponent';
 import { IElevatedStateProps } from '../Interfaces/ElevatedStateProps';
 import { FText } from '../Components/Text';
 import { Settings } from './Settings';
-import { Load } from './Load';
 import { Inference } from './Inference';
 import { User } from './User';
 import { Shift } from './Shift';
