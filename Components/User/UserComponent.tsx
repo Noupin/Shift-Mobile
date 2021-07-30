@@ -208,7 +208,7 @@ export const UserComponent: FC<IUser> = ({elevatedState, setElevatedState, setOw
             </View>
             <View style={{flexDirection: 'column', flex: 2, marginLeft: 10}}>
               <View>
-                <FTextInput placeholder="Username" value={username} padding={10}
+                <FTextInput placeholder="Username" defaultValue={username} padding={10}
                   style={[{marginVertical: 10}, MainStyles.center, MainStyles.borderRadius2]}
                   autoCapitalize="none" autoCorrect={false} alignText="left"
                   onChangeText={(value) => {

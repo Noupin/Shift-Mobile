@@ -38,7 +38,7 @@ export const ShiftTitleComponent: FC<IShiftTitle> = ({editing, setShiftChanges, 
     shiftTitleComponent = (
       <View style={[MainStyles.spreadRow]}>
         <View style={{flex: 1, alignItems: 'stretch', position: 'relative', margin: 10}}>
-          <FTextInput value={shift!.title} placeholder="Title"
+          <FTextInput defaultValue={shift!.title} placeholder="Title"
           onChangeText={(value: string) => {
             if(value !== shift!.title){
               setShiftChanges(prev => ({...prev, title: value}))
