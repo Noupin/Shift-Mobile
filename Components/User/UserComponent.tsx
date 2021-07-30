@@ -154,15 +154,14 @@ export const UserComponent: FC<IUser> = ({elevatedState, setElevatedState, setOw
 
   if(userGetResponse && userGetResponse.user!){
     userComponent = (
-      <View style={MainStyles.spreadColumn}>
-        <View style={[MainStyles.spreadRow, {height: 150}]}>
+      <View style={[MainStyles.spreadColumn]}>
+        <View style={[MainStyles.spreadRow, {maxHeight: 150, marginBottom: 10}]}>
           <View style={{flex: 1}}>
             <UserMediaComponent setElevatedState={setElevatedState} profilePictureURL={profilePictureURL}
               editing={editing} setProfilePictureURL={setProfilePictureURL} setProfilePicture={setProfilePicture}/>
           </View>
           <View style={{flexDirection: 'column', flex: 2, marginLeft: 10}}>
-            <View style={{flex: 1}}></View>
-            <View style={{flex: 1}}>
+            <View style={{flex: 1, justifyContent: 'center'}}>
               <View style={{flexDirection: 'row', alignItems: "center"}}>
                 <FText style={{fontSize: 25}}>
                   {username}
@@ -174,7 +173,6 @@ export const UserComponent: FC<IUser> = ({elevatedState, setElevatedState, setOw
               </View>
               <FText>{userGetResponse.user!.email!}</FText>
             </View>
-            <View style={{flex: 1}}></View>
           </View>
         </View>
         {userGetResponse && userGetResponse.owner && elevatedState.authenticated &&

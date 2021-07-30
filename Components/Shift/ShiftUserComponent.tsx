@@ -22,7 +22,7 @@ export const ShiftUserComponent: FC<IShiftUser> = ({shift}) => {
 
   return (
     <TouchableOpacity onPress={() => navigation.navigate("User", {username: shift!.author.username})}>
-      <View style={[MainStyles.spreadRow, {height: 150, width: '100%'}]}>
+      <View style={[MainStyles.spreadRow, {width: '100%', maxHeight: 150}]}>
         <View style={{flex: 1, marginHorizontal: 10}}>
           <Neumorphic style={[MainStyles.borderRadius2, {padding: 5}]}>
             <FMedia style={[MainStyles.borderRadius2]}
@@ -30,8 +30,7 @@ export const ShiftUserComponent: FC<IShiftUser> = ({shift}) => {
           </Neumorphic>
         </View>
         <View style={{flex: 2}}>
-          <View style={{flex: 1}}></View>
-          <View style={{flex: 1}}>
+          <View style={{alignContent: 'center'}}>
             <View style={{flexDirection: 'row', alignItems: "center"}}>
               <FText style={{fontSize: 25}}>
                 {shift!.author.username}
@@ -43,7 +42,6 @@ export const ShiftUserComponent: FC<IShiftUser> = ({shift}) => {
             </View>
             <FText>{shift!.author!.email!}</FText>
           </View>
-          <View style={{flex: 1}}></View>
         </View>
       </View>
     </TouchableOpacity>
