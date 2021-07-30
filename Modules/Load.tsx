@@ -32,8 +32,8 @@ export const Load: FC<IElevatedStateProps> = ({elevatedState, setElevatedState})
     }
   }
   
-  async function pickMedia(){
-    await ImagePicker.openPicker({
+  function pickMedia(){
+    ImagePicker.openPicker({
       mediaType: 'any',
     }).then((media) => {
       console.log(media);
