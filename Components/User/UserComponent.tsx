@@ -19,6 +19,18 @@ import { FTextInput } from '../TextInput';
 import { UserButtonComponent } from './UserButtonsComponent';
 
 
+const DeleteAccountAlert = async () => new Promise((resolve) => {
+  const confirm = Alert.alert(
+    "Delete Account?",
+    "Are you sure you would like to delete your account? This action is permanent and cannot be reversed.",
+    [
+      {text: 'Confirm', style: "destructive", onPress: () => resolve(true)},
+      {text: 'Cancel', style: "default", onPress: () => resolve(false)}
+    ]
+  )
+})
+
+
 interface IUser extends IElevatedStateProps{
     setOwner: React.Dispatch<React.SetStateAction<boolean>>
     username: string
@@ -69,16 +81,21 @@ export const UserComponent: FC<IUser> = ({elevatedState, setElevatedState, setOw
   //Delete user and refresh access token
   useEffect(() => {
     if (!deleting) return;
-    const confirmation = window.confirm("Are you sure you would like to delete your account?")
-    if(!confirmation) return;
+    async function deleteAccount(){
+      const confirmation = await DeleteAccountAlert()
+      if(!confirmation) return;
 
-    const urlParams: DeleteIndivdualUserRequest = {
-      username: username
+      const urlParams: DeleteIndivdualUserRequest = {
+        username: username
+      }
+
+      await fetchDeleteUser(urlParams)
+      await fetchRefresh()
+      navigation.navigate("Home")
     }
 
-    fetchDeleteUser(urlParams)
-    fetchRefresh()
-    navigation.navigate("Home")
+    deleteAccount()
+    setDeleting(false)
   }, [deleting])
 
   //User get response

@@ -1,12 +1,12 @@
 //Third Party Imports
 import React, { FC, useState, useEffect } from 'react';
 import 'react-native-gesture-handler';
-import { View } from 'react-native';
+import { View, Alert } from 'react-native';
+import { Icon } from 'react-native-elements';
 import { useNavigation, useTheme } from '@react-navigation/native';
 
 //First Party Imports
 import { IElevatedStateProps } from '../Interfaces/ElevatedStateProps';
-import { FText } from '../Components/Text';
 import { useFetch } from '../Hooks/Fetch';
 import { IndividualShiftPatchRequest, IndividualShiftGetResponse, IndividualShiftPatchResponse,
   IndividualShiftDeleteResponse, GetIndivdualShiftRequest, PatchIndivdualShiftRequest,
@@ -19,7 +19,18 @@ import { ShiftButtonsComponent } from '../Components/Shift/ShiftButtonsComponent
 import { Neumorphic } from '../Components/Neumorphic';
 import { FMedia } from '../Components/Media';
 import { API_BASE_URL } from '../constants';
-import { Icon } from 'react-native-elements';
+
+
+const DeleteShiftAlert = async () => new Promise((resolve) => {
+  const confirm = Alert.alert(
+    "Delete Shift?",
+    "Are you sure you would like to delete this shift? This action is permanent and cannot be reversed.",
+    [
+      {text: 'Confirm', style: "destructive", onPress: () => resolve(true)},
+      {text: 'Cancel', style: "default", onPress: () => resolve(false)}
+    ]
+  )
+})
 
 
 interface IShift extends IElevatedStateProps{
@@ -101,15 +112,19 @@ export const Shift: FC<IShift> = ({elevatedState, setElevatedState, uuid}) => {
 
 
   function deleteShift(){
-    const confirmation = window.confirm("Are you sure you would like to delete your shift?")
-    if(!confirmation) return;
+    async function checkDelete(){
+      const confirmation = await DeleteShiftAlert()
+      if(!confirmation) return;
 
-    const urlParams: DeleteIndivdualShiftRequest = {
-      uuid: uuid
+      const urlParams: DeleteIndivdualShiftRequest = {
+        uuid: uuid
+      }
+
+      fetchDeleteIndividualShift(urlParams)
+      navigation.navigate("Home")
     }
 
-    fetchDeleteIndividualShift(urlParams)
-    navigation.navigate("Home")
+    checkDelete()
   }
 
 
