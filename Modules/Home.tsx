@@ -99,23 +99,22 @@ export const Home: FC<IHome> = ({elevatedState, setElevatedState}) => {
           <FText style={{marginLeft: 15, marginTop: 10, fontWeight: 'bold', fontSize: 20}}>
             Featured
           </FText>
-          <FlatList horizontal data={featuredShifts}
-          renderItem={(item) => <FShiftCard style={{flexShrink: 1}} shift={item.item}/>}
-          keyExtractor={item => String(item.id)}/>
+          <FlatList horizontal data={featuredShifts} keyExtractor={item => String(item.id)}
+          renderItem={(item) => <FShiftCard shift={item.item}/>}/>
         </View>
         <View style={{flexDirection: 'column', height: CATEGORY_HEIGHT}}>
           <FText style={{marginLeft: 15, marginTop: 10, fontWeight: 'bold', fontSize: 20}}>
             Popular
           </FText>
           <FlatList horizontal data={popularShifts} keyExtractor={item => String(item.id)}
-          renderItem={(item) => <FShiftCard style={{flexShrink: 1}} shift={item.item}/>}/>
+          renderItem={(item) => <FShiftCard shift={item.item}/>}/>
         </View>
         <View style={{flexDirection: 'column', height: CATEGORY_HEIGHT}}>
           <FText style={{marginLeft: 15, marginTop: 10, fontWeight: 'bold', fontSize: 20}}>
             New
           </FText>
           <FlatList horizontal data={newShifts} keyExtractor={item => String(item.id)}
-          renderItem={(item) => <FShiftCard style={{flexShrink: 1}} shift={item.item}/>}/>
+          renderItem={(item) => <FShiftCard shift={item.item}/>}/>
         </View>
       </View>
     </View>

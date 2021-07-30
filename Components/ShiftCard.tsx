@@ -1,7 +1,9 @@
 //Third Party Imports
 import React, { FC } from 'react';
 import 'react-native-gesture-handler';
-import { TouchableOpacity, TouchableOpacityProps } from 'react-native';
+import { useTheme } from '@react-navigation/native';
+import { TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
+import { BlurView } from "@react-native-community/blur";
 
 //First Party Imports
 import { Neumorphic } from './Neumorphic';
@@ -19,13 +21,21 @@ export interface IShiftCard extends TouchableOpacityProps{
 }
 
 export const FShiftCard: FC<IShiftCard> = ({children, style, shift, ...props}) => {
+  const theme = useTheme()
 
   return (
     <TouchableOpacity {...props} onPress={() => {navigate("Shift", {uuid: shift.uuid})}}>
       <Neumorphic style={[style, {padding: 10, margin: 10}, MainStyles.borderRadius2]}>
-        <FMedia style={[MainStyles.borderRadius2]}
-        srcString={`${API_BASE_URL}${getCDNPrefix(shift.mediaFilename!)}${shift.mediaFilename}`}/>
-        <FText>{shift.title}</FText>
+        <View style={{position: 'relative'}}>
+          <FMedia style={[MainStyles.borderRadius2]}
+          srcString={`${API_BASE_URL}${getCDNPrefix(shift.mediaFilename!)}${shift.mediaFilename}`}/>
+          <BlurView blurType={theme.dark ? "dark" : "light"}
+          style={[{position: 'absolute', bottom: 0, left: 0, padding: 5}, MainStyles.borderRadius2]}>
+            <FText>
+              {shift.title}
+            </FText>
+          </BlurView>
+        </View>
       </Neumorphic>
     </TouchableOpacity>
   );
