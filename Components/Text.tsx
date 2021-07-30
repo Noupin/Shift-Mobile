@@ -9,11 +9,10 @@ interface IText extends TextProps{}
 
 export const FText: FC<IText> = ({children, style, ...props}) => {
   const theme = useTheme()
-  var textColor = theme.colors.text
 
   return (
-    <Text {...props} style={[style, {color: theme.colors.text}]}>
-      {children}
+    <Text {...props} style={[{color: theme.colors.text}, style]}>
+        {children}
     </Text>
   );
 }

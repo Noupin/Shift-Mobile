@@ -14,6 +14,5 @@ export const DrawerStyles = StyleSheet.create({
     fontSize: 20,
     padding: 10,
     textAlign: 'left',
-    color: "#1f1f1f",
   }
 })

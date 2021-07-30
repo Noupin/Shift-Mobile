@@ -66,12 +66,14 @@ export const UserButtonComponent: FC<IUserButtons> = ({editing, setEditing, setS
               }} style={[MainStyles.borderRadius2, {justifyContent: 'center', alignSelf: 'stretch',
               flexDirection: 'row', marginHorizontal: 10, alignItems: 'center', padding: 7}]}>
               <FText>Save</FText>
+              <Icon name="save" type="material" color={theme.colors.text}/>
             </FButton>
           </View>
           <View style={{flex: 1, alignItems: 'stretch'}}>
             <FButton onPress={() => setEditing(false)} style={[MainStyles.borderRadius2, {justifyContent: 'center', alignSelf: 'stretch',
               flexDirection: 'row', marginHorizontal: 10, alignItems: 'center', padding: 7}]}>
               <FText style={{color: '#dc3545'}}>Cancel</FText>
+              <Icon name="block" type="material" color='#dc3545'/>
             </FButton>
           </View>
         </View>
