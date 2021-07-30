@@ -11,6 +11,7 @@ import { useFetch } from '../Hooks/Fetch';
 import { Shift, UserShiftsRequest, UserShiftsResponse } from '../Swagger';
 import { UserComponent } from '../Components/User/UserComponent';
 import { FHorizontalDivider } from '../Components/Divider/HorizontalDivider';
+import { FShiftCard } from '../Components/ShiftCard';
 
 
 interface IUser extends IElevatedStateProps{
@@ -46,7 +47,7 @@ export const User: FC<IUser> = ({elevatedState, setElevatedState, username}) => 
       <UserComponent elevatedState={elevatedState} setElevatedState={setElevatedState}
         setOwner={setOwner} username={username}/>
       <FHorizontalDivider/>
-      <FlatList data={userShifts} renderItem={(item) => <FText>{item.item.title}</FText>}
+      <FlatList data={userShifts} renderItem={(item) => <FShiftCard shift={item.item}/>}
         keyExtractor={item => String(item.id)} style={{marginTop: 10}}/>
     </View>
   );

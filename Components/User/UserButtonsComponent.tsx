@@ -29,7 +29,7 @@ export const UserButtonComponent: FC<IUserButtons> = ({editing, setEditing, setS
   const additionTheme = ADDITIONAL_THEME_ATTRIBUTES[String(theme.dark) as booleanString]
 
   let userButtonComponent = (
-    <View style={[MainStyles.spreadRow, {marginBottom: 5}]}>
+    <View style={[MainStyles.spreadRow, {marginBottom: 10}]}>
       <View style={{flex: 1, alignItems: 'stretch'}}>
         <FButton onPress={() => setEditing(true)}
         style={[MainStyles.borderRadius2, {justifyContent: 'center', alignSelf: 'stretch',

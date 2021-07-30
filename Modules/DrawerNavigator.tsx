@@ -36,9 +36,6 @@ const CustomDrawer: FC<ICustomDrawer> = ({elevatedState, setElevatedState, navig
           <TouchableOpacity onPress={() => navigation.navigate("Home")}>
             <FText style={DrawerStyles.button}>Home</FText>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("User")}>
-            <FText style={DrawerStyles.button}>Test Page</FText>
-          </TouchableOpacity>
           {elevatedState.authenticated && <>
           <TouchableOpacity onPress={() => {
             navigation.navigate("User", {username: elevatedState.currentUser.username})
