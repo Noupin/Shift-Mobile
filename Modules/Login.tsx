@@ -3,7 +3,7 @@ import React, { FC, useState, useEffect } from 'react';
 import 'react-native-gesture-handler';
 import { Dimensions, StyleSheet } from 'react-native';
 import { View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useTheme, useNavigation } from '@react-navigation/native';
 
 //First Party Imports
 import { FButton } from '../Components/Button';
@@ -14,6 +14,9 @@ import { FText } from '../Components/Text';
 import { useFetch } from '../Hooks/Fetch';
 import { LoginOperationRequest, LoginRequest, LoginResponse } from '../Swagger';
 import { Neumorphic } from '../Components/Neumorphic';
+import { add } from 'react-native-reanimated';
+import { ADDITIONAL_THEME_ATTRIBUTES } from '../constants';
+import { booleanString } from '../Types/FrontEndTypes';
 
 
 const LoginStyle = StyleSheet.create({
@@ -27,6 +30,8 @@ const LoginStyle = StyleSheet.create({
 
 export const Login: FC<IElevatedStateProps> = ({elevatedState, setElevatedState}) => {
   const navigation = useNavigation()
+  const theme = useTheme()
+  const additionTheme = ADDITIONAL_THEME_ATTRIBUTES[String(theme.dark) as booleanString]
 
   const [usernameOrEmail, setUsernameOrEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -92,7 +97,7 @@ export const Login: FC<IElevatedStateProps> = ({elevatedState, setElevatedState}
   return (
       <View style={[LoginStyle.container]}>
         {loginErrorMessage !== "" ?
-        <Neumorphic style={[{ margin: 10, padding: 15, flexDirection: 'row', backgroundColor: '#f8d7da',
+        <Neumorphic style={[{ margin: 10, padding: 15, flexDirection: 'row', backgroundColor: additionTheme.errorBackground,
         justifyContent: 'space-between', width: Dimensions.get('window').width*0.9}, MainStyles.borderRadius2]}>
           <FText>
             {loginErrorMessage}
@@ -111,7 +116,8 @@ export const Login: FC<IElevatedStateProps> = ({elevatedState, setElevatedState}
             <View style={{flex: 1}}></View>
             <View style={{flex: 4}}>
               <FTextInput placeholder="Username/Email" onChangeText={setUsernameOrEmail}
-                style={[{marginVertical: 10}, MainStyles.textCenter, MainStyles.borderRadius2]}
+                style={[{marginVertical: 10}, MainStyles.textCenter, MainStyles.borderRadius2,
+                loginErrors.username && {backgroundColor: additionTheme.errorBackground}]}
                 autoCapitalize="none" autoCorrect={false} alignText="center" padding={10}
                 value={usernameOrEmail}/>
             </View>
@@ -121,7 +127,8 @@ export const Login: FC<IElevatedStateProps> = ({elevatedState, setElevatedState}
             <View style={{flex: 1}}></View>
             <View style={{flex: 4}}>
               <FTextInput placeholder="Password" onChangeText={setPassword} value={password}
-                style={[{marginVertical: 10}, MainStyles.textCenter, MainStyles.borderRadius2]}
+                style={[{marginVertical: 10}, MainStyles.textCenter, MainStyles.borderRadius2,
+                loginErrors.password && {backgroundColor: additionTheme.errorBackground}]}
                 autoCapitalize="none" autoCorrect={false} alignText="center" padding={10}
                 secureTextEntry={true}/>
             </View>

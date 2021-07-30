@@ -62,11 +62,15 @@ export const ADDITIONAL_THEME_ATTRIBUTES = {
     brightShadow: "rgba(255, 255, 255, 0.03)",
     dimShadow: "rgba(0, 0, 0, 0.4)",
     placeholderTextColor: '#ececec70',
+    errorBackground: '#2e0001',
+    errorText: '#db606d',
   },
   false: {
     brightShadow: "rgba(255, 255, 255, 0.4)",
     dimShadow: "rgba(0, 0, 0, 0.05)",
     placeholderTextColor: '#1f1f1f70',
+    errorBackground: '#f8d7da',
+    errorText: '#dc3545',
   }
 }
 

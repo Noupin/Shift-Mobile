@@ -11,6 +11,8 @@ import { useTheme } from '@react-navigation/native';
 //First Party Imports
 import { FButton } from '../Button';
 import { FText } from '../Text';
+import { ADDITIONAL_THEME_ATTRIBUTES } from '../../constants';
+import { booleanString } from '../../Types/FrontEndTypes';
 
 
 interface IUserButtons{
@@ -24,6 +26,7 @@ interface IUserButtons{
 export const UserButtonComponent: FC<IUserButtons> = ({editing, setEditing, setSaving, setDeleting}): ReactElement => {
   const navigation = useNavigation()
   const theme = useTheme()
+  const additionTheme = ADDITIONAL_THEME_ATTRIBUTES[String(theme.dark) as booleanString]
 
   let userButtonComponent = (
     <View style={[MainStyles.spreadRow, {marginBottom: 5}]}>
@@ -39,8 +42,8 @@ export const UserButtonComponent: FC<IUserButtons> = ({editing, setEditing, setS
         <FButton onPress={() => setDeleting(true)}
         style={[MainStyles.borderRadius2, {justifyContent: 'center', alignSelf: 'stretch',
         flexDirection: 'row', marginHorizontal: 10, alignItems: 'center', padding: 5}]}>
-          <FText style={{color: '#dc3545'}}>Delete</FText>
-          <Icon name="delete" type="material" color='#dc3545'/>
+          <FText style={{color: additionTheme.errorText}}>Delete</FText>
+          <Icon name="delete" type="material" color={additionTheme.errorText}/>
         </FButton>
       </View>
     </View>
@@ -72,8 +75,8 @@ export const UserButtonComponent: FC<IUserButtons> = ({editing, setEditing, setS
           <View style={{flex: 1, alignItems: 'stretch'}}>
             <FButton onPress={() => setEditing(false)} style={[MainStyles.borderRadius2, {justifyContent: 'center', alignSelf: 'stretch',
               flexDirection: 'row', marginHorizontal: 10, alignItems: 'center', padding: 7}]}>
-              <FText style={{color: '#dc3545'}}>Cancel</FText>
-              <Icon name="block" type="material" color='#dc3545'/>
+              <FText style={{color: additionTheme.errorText}}>Cancel</FText>
+              <Icon name="block" type="material" color={additionTheme.errorText}/>
             </FButton>
           </View>
         </View>
