@@ -11,7 +11,7 @@ export const FText: FC<IText> = ({children, style, ...props}) => {
   const theme = useTheme()
 
   return (
-    <Text {...props} style={[style, {color: theme.colors.text}]}>
+    <Text {...props} style={[{color: theme.colors.text}, style]}>
         {children}
     </Text>
   );

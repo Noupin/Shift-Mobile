@@ -1,7 +1,6 @@
 //Third Party Imports
 import React, { FC } from 'react';
 import 'react-native-gesture-handler';
-import { useColorScheme } from 'react-native-appearance';
 import { View, TouchableOpacity } from 'react-native';
 import { createDrawerNavigator, DrawerContentComponentProps,
          DrawerContentOptions } from '@react-navigation/drawer';
@@ -22,7 +21,6 @@ import { Load } from './Load';
 import { Inference } from './Inference';
 import { User } from './User';
 import { Shift } from './Shift';
-import { currentUser } from '../Helpers/User';
 
 
 const Drawer = createDrawerNavigator();
@@ -43,11 +41,7 @@ const CustomDrawer: FC<ICustomDrawer> = ({elevatedState, setElevatedState, navig
           </TouchableOpacity>
           {elevatedState.authenticated && <>
           <TouchableOpacity onPress={() => {
-            async function getUsername(){
-              const username = (await currentUser()).username
-              navigation.navigate("User", {username: username})
-            }
-            getUsername()
+            navigation.navigate("User", {username: elevatedState.currentUser.username})
           }}>
             <FText style={DrawerStyles.button}>Profile</FText>
           </TouchableOpacity>
@@ -94,7 +88,7 @@ export const DrawerNavigator: FC<IElevatedStateProps> = ({elevatedState, setElev
       </Drawer.Screen>
       <Drawer.Screen name="Shift">
         {() => <Template elevatedState={elevatedState} setElevatedState={setElevatedState}
-        component={<Shift uuid={"Noup"} elevatedState={elevatedState} setElevatedState={setElevatedState}/>}/>}
+        component={<Shift uuid={elevatedState.shiftUUID} elevatedState={elevatedState} setElevatedState={setElevatedState}/>}/>}
       </Drawer.Screen>
     </Drawer.Navigator>
   );

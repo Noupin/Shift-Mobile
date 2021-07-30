@@ -15,6 +15,8 @@ import { useRefresh } from '../../Hooks/Refresh';
 import { MainStyles } from '../../Styles/MainStyles';
 import { UserMediaComponent } from './UserMediaComponent';
 import { API_BASE_URL } from '../../constants';
+import { FTextInput } from '../TextInput';
+import { UserButtonComponent } from './UserButtonsComponent';
 
 
 interface IUser extends IElevatedStateProps{
@@ -152,32 +154,77 @@ export const UserComponent: FC<IUser> = ({elevatedState, setElevatedState, setOw
 
   if(userGetResponse && userGetResponse.user!){
     userComponent = (
-      <View style={[MainStyles.spreadColumn, {flexDirection: 'row', height: 150}]}>
-        <View style={{flex: 1}}>
-          <UserMediaComponent setElevatedState={setElevatedState} profilePictureURL={profilePictureURL}
-            editing={editing} setProfilePictureURL={setProfilePictureURL} setProfilePicture={setProfilePicture}/>
-        </View>
-        <View style={{flexDirection: 'column', flex: 2, marginLeft: 10}}>
-          <View style={{flex: 1}}></View>
+      <View style={MainStyles.spreadColumn}>
+        <View style={[MainStyles.spreadRow, {height: 150}]}>
           <View style={{flex: 1}}>
-            <View style={{flexDirection: 'row', alignItems: "center"}}>
-              <FText style={{fontSize: 25}}>
-                {username}
-              </FText>
-              <FText style={{marginLeft: 5}}>
-                {userGetResponse.user!.admin! ? <Icon name='verified-user' type="material" color={theme.colors.text}/> : <></>}
-                {userGetResponse.user!.verified! ? <Icon name='verified' type="material" color={theme.colors.text}/> : <></>}
-              </FText>
-            </View>
-            <FText>{userGetResponse.user!.email!}</FText>
+            <UserMediaComponent setElevatedState={setElevatedState} profilePictureURL={profilePictureURL}
+              editing={editing} setProfilePictureURL={setProfilePictureURL} setProfilePicture={setProfilePicture}/>
           </View>
-          <View style={{flex: 1}}></View>
+          <View style={{flexDirection: 'column', flex: 2, marginLeft: 10}}>
+            <View style={{flex: 1}}></View>
+            <View style={{flex: 1}}>
+              <View style={{flexDirection: 'row', alignItems: "center"}}>
+                <FText style={{fontSize: 25}}>
+                  {username}
+                </FText>
+                <FText style={{marginLeft: 5}}>
+                  {userGetResponse.user!.admin! ? <Icon name='verified-user' type="material" color={theme.colors.text}/> : <></>}
+                  {userGetResponse.user!.verified! ? <Icon name='verified' type="material" color={theme.colors.text}/> : <></>}
+                </FText>
+              </View>
+              <FText>{userGetResponse.user!.email!}</FText>
+            </View>
+            <View style={{flex: 1}}></View>
+          </View>
         </View>
+        {userGetResponse && userGetResponse.owner && elevatedState.authenticated &&
+        <UserButtonComponent editing={editing} setEditing={setEditing} setSaving={setSaving}
+          setDeleting={setDeleting}/>}
       </View>
     );
 
     if(editing){
-      userComponent = <></>
+      userComponent = (
+        <View style={MainStyles.spreadColumn}>
+          <View style={[MainStyles.spreadRow, {height: 150}]}>
+            <View style={{flex: 1}}>
+              <UserMediaComponent setElevatedState={setElevatedState} profilePictureURL={profilePictureURL}
+                editing={editing} setProfilePictureURL={setProfilePictureURL} setProfilePicture={setProfilePicture}/>
+            </View>
+            <View style={{flexDirection: 'column', flex: 2, marginLeft: 10}}>
+              <View style={{flex: 1}}></View>
+              <View style={{flex: 1}}>
+                <View style={{flexDirection: 'row', alignItems: "center", position: 'relative'}}>
+                  <FTextInput placeholder="Username" value={username} padding={10}
+                    style={[{marginVertical: 10}, MainStyles.center, MainStyles.borderRadius2]}
+                    autoCapitalize="none" autoCorrect={false} alignText="center"
+                    onChangeText={(value) => {
+                      if(value !== userGetResponse.user!.username){
+                        setUserChanges(prev => ({...prev, username: value}))
+                      }
+                  }}/>
+                  <View style={{position: 'absolute', top: 0, bottom: 0, right: 0, marginRight: 10, justifyContent: 'center'}}>
+                    {userGetResponse.user!.admin! ? <Icon name='verified-user' type="material" color={theme.colors.text}/> : <></>}
+                    {userGetResponse.user!.verified! ? <Icon name='verified' type="material" color={theme.colors.text}/> : <></>}
+                  </View>
+                </View>
+                <FTextInput placeholder="Email" value={userGetResponse.user!.email!} padding={10}
+                  style={[{marginVertical: 10}, MainStyles.center, MainStyles.borderRadius2]}
+                  autoCapitalize="none" autoCorrect={false} alignText="center"
+                  onChangeText={(value) => {
+                    if(value !== userGetResponse.user!.email){
+                      setUserChanges(prev => ({...prev, email: value}))
+                    }
+                }}/>
+              </View>
+              <View style={{flex: 1}}></View>
+            </View>
+          </View>
+          {userGetResponse && userGetResponse.owner && elevatedState.authenticated &&
+          <UserButtonComponent editing={editing} setEditing={setEditing} setSaving={setSaving}
+            setDeleting={setDeleting}/>}
+        </View>
+      );
     }
   }
 

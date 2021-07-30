@@ -29,8 +29,7 @@ export const UserMediaComponent: FC<IUserMedia> = ({setElevatedState, profilePic
     <Neumorphic style={[{padding: 5}, MainStyles.borderRadius2]}>
       <FMedia srcString={profilePictureURL} style={[MainStyles.borderRadius2]}/>
     </Neumorphic>
-    //<FMedia srcString={`${API_BASE_URL}/api/content/video/default.mp4`} style={{padding: 10}}/>
-  )
+  );
 
   if (editing){
     profileMediaComponent = (
