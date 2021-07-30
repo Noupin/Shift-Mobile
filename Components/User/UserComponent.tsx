@@ -192,32 +192,31 @@ export const UserComponent: FC<IUser> = ({elevatedState, setElevatedState, setOw
                 editing={editing} setProfilePictureURL={setProfilePictureURL} setProfilePicture={setProfilePicture}/>
             </View>
             <View style={{flexDirection: 'column', flex: 2, marginLeft: 10}}>
-              <View style={{flex: 1}}></View>
-              <View style={{flex: 1}}>
-                <View style={{flexDirection: 'row', alignItems: "center", position: 'relative'}}>
-                  <FTextInput placeholder="Username" value={username} padding={10}
-                    style={[{marginVertical: 10}, MainStyles.center, MainStyles.borderRadius2]}
-                    autoCapitalize="none" autoCorrect={false} alignText="center"
-                    onChangeText={(value) => {
-                      if(value !== userGetResponse.user!.username){
-                        setUserChanges(prev => ({...prev, username: value}))
-                      }
-                  }}/>
-                  <View style={{position: 'absolute', top: 0, bottom: 0, right: 0, marginRight: 10, justifyContent: 'center'}}>
-                    {userGetResponse.user!.admin! ? <Icon name='verified-user' type="material" color={theme.colors.text}/> : <></>}
-                    {userGetResponse.user!.verified! ? <Icon name='verified' type="material" color={theme.colors.text}/> : <></>}
-                  </View>
-                </View>
-                <FTextInput placeholder="Email" value={userGetResponse.user!.email!} padding={10}
+              <View>
+                <FTextInput placeholder="Username" value={username} padding={10}
                   style={[{marginVertical: 10}, MainStyles.center, MainStyles.borderRadius2]}
-                  autoCapitalize="none" autoCorrect={false} alignText="center"
+                  autoCapitalize="none" autoCorrect={false} alignText="left"
                   onChangeText={(value) => {
-                    if(value !== userGetResponse.user!.email){
-                      setUserChanges(prev => ({...prev, email: value}))
+                    if(value !== userGetResponse.user!.username){
+                      setUserChanges(prev => ({...prev, username: value}))
                     }
                 }}/>
+                <View style={{position: 'absolute', top: 0, bottom: 0, right: 0, marginRight: 10,
+                  justifyContent: 'center', flexDirection: 'row', alignItems: 'center'}}>
+                  {userGetResponse.user!.admin! ?
+                  <Icon name='verified-user' type="material" color={theme.colors.text}/> : <></>}
+                  {userGetResponse.user!.verified! ?
+                  <Icon name='verified' type="material" color={theme.colors.text}/> : <></>}
+                </View>
               </View>
-              <View style={{flex: 1}}></View>
+              <FTextInput placeholder="Email" value={userGetResponse.user!.email!} padding={10}
+                style={[{marginVertical: 10}, MainStyles.center, MainStyles.borderRadius2]}
+                autoCapitalize="none" autoCorrect={false} alignText="left"
+                onChangeText={(value) => {
+                  if(value !== userGetResponse.user!.email){
+                    setUserChanges(prev => ({...prev, email: value}))
+                  }
+              }}/>
             </View>
           </View>
           {userGetResponse && userGetResponse.owner && elevatedState.authenticated &&

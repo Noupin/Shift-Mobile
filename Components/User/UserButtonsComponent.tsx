@@ -6,6 +6,7 @@ import React, { FC, ReactElement} from 'react';
 import { View } from 'react-native';
 import { MainStyles } from '../../Styles/MainStyles';
 import { Icon } from 'react-native-elements';
+import { useTheme } from '@react-navigation/native';
 
 //First Party Imports
 import { FButton } from '../Button';
@@ -22,6 +23,7 @@ interface IUserButtons{
 
 export const UserButtonComponent: FC<IUserButtons> = ({editing, setEditing, setSaving, setDeleting}): ReactElement => {
   const navigation = useNavigation()
+  const theme = useTheme()
 
   let userButtonComponent = (
     <View style={[MainStyles.spreadRow, {marginBottom: 5}]}>
@@ -30,7 +32,7 @@ export const UserButtonComponent: FC<IUserButtons> = ({editing, setEditing, setS
         style={[MainStyles.borderRadius2, {justifyContent: 'center', alignSelf: 'stretch',
         flexDirection: 'row', marginHorizontal: 10, alignItems: 'center', padding: 5}]}>
           <FText>Edit</FText>
-          <Icon name="edit" type="material"/>
+          <Icon name="edit" type="material" color={theme.colors.text}/>
         </FButton>
       </View>
       <View style={{flex: 1, alignItems: 'stretch'}}>

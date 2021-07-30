@@ -26,9 +26,9 @@ export const Neumorphic: FC<INeurmorphic> = ({children, style, radius=5, offset=
 
   if(includeTheme){
     const additionTheme = ADDITIONAL_THEME_ATTRIBUTES[String(theme.dark) as booleanString]
-    if(backgroundColor !== '#ececec') backgroundColor = theme.colors.background
-    if(upperShadow !== 'rgba(255, 255, 255, 0.4)') upperShadow = additionTheme.brightShadow
-    if(bottomShadow !== 'rgba(0, 0, 0, 0.05)') bottomShadow = additionTheme.dimShadow
+    if(backgroundColor === '#ececec') backgroundColor = theme.colors.background
+    if(upperShadow === 'rgba(255, 255, 255, 0.4)') upperShadow = additionTheme.brightShadow
+    if(bottomShadow === 'rgba(0, 0, 0, 0.05)') bottomShadow = additionTheme.dimShadow
   }
 
   const styles = StyleSheet.create({
