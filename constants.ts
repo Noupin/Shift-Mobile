@@ -1,5 +1,5 @@
 //Third Party Imports
-import { Appearance } from 'react-native';
+import { Appearance, Dimensions } from 'react-native';
 import { DefaultTheme } from '@react-navigation/native';
 
 //First Party Imports
@@ -17,6 +17,7 @@ export const defaultShiftTitle = ""
 export const TRAIN_STATUS_INTERVAL = 1000;
 
 export const CATEGORIES_TO_GET = -1;
+export const CATEGORY_HEIGHT = Dimensions.get('window').height/4
 export const CATEGORIES_TO_REMOVE = ["Featured"]
 
 

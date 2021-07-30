@@ -1,4 +1,5 @@
 //First Party Imports
+import { videoTypes } from "../constants";
 import { CDNApi, CategoryApi, InferenceApi, 
     LoadApi, TrainApi, UserApi, AuthenticateApi,
     ShiftApi, Configuration, ConfigurationParameters } from "../Swagger";
@@ -89,5 +90,14 @@ export class ApiInstances{
 
   get Authenticate(){
     return AuthenticateAPIFactory(this.apiKey)
+  }
+}
+
+export function getCDNPrefix(filename: string){
+  if(videoTypes.indexOf(filename!.split('.').pop()!) !== -1){
+    return '/api/content/video/'
+  }
+  else{
+    return '/api/content/image/'
   }
 }
