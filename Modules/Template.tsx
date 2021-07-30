@@ -1,9 +1,9 @@
 //Third Party Imports
 import React, { FC } from 'react';
 import 'react-native-gesture-handler';
-import { View, Image, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Image, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { DrawerActions, useNavigation } from '@react-navigation/native';
+import { DrawerActions } from '@react-navigation/native';
 
 //First Party Imports
 import { FButton } from '../Components/Button';
@@ -13,14 +13,12 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { isDarkMode, TOP_BAR_SIZE } from '../constants';
 import { IElevatedStateProps } from '../Interfaces/ElevatedStateProps';
 import { useTheme } from '@react-navigation/native';
+import { navigate, navigationRef } from '../Helpers/Navigation';
 
 
-interface ITemplate extends IElevatedStateProps{
-  component: JSX.Element
-}
+interface ITemplate extends IElevatedStateProps{}
 
-export const Template: FC<ITemplate> = ({ component, elevatedState }) => {
-  const navigation = useNavigation();
+export const Template: FC<ITemplate> = ({ children, elevatedState }) => {
   const theme = useTheme()
 
 
@@ -29,21 +27,21 @@ export const Template: FC<ITemplate> = ({ component, elevatedState }) => {
       <View style={[MainStyles.container, {width: "100%"}]}>
         <View style={HeaderBarStyle.container}>
           <FButton style={[MainStyles.borderRadiusC, {padding: 5}]}
-          onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
+          onPress={() => navigationRef.current?.dispatch(DrawerActions.openDrawer())}>
             <Icon name='menu' size={20} color={theme.colors.text}/>
           </FButton>
-          <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+          <TouchableOpacity onPress={() => navigate("Home")}>
             <Image style={{height: TOP_BAR_SIZE, width: TOP_BAR_SIZE}}
               source={isDarkMode[elevatedState.frontEndSettings.colorTheme]() ?
               require('../assets/darkIcon.png') : require('../assets/lightIcon.png')}/>
           </TouchableOpacity>
           <FButton style={[MainStyles.borderRadiusC, {padding: 5}]}
-          onPress={() => navigation.navigate("Settings")}>
+          onPress={() => navigate("Settings")}>
             <Icon name='settings' size={20} color={theme.colors.text}/>
           </FButton>
         </View>
         <View style={[MainStyles.container, {justifyContent: 'space-between'}]}>
-          {component}
+          {children}
         </View>
       </View>
     </SafeAreaView>

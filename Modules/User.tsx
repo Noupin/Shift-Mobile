@@ -2,7 +2,7 @@
 import React, { FC, useState, useEffect } from 'react';
 import 'react-native-gesture-handler';
 import { View, FlatList } from 'react-native';
-import { useTheme } from '@react-navigation/native';
+import { RouteProp, useTheme } from '@react-navigation/native';
 
 //First Party Imports
 import { IElevatedStateProps } from '../Interfaces/ElevatedStateProps';
@@ -24,8 +24,8 @@ export const User: FC<IUser> = ({elevatedState, setElevatedState, username}) => 
   const [userShiftsResponse, setUserShiftsResponse] = useState<UserShiftsResponse>();
   const [userShifts, setUserShifts] = useState<Shift[]>([]);
   const [owner, setOwner] = useState(false)
-  const fetchUserShifts = useFetch(elevatedState.APIInstaces.User,
-                                   elevatedState.APIInstaces.User.userShifts,
+  const fetchUserShifts = useFetch(elevatedState.APIInstances.User,
+                                   elevatedState.APIInstances.User.userShifts,
                                    elevatedState, setElevatedState, setUserShiftsResponse)
 
   useEffect(() => {

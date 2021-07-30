@@ -1,7 +1,6 @@
 //Third Party Imports
 import 'react-native-gesture-handler';
 import React, { FC, useState, useEffect } from 'react';
-import { useNavigation } from '@react-navigation/native';
 import { View } from 'react-native';
 
 //First Party Imports
@@ -14,14 +13,11 @@ import { CategoriesResponse, Shift, NewShiftsResponse, PopularShiftsResponse,
   ShiftCategoryResponse, CategoriesRequest, CategoryRequest} from '../Swagger';
 import { ShiftCategories } from '../Interfaces/ShiftCategory';
 import { FShiftCard } from '../Components/ShiftCard';
-import { MainStyles } from '../Styles/MainStyles';
 
 
 interface IHome extends IElevatedStateProps{}
 
 export const Home: FC<IHome> = ({elevatedState, setElevatedState}) => {
-  const navigation = useNavigation()
-
   let [categoryNames, setCategoryNames] =  useState<CategoriesResponse["categories"]>([])
 
   const [featuredShifts, setFeaturedShifts] = useState<Shift[]>([])
@@ -30,23 +26,23 @@ export const Home: FC<IHome> = ({elevatedState, setElevatedState}) => {
   const [shiftCategories, setShiftCategories] = useState<ShiftCategories[]>([])
   const defaultCategories = ["Featured", "Popular", "New"]
 
-  const fetchNewCategory = useFetch(elevatedState.APIInstaces.Category,
-                                    elevatedState.APIInstaces.Category._new,
+  const fetchNewCategory = useFetch(elevatedState.APIInstances.Category,
+                                    elevatedState.APIInstances.Category._new,
                                     elevatedState, setElevatedState,
                                     (newResponse: NewShiftsResponse) => 
                                       setNewShifts(newResponse.shifts!))
-  const fetchPopularCategory = useFetch(elevatedState.APIInstaces.Category,
-                                        elevatedState.APIInstaces.Category.popular,
+  const fetchPopularCategory = useFetch(elevatedState.APIInstances.Category,
+                                        elevatedState.APIInstances.Category.popular,
                                         elevatedState, setElevatedState,
                                         (popularResponse: PopularShiftsResponse) => 
                                           setPopularShifts(popularResponse.shifts!))
-  const fetchFeaturedCategory = useFetch(elevatedState.APIInstaces.Category,
-                                         elevatedState.APIInstaces.Category.category,
+  const fetchFeaturedCategory = useFetch(elevatedState.APIInstances.Category,
+                                         elevatedState.APIInstances.Category.category,
                                          elevatedState, setElevatedState,
                                          (featuredResponse: ShiftCategoryResponse) => 
                                            setFeaturedShifts(featuredResponse.shifts!))
-  const fetchCategory = useFetch(elevatedState.APIInstaces.Category,
-                                 elevatedState.APIInstaces.Category.category,
+  const fetchCategory = useFetch(elevatedState.APIInstances.Category,
+                                 elevatedState.APIInstances.Category.category,
                                  elevatedState, setElevatedState,
                                  (categoryResponse: ShiftCategoryResponse, category: string) =>{
                                    let categoryShifts: ShiftCategories = {
@@ -55,8 +51,8 @@ export const Home: FC<IHome> = ({elevatedState, setElevatedState}) => {
                                    }
                                    setShiftCategories((prev) => [...prev, categoryShifts])
                                  })
-  const fetchCategories = useFetch(elevatedState.APIInstaces.Category,
-                                   elevatedState.APIInstaces.Category.categories,
+  const fetchCategories = useFetch(elevatedState.APIInstances.Category,
+                                   elevatedState.APIInstances.Category.categories,
                                    elevatedState, setElevatedState,
                                    (categoriesResponse: CategoriesResponse) => {
                                      setCategoryNames(categoriesResponse.categories.filter(

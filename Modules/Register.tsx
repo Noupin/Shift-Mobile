@@ -47,8 +47,8 @@ export const Register: FC<IElevatedStateProps> = ({elevatedState, setElevatedSta
 
   const [fetching, setFetching] = useState(false);
   const [registerResponse, setRegisterResponse] = useState<RegisterResponse>();
-  const fetchRegister = useFetch(elevatedState.APIInstaces.Authenticate,
-                                 elevatedState.APIInstaces.Authenticate.register,
+  const fetchRegister = useFetch(elevatedState.APIInstances.Authenticate,
+                                 elevatedState.APIInstances.Authenticate.register,
                                  elevatedState, setElevatedState, setRegisterResponse, setFetching)
 
 

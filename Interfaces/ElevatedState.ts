@@ -12,7 +12,7 @@ export interface IElevatedState{
     trainStatusInterval: number
     prebuiltShiftModel: string
     accessToken: string
-    APIInstaces: ApiInstances
+    APIInstances: ApiInstances
     frontEndSettings: IFrontEndSettings
     currentUser: User
 }

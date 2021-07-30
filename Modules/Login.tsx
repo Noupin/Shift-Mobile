@@ -44,8 +44,8 @@ export const Login: FC<IElevatedStateProps> = ({elevatedState, setElevatedState}
 
   const [fetching, setFetching] = useState(false);
   const [loginResponse, setLoginResponse] = useState<LoginResponse>(); 
-  const fetchLogin = useFetch(elevatedState.APIInstaces.Authenticate,
-                              elevatedState.APIInstaces.Authenticate.login,
+  const fetchLogin = useFetch(elevatedState.APIInstances.Authenticate,
+                              elevatedState.APIInstances.Authenticate.login,
                               elevatedState, setElevatedState, setLoginResponse, setFetching)
 
 

@@ -22,6 +22,7 @@ import { FButton } from './Components/Button';
 import { Neumorphic } from './Components/Neumorphic';
 import { FText } from './Components/Text';
 import { MainStyles } from './Styles/MainStyles';
+import { Template } from './Modules/Template';
 
 
 export default function App() {
@@ -33,7 +34,7 @@ export default function App() {
     trainStatusInterval: 10,
     prebuiltShiftModel: "",
     accessToken: "",
-    APIInstaces: new ApiInstances(""),
+    APIInstances: new ApiInstances(""),
     frontEndSettings: DEFUALT_FRONT_END_SETTINGS,
     currentUser: DEFAULT_USER,
   });
@@ -66,7 +67,7 @@ export default function App() {
   useEffect(() => {
     if(!elevatedState.accessToken || elevatedState.accessToken.split('.').length < 3){
       setElevatedState(prev => ({...prev, authenticated: false}))
-      elevatedState.APIInstaces.apiKey = ""
+      elevatedState.APIInstances.apiKey = ""
       setAuthenticated(false)
       return;
     }
@@ -78,7 +79,7 @@ export default function App() {
       setElevatedState(prev => ({...prev, currentUser: JWTBody.user}))
     }
 
-    elevatedState.APIInstaces.apiKey = elevatedState.accessToken
+    elevatedState.APIInstances.apiKey = elevatedState.accessToken
     var authenticated = isTokenExpired(elevatedState.accessToken)
     setAuthenticated(authenticated)
     setElevatedState(prev => ({...prev,
@@ -100,23 +101,23 @@ export default function App() {
   return (
     <>
       <StatusBar barStyle={isDarkMode[elevatedState.frontEndSettings.colorTheme]() ? 'light-content' : 'dark-content'} translucent={true}/>
-        {showMsg ?
-        <SafeAreaView style={{backgroundColor: "#cce5ff", justifyContent: 'center', alignItems: 'center'}}>
-          <Neumorphic style={[{ margin: 10, padding: 15, flexDirection: 'row',
-          justifyContent: 'space-between', width: Dimensions.get('window').width*0.9}, MainStyles.borderRadius2]}>
-            <FText>
-              {elevatedState.msg}
-            </FText>
-            <Neumorphic>
-              <FButton onPress={() => {
-                setShowMsg(false)
-                setElevatedState((prev) => ({...prev, msg: ""}))
-              }} style={[{padding: 10}, MainStyles.borderRadius2]}>
-                <FText>Close</FText>
-              </FButton>
-            </Neumorphic>
-          </Neumorphic> 
-        </SafeAreaView>: null}
+      {showMsg ?
+      <SafeAreaView style={{backgroundColor: "#cce5ff", justifyContent: 'center', alignItems: 'center'}}>
+        <Neumorphic style={[{ margin: 10, padding: 15, flexDirection: 'row',
+        justifyContent: 'space-between', width: Dimensions.get('window').width*0.9}, MainStyles.borderRadius2]}>
+          <FText>
+            {elevatedState.msg}
+          </FText>
+          <Neumorphic>
+            <FButton onPress={() => {
+              setShowMsg(false)
+              setElevatedState((prev) => ({...prev, msg: ""}))
+            }} style={[{padding: 10}, MainStyles.borderRadius2]}>
+              <FText>Close</FText>
+            </FButton>
+          </Neumorphic>
+        </Neumorphic> 
+      </SafeAreaView>: null}
       <SafeAreaProvider>
         <AppearanceProvider>
           <NavigationContainer ref={navigationRef}

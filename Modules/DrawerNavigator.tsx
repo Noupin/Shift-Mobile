@@ -55,37 +55,61 @@ export const DrawerNavigator: FC<IElevatedStateProps> = ({elevatedState, setElev
 
   return (
     <Drawer.Navigator initialRouteName="Home"
-      drawerStyle={[isDarkMode[elevatedState.frontEndSettings.colorTheme]() ? 
-        {backgroundColor: DARK_THEME.colors.background} : 
-        {backgroundColor: LIGHT_THEME.colors.background}]}
-      drawerContent={(props) => <CustomDrawer elevatedState={elevatedState} setElevatedState={setElevatedState} {...props}/>}>
+    drawerStyle={[isDarkMode[elevatedState.frontEndSettings.colorTheme]() ? 
+      {backgroundColor: DARK_THEME.colors.background} : 
+      {backgroundColor: LIGHT_THEME.colors.background}]}
+    drawerContent={(props) =>
+    <CustomDrawer elevatedState={elevatedState} setElevatedState={setElevatedState} {...props}/>}>
       <Drawer.Screen name="Home">
-        {() => <Template elevatedState={elevatedState} setElevatedState={setElevatedState}
-        component={<Home elevatedState={elevatedState} setElevatedState={setElevatedState}/>}/>}
+        {(props) => (
+        <Template elevatedState={elevatedState} setElevatedState={setElevatedState}>
+          <Home elevatedState={elevatedState} setElevatedState={setElevatedState} {...props}/>
+        </Template>
+        )}
       </Drawer.Screen>
       <Drawer.Screen name="Login">
-        {() => <Template elevatedState={elevatedState} setElevatedState={setElevatedState}
-        component={<Login elevatedState={elevatedState} setElevatedState={setElevatedState}/>}/>}
+        {(props) => (
+        <Template elevatedState={elevatedState} setElevatedState={setElevatedState}>
+          <Login elevatedState={elevatedState} setElevatedState={setElevatedState} {...props}/>
+        </Template>
+        )}
       </Drawer.Screen>
       <Drawer.Screen name="Register">
-        {() => <Template elevatedState={elevatedState} setElevatedState={setElevatedState}
-        component={<Register elevatedState={elevatedState} setElevatedState={setElevatedState}/>}/>}
+        {(props) => (
+        <Template elevatedState={elevatedState} setElevatedState={setElevatedState}>
+          <Register elevatedState={elevatedState} setElevatedState={setElevatedState} {...props}/>
+        </Template>
+        )}
       </Drawer.Screen>
       <Drawer.Screen name="Settings">
-        {() => <Template elevatedState={elevatedState} setElevatedState={setElevatedState}
-        component={<Settings elevatedState={elevatedState} setElevatedState={setElevatedState}/>}/>}
+        {(props) => (
+        <Template elevatedState={elevatedState} setElevatedState={setElevatedState}>
+          <Settings elevatedState={elevatedState} setElevatedState={setElevatedState} {...props}/>
+        </Template>
+        )}
       </Drawer.Screen>
       <Drawer.Screen name="Inference">
-        {() => <Template elevatedState={elevatedState} setElevatedState={setElevatedState}
-        component={<Inference elevatedState={elevatedState} setElevatedState={setElevatedState}/>}/>}
+        {(props) => (
+        <Template elevatedState={elevatedState} setElevatedState={setElevatedState}>
+          <Inference elevatedState={elevatedState} setElevatedState={setElevatedState} {...props}/>
+        </Template>
+        )}
       </Drawer.Screen>
       <Drawer.Screen name="User">
-        {() => <Template elevatedState={elevatedState} setElevatedState={setElevatedState}
-        component={<User username={elevatedState.currentUser.username} elevatedState={elevatedState} setElevatedState={setElevatedState}/>}/>}
+        {(props) => (
+        <Template elevatedState={elevatedState} setElevatedState={setElevatedState}>
+          <User username={(props.route.params as {username: string}).username ? (props.route.params as {username: string}).username : ""}
+            elevatedState={elevatedState} setElevatedState={setElevatedState} {...props}/>
+        </Template>
+        )}
       </Drawer.Screen>
       <Drawer.Screen name="Shift">
-        {() => <Template elevatedState={elevatedState} setElevatedState={setElevatedState}
-        component={<Shift uuid={elevatedState.shiftUUID} elevatedState={elevatedState} setElevatedState={setElevatedState}/>}/>}
+        {(props) => (
+        <Template elevatedState={elevatedState} setElevatedState={setElevatedState}>
+          <Shift uuid={(props.route.params as {uuid: string}).uuid ? (props.route.params as {uuid: string}).uuid : ""}
+            elevatedState={elevatedState} setElevatedState={setElevatedState} {...props}/>
+        </Template>
+        )}
       </Drawer.Screen>
     </Drawer.Navigator>
   );
