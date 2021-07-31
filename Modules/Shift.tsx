@@ -19,6 +19,8 @@ import { ShiftButtonsComponent } from '../Components/Shift/ShiftButtonsComponent
 import { Neumorphic } from '../Components/Neumorphic';
 import { FMedia } from '../Components/Media';
 import { API_BASE_URL } from '../constants';
+import { FText } from '../Components/Text';
+import { FButton } from '../Components/Button';
 
 
 const DeleteShiftAlert = async () => new Promise((resolve) => {
@@ -163,6 +165,29 @@ export const Shift: FC<IShift> = ({elevatedState, setElevatedState, uuid}) => {
               <FMedia style={MainStyles.borderRadius2} srcString={maskMediaURL}/>
             </Neumorphic>
           </View>
+        </View>
+      </View>
+      <View style={[MainStyles.spreadRow]}>
+        <View style={{flex: 1, margin: 5, alignItems: 'stretch'}}>
+          <FButton style={[MainStyles.borderRadius2, {justifyContent: 'center',
+          alignSelf: 'stretch', flexDirection: 'row', alignItems: 'center', padding: 5}]}>
+            <FText>Share</FText>
+            <Icon name="share" type="material"/>
+          </FButton>
+        </View>
+        <View style={{flex: 1, margin: 5, alignItems: 'stretch'}}>
+          <FButton style={[MainStyles.borderRadius2, {justifyContent: 'center',
+          alignSelf: 'stretch', flexDirection: 'row', alignItems: 'center', padding: 5}]}>
+            <FText>Download</FText>
+            <Icon name="south" type="material"/>
+          </FButton>
+        </View>
+        <View style={{flex: 1, margin: 5, alignItems: 'stretch'}}>
+          <FButton style={[MainStyles.borderRadius2, {justifyContent: 'center',
+          alignSelf: 'stretch', flexDirection: 'row', alignItems: 'center', padding: 5}]}>
+            <FText>Shift</FText>
+            <Icon name="east" type="material"/>
+          </FButton>
         </View>
       </View>
       {shiftGetResponse ? 
