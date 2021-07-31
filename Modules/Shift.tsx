@@ -4,6 +4,8 @@ import 'react-native-gesture-handler';
 import { Share, View, Alert } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { useNavigation, useTheme } from '@react-navigation/native';
+import CameraRoll from '@react-native-community/cameraroll';
+import RNFetchBlob from 'rn-fetch-blob';
 
 //First Party Imports
 import { IElevatedStateProps } from '../Interfaces/ElevatedStateProps';
@@ -33,6 +35,20 @@ const DeleteShiftAlert = async () => new Promise((resolve) => {
     ]
   )
 })
+
+const handleDownload = async (imageURI: string, extension: string) => {
+  RNFetchBlob.config({
+    fileCache: true,
+    appendExt: extension,
+  })
+    .fetch('GET', imageURI)
+    .then(res => {
+      CameraRoll.saveToCameraRoll(res.data, 'photo')
+        .then(res => console.log(res))
+        .catch(err => console.error(err))
+    })
+    .catch(error => console.error(error));
+};
 
 
 interface IShift extends IElevatedStateProps{
@@ -204,7 +220,8 @@ Look at the shift ${shiftGetResponse?.shift!.author.username} made. Make your ow
         </View>
         <View style={{flex: 1, margin: 5, alignItems: 'stretch'}}>
           <FButton style={[MainStyles.borderRadius2, {justifyContent: 'center',
-          alignSelf: 'stretch', flexDirection: 'row', alignItems: 'center', padding: 5}]}>
+          alignSelf: 'stretch', flexDirection: 'row', alignItems: 'center', padding: 5}]}
+          onPress={() => {handleDownload(shiftMediaURL, shiftMediaURL.split('.')[-1])}}>
             <FText>Download</FText>
             <Icon name="south" type="material"/>
           </FButton>
