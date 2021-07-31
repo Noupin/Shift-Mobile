@@ -25,7 +25,7 @@ export const FShiftCard: FC<IShiftCard> = ({children, style, shift, ...props}) =
 
   return (
     <TouchableOpacity {...props} onPress={() => {navigate("Shift", {uuid: shift.uuid})}}>
-      <Neumorphic style={[style, {padding: 10, margin: 10}, MainStyles.borderRadius2]}>
+      <Neumorphic style={[style, {padding: 5, margin: 10}, MainStyles.borderRadius2]}>
         <View style={{position: 'relative'}}>
           <FMedia style={[MainStyles.borderRadius2, {height: "100%"}]}
           srcString={`${API_BASE_URL}${getCDNPrefix(shift.mediaFilename!)}${shift.mediaFilename}`}/>

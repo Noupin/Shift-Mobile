@@ -5,10 +5,8 @@ import { View } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 //First Party Imports
-import { FMedia } from '../Media';
 import { IndividualShiftGetResponse, IndividualShiftPatchRequest } from '../../Swagger';
 import { MainStyles } from '../../Styles/MainStyles';
-import { Neumorphic } from '../Neumorphic';
 import { FText } from '../Text';
 import { FTextInput } from '../TextInput';
 
