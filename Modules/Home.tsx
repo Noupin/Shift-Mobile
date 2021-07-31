@@ -19,14 +19,16 @@ import { Load } from './Load';
 interface IHome extends IElevatedStateProps{}
 
 export const Home: FC<IHome> = ({elevatedState, setElevatedState}) => {
-  let [categoryNames, setCategoryNames] =  useState<CategoriesResponse["categories"]>([])
-  let [combinedCategories, setCombinedCategories] = useState(false);
+  const [categoryNames, setCategoryNames] =  useState<CategoriesResponse["categories"]>([])
+  const [combinedCategories, setCombinedCategories] = useState(false);
+  const [initalCategoriesLoaded, setInitialCategoriesLoaded] = useState(false)
 
   const [featuredShifts, setFeaturedShifts] = useState<Shift[]>([])
   const [popularShifts, setPopularShifts] = useState<Shift[]>([])
   const [newShifts, setNewShifts] = useState<Shift[]>([])
   const [shiftCategories, setShiftCategories] = useState<ShiftCategories[]>([])
   const defaultCategories = ["Featured", "Popular", "New"]
+  const [allShiftCategories, setAllShiftCategories] = useState<ShiftCategories[]>([])
 
   const fetchNewCategory = useFetch(elevatedState.APIInstances.Category,
                                     elevatedState.APIInstances.Category._new,
@@ -52,6 +54,7 @@ export const Home: FC<IHome> = ({elevatedState, setElevatedState}) => {
                                      shifts: categoryResponse.shifts!
                                    }
                                    setShiftCategories((prev) => [...prev, categoryShifts])
+                                   setCombinedCategories(false)
                                  })
   const fetchCategories = useFetch(elevatedState.APIInstances.Category,
                                    elevatedState.APIInstances.Category.categories,
@@ -65,9 +68,11 @@ export const Home: FC<IHome> = ({elevatedState, setElevatedState}) => {
 
   useEffect(() => {
     async function initialLoad(){
-      await fetchNewCategory()
-      await fetchPopularCategory()
       await fetchFeaturedCategory({categoryName: "featured"})
+      await fetchPopularCategory()
+      await fetchNewCategory()
+
+      setInitialCategoriesLoaded(true)
 
       async function getCategoryNames(){
         const categoriesParams: CategoriesRequest = {
@@ -83,24 +88,9 @@ export const Home: FC<IHome> = ({elevatedState, setElevatedState}) => {
   }, [])
 
   useEffect(() => {
-    if(categoryNames.length === 0) return;
+    if(!initalCategoriesLoaded) return;
 
-    async function getShifts(){
-      categoryNames.forEach(async (category) => {
-        const categoryParams: CategoryRequest = {
-          categoryName: category
-        }
-        await fetchCategory(categoryParams, category)
-      })
-    }
-    
-    getShifts();
-  }, [categoryNames])
-
-  useEffect(() => {
-    if(combinedCategories || shiftCategories.length === 0) return;
-
-    const defaultShiftCategories: ShiftCategories[] = [
+    setAllShiftCategories([
       {
         category: defaultCategories[0],
         shifts: featuredShifts
@@ -113,18 +103,37 @@ export const Home: FC<IHome> = ({elevatedState, setElevatedState}) => {
         category: defaultCategories[2],
         shifts: newShifts
       },
-    ]
+    ])
+  }, [initalCategoriesLoaded])
 
-    setShiftCategories(prev => ([...defaultShiftCategories, ...prev]))
+  useEffect(() => {
+    if(categoryNames.length === 0) return;
+
+    async function getShifts(){
+      categoryNames.forEach(async (category) => {
+        const categoryParams: CategoryRequest = {
+          categoryName: category
+        }
+        await fetchCategory(categoryParams, category)
+      })
+    }
+
+    getShifts();
+  }, [categoryNames])
+
+  useEffect(() => {
+    if(combinedCategories || shiftCategories.length === 0 || allShiftCategories.length === 0) return;
+
+    setAllShiftCategories(prev => ([...prev, ...shiftCategories]))
     setCombinedCategories(true)
-  }, [shiftCategories])
+  }, [shiftCategories, allShiftCategories])
 
 
   return (
     <>
       <View style={{flexDirection: 'row', flex: 1}}>
         <View style={[{flexDirection: 'column', flex: 1}]}>
-          <FlatList data={shiftCategories} keyExtractor={(item) => item.category}
+          <FlatList data={allShiftCategories} keyExtractor={(item) => item.category}
           renderItem={(item) => (
             <View style={{flexDirection: 'column', height: CATEGORY_HEIGHT}}>
               <FText style={{marginLeft: 15, marginTop: 10, fontWeight: 'bold', fontSize: 20}}>
