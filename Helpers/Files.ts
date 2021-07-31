@@ -1,5 +1,6 @@
 //Third Party Imports
 import { v4 as uuidv4 } from 'uuid';
+import Base64 from './Base64';
 
 
 export function fileListToList(fileList: FileList){
@@ -31,7 +32,7 @@ export function validateFileList(files: FileList | File[], extensionList: string
 }
 
 export async function urlToFile(url: string, filename=uuidv4()): Promise<File | undefined>{
-  var fileOptions: FilePropertyBag  = {}
+  var fileOptions: FilePropertyBag = {}
   const returnFile = await fetch(url).then(res => {
     if(res.headers.get("Content-Type")) fileOptions['type'] = res.headers.get("Content-Type")!
     return res.blob()

@@ -91,6 +91,7 @@ export const Load: FC<IElevatedStateProps> = ({elevatedState, setElevatedState})
       trainingDataTypes: trainingDataTypes,
       requestFiles: renamedFiles
     }
+    console.log(loadDataParams.requestFiles)
   
     fetchLoad(loadDataParams)
   }, [fetching]);
@@ -98,6 +99,7 @@ export const Load: FC<IElevatedStateProps> = ({elevatedState, setElevatedState})
   //Update values from response
   useEffect(() => {
     if(!loadResponse) return;
+    console.log(loadResponse)
 
     setElevatedState((prev) => ({...prev, shiftUUID: loadResponse.shiftUUID!}))
     setElevatedState((prev) => ({...prev, msg: loadResponse.msg!}));
@@ -111,8 +113,9 @@ export const Load: FC<IElevatedStateProps> = ({elevatedState, setElevatedState})
       navigation.navigate("Train")
     }
     else{
+      console.log("here")
       setElevatedState((prev) => ({...prev, prebuiltShiftModel: "PTM"}))
-      navigation.navigate("Inference")
+      //navigation.navigate("Inference")
     }
   }, [elevatedState.shiftUUID]);
 
@@ -149,7 +152,8 @@ export const Load: FC<IElevatedStateProps> = ({elevatedState, setElevatedState})
   async function changeBaseFiles(mediaList: ImageOrVideo[]){
     const mediaFiles: File[] = []
     for(var index=0; index < mediaList.length; index++){
-      mediaFiles.push((await urlToFile(mediaList[index].path, mediaList[index].filename))!)
+      const mediaFile = (await urlToFile(mediaList[index].sourceURL!, mediaList[index].filename))!
+      mediaFiles.push(mediaFile)
     }
 
     const [filteredFiles, badExtensions] = validateFileList(mediaFiles, validMediaFileExtesnions)
@@ -169,7 +173,8 @@ export const Load: FC<IElevatedStateProps> = ({elevatedState, setElevatedState})
   async function changeMaskFiles(mediaList: ImageOrVideo[]){
     const mediaFiles: File[] = []
     for(var index=0; index < mediaList.length; index++){
-      mediaFiles.push((await urlToFile(mediaList[index].path, mediaList[index].filename))!)
+      const mediaFile = (await urlToFile(mediaList[index].sourceURL!, mediaList[index].filename))!
+      mediaFiles.push(mediaFile)
     }
 
     const [filteredFiles, badExtensions] = validateFileList(mediaFiles, validMediaFileExtesnions)

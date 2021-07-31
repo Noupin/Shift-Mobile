@@ -18,16 +18,17 @@ import { MainStyles } from '../Styles/MainStyles';
 
 export interface IShiftCard extends TouchableOpacityProps{
   shift: Shift
+  fillHeight?: boolean
 }
 
-export const FShiftCard: FC<IShiftCard> = ({children, style, shift, ...props}) => {
+export const FShiftCard: FC<IShiftCard> = ({children, style, shift, fillHeight=true, ...props}) => {
   const theme = useTheme()
 
   return (
     <TouchableOpacity {...props} onPress={() => {navigate("Shift", {uuid: shift.uuid})}}>
       <Neumorphic style={[style, {padding: 5, margin: 10}, MainStyles.borderRadius2]}>
         <View style={{position: 'relative'}}>
-          <FMedia style={[MainStyles.borderRadius2, {height: "100%"}]}
+          <FMedia style={[MainStyles.borderRadius2, fillHeight && {height: "100%"}]}
           srcString={`${API_BASE_URL}${getCDNPrefix(shift.mediaFilename!)}${shift.mediaFilename}`}/>
           <BlurView blurType={theme.dark ? "dark" : "light"}
           style={[{position: 'absolute', bottom: 0, left: 0, padding: 5}, MainStyles.borderRadius2]}>

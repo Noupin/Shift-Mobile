@@ -20,6 +20,7 @@ interface IHome extends IElevatedStateProps{}
 
 export const Home: FC<IHome> = ({elevatedState, setElevatedState}) => {
   let [categoryNames, setCategoryNames] =  useState<CategoriesResponse["categories"]>([])
+  let [combinedCategories, setCombinedCategories] = useState(false);
 
   const [featuredShifts, setFeaturedShifts] = useState<Shift[]>([])
   const [popularShifts, setPopularShifts] = useState<Shift[]>([])
@@ -63,18 +64,22 @@ export const Home: FC<IHome> = ({elevatedState, setElevatedState}) => {
 
 
   useEffect(() => {
-    fetchNewCategory()
-    fetchPopularCategory()
-    fetchFeaturedCategory({categoryName: "featured"})
+    async function initialLoad(){
+      await fetchNewCategory()
+      await fetchPopularCategory()
+      await fetchFeaturedCategory({categoryName: "featured"})
 
-    async function getCategoryNames(){
-      const categoriesParams: CategoriesRequest = {
-        maximum: CATEGORIES_TO_GET
+      async function getCategoryNames(){
+        const categoriesParams: CategoriesRequest = {
+          maximum: CATEGORIES_TO_GET
+        }
+        await fetchCategories(categoriesParams)
       }
-      await fetchCategories(categoriesParams)
+      
+      await getCategoryNames()
     }
-    
-    getCategoryNames()
+
+    initialLoad()
   }, [])
 
   useEffect(() => {
@@ -92,32 +97,43 @@ export const Home: FC<IHome> = ({elevatedState, setElevatedState}) => {
     getShifts();
   }, [categoryNames])
 
+  useEffect(() => {
+    if(combinedCategories || shiftCategories.length === 0) return;
+
+    const defaultShiftCategories: ShiftCategories[] = [
+      {
+        category: defaultCategories[0],
+        shifts: featuredShifts
+      },
+      {
+        category: defaultCategories[1],
+        shifts: popularShifts
+      },
+      {
+        category: defaultCategories[2],
+        shifts: newShifts
+      },
+    ]
+
+    setShiftCategories(prev => ([...defaultShiftCategories, ...prev]))
+    setCombinedCategories(true)
+  }, [shiftCategories])
+
 
   return (
     <>
       <View style={{flexDirection: 'row', flex: 1}}>
         <View style={[{flexDirection: 'column', flex: 1}]}>
-          <View style={{flexDirection: 'column', height: CATEGORY_HEIGHT}}>
-            <FText style={{marginLeft: 15, marginTop: 10, fontWeight: 'bold', fontSize: 20}}>
-              Featured
-            </FText>
-            <FlatList horizontal data={featuredShifts} keyExtractor={item => String(item.id)}
-            renderItem={(item) => <FShiftCard shift={item.item}/>}/>
-          </View>
-          <View style={{flexDirection: 'column', height: CATEGORY_HEIGHT}}>
-            <FText style={{marginLeft: 15, marginTop: 10, fontWeight: 'bold', fontSize: 20}}>
-              Popular
-            </FText>
-            <FlatList horizontal data={popularShifts} keyExtractor={item => String(item.id)}
-            renderItem={(item) => <FShiftCard shift={item.item}/>}/>
-          </View>
-          <View style={{flexDirection: 'column', height: CATEGORY_HEIGHT}}>
-            <FText style={{marginLeft: 15, marginTop: 10, fontWeight: 'bold', fontSize: 20}}>
-              New
-            </FText>
-            <FlatList horizontal data={newShifts} keyExtractor={item => String(item.id)}
-            renderItem={(item) => <FShiftCard shift={item.item}/>}/>
-          </View>
+          <FlatList data={shiftCategories} keyExtractor={(item) => item.category}
+          renderItem={(item) => (
+            <View style={{flexDirection: 'column', height: CATEGORY_HEIGHT}}>
+              <FText style={{marginLeft: 15, marginTop: 10, fontWeight: 'bold', fontSize: 20}}>
+                {item.item.category}
+              </FText>
+              <FlatList horizontal data={item.item.shifts} keyExtractor={item => String(item.id)}
+              renderItem={(item) => <FShiftCard shift={item.item}/>}/>
+            </View>
+          )}/>
         </View>
       </View>
       <View style={{position: 'absolute', bottom: -BOTTOM_SAFE_AREA_MARGIN, left: 0, right: 0}}>
