@@ -1,7 +1,7 @@
 //Third Party Imports
 import React, { FC, useState, useEffect } from 'react';
 import 'react-native-gesture-handler';
-import { View, Alert } from 'react-native';
+import { Share, View, Alert } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { useNavigation, useTheme } from '@react-navigation/native';
 
@@ -64,6 +64,30 @@ export const Shift: FC<IShift> = ({elevatedState, setElevatedState, uuid}) => {
   const fetchDeleteIndividualShift = useFetch(elevatedState.APIInstances.Shift,
                                               elevatedState.APIInstances.Shift.deleteIndivdualShift,
                                               elevatedState, setElevatedState, setShiftDeleteResponse)
+
+
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message:
+        `Shift: ${shiftGetResponse?.shift!.title} by ${shiftGetResponse?.shift!.author.username}
+Look at the shift ${shiftGetResponse?.shift!.author.username} made. Make your own at https://shift.feryv.com`,
+        url:
+        `${API_BASE_URL}/shift/${uuid}`,
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
 
 
   useEffect(() => {
@@ -170,7 +194,8 @@ export const Shift: FC<IShift> = ({elevatedState, setElevatedState, uuid}) => {
       <View style={[MainStyles.spreadRow]}>
         <View style={{flex: 1, margin: 5, alignItems: 'stretch'}}>
           <FButton style={[MainStyles.borderRadius2, {justifyContent: 'center',
-          alignSelf: 'stretch', flexDirection: 'row', alignItems: 'center', padding: 5}]}>
+          alignSelf: 'stretch', flexDirection: 'row', alignItems: 'center', padding: 5}]}
+          onPress={onShare}>
             <FText>Share</FText>
             <Icon name="share" type="material"/>
           </FButton>
@@ -184,7 +209,11 @@ export const Shift: FC<IShift> = ({elevatedState, setElevatedState, uuid}) => {
         </View>
         <View style={{flex: 1, margin: 5, alignItems: 'stretch'}}>
           <FButton style={[MainStyles.borderRadius2, {justifyContent: 'center',
-          alignSelf: 'stretch', flexDirection: 'row', alignItems: 'center', padding: 5}]}>
+          alignSelf: 'stretch', flexDirection: 'row', alignItems: 'center', padding: 5}]}
+          onPress={() => {
+            setElevatedState(prev => ({...prev, prebuiltShiftModel: uuid}))
+            navigation.navigate("Home")
+          }}>
             <FText>Shift</FText>
             <Icon name="east" type="material"/>
           </FButton>
