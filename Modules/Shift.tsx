@@ -70,9 +70,11 @@ export const Shift: FC<IShift> = ({elevatedState, setElevatedState, uuid}) => {
     try {
       const result = await Share.share({
         message:
-        `Shift: ${shiftGetResponse?.shift!.title} by ${shiftGetResponse?.shift!.author.username}
+        `Shift: ${shiftGetResponse?.shift!.title} by ${shiftGetResponse?.shift!.author.username} at ${API_BASE_URL}/shift/${uuid}
 Look at the shift ${shiftGetResponse?.shift!.author.username} made. Make your own at https://shift.feryv.com`,
         url:
+        `${API_BASE_URL}/shift/${uuid}`,
+        title:
         `${API_BASE_URL}/shift/${uuid}`,
       });
       if (result.action === Share.sharedAction) {
