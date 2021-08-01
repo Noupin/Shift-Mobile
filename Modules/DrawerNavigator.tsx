@@ -53,7 +53,7 @@ const CustomDrawer: FC<ICustomDrawer> = ({elevatedState, setElevatedState, navig
 export const DrawerNavigator: FC<IElevatedStateProps> = ({elevatedState, setElevatedState}) => {
 
   return (
-    <Drawer.Navigator initialRouteName="Home"
+    <Drawer.Navigator initialRouteName="Home" lazy
     drawerStyle={[isDarkMode[elevatedState.frontEndSettings.colorTheme]() ? 
       {backgroundColor: DARK_THEME.colors.background} : 
       {backgroundColor: LIGHT_THEME.colors.background}]}

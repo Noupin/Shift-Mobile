@@ -7,16 +7,15 @@ import GestureRecognizer from 'react-native-swipe-gestures';
 import { ImageOrVideo } from 'react-native-image-crop-picker';
 import { Icon } from 'react-native-elements';
 import uuid from 'react-native-uuid';
-import RNFS from 'react-native-fs';
 import { Dimensions } from 'react-native';
 
 //First Party Imports
 import { IElevatedStateProps } from '../Interfaces/ElevatedStateProps';
 import { FText } from '../Components/Text';
-import { GESTURE_CONFIG, validMediaFileExtesnions } from '../constants';
+import { API_BASE_URL, GESTURE_CONFIG, validMediaFileExtesnions } from '../constants';
 import { MainStyles } from '../Styles/MainStyles';
 import { Neumorphic } from '../Components/Neumorphic';
-import { pickMedia, urlToFile, validateFileList, validateFilenameList } from '../Helpers/Files';
+import { pickMedia, validateFilenameList } from '../Helpers/Files';
 import { useFetch } from '../Hooks/Fetch';
 import { LoadDataResponse, IndividualShiftGetResponse, GetIndivdualShiftRequest,
   LoadDataRequest } from '../Swagger';
@@ -27,7 +26,6 @@ import { FButton } from '../Components/Button';
 
 
 export const Load: FC<IElevatedStateProps> = ({elevatedState, setElevatedState}) => {
-  const theme = useTheme()
   const navigation = useNavigation()
 
   const [open, setOpen] = useState(false)
@@ -64,7 +62,7 @@ export const Load: FC<IElevatedStateProps> = ({elevatedState, setElevatedState})
       if(!shiftResponse || !shiftResponse.shift || !shiftResponse.shift!.baseMediaFilename) return;
 
       const apiPrefix = getCDNPrefix(shiftResponse.shift!.baseMediaFilename!)
-      setBaseMedia(`${apiPrefix}${shiftResponse.shift!.baseMediaFilename!}`)
+      setBaseMedia(`${API_BASE_URL}${apiPrefix}${shiftResponse.shift!.baseMediaFilename!}`)
       setElevatedState((prev) => ({...prev, prebuiltShiftModel: ""})) //Remove to test loading of prebuilt models
     }
 
