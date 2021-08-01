@@ -72,6 +72,7 @@ export const Inference: FC<IElevatedStateProps> = ({elevatedState, setElevatedSt
 
     fetchInference(inferenceBody)
 
+    setElevatedState((prev) => ({...prev, prebuiltShiftModel: ""}))
 		setUpdating(true);
 	}, [inference]);
 
@@ -141,7 +142,8 @@ export const Inference: FC<IElevatedStateProps> = ({elevatedState, setElevatedSt
           alignSelf: 'stretch', flexDirection: 'row', alignItems: 'center', padding: 5}]}
           onPress={() => {
             const fileURL = URL.createObjectURL(inferenceMedia)
-            handleDownload(fileURL, fileURL.split(';')[0].split('/')[-1])
+			const splitURL = fileURL.split(';')[0].split('/')
+            handleDownload(fileURL, splitURL[splitURL.length - 1])
           }}>
             <FText>Download</FText>
             <Icon name="south" type="material" color={theme.colors.text}/>

@@ -75,7 +75,7 @@ export const ADDITIONAL_THEME_ATTRIBUTES = {
   }
 }
 
-export const API_BASE_URL = 'http://75.118.211.6:25565' //'http://75.118.211.6:25565'
+export const API_BASE_URL = 'http://192.168.1.52'
 
 export const GESTURE_CONFIG = {
   velocityThreshold: 0.3,

@@ -1,5 +1,6 @@
 //Third Party Imports
 import 'react-native-gesture-handler';
+import 'react-native-get-random-values';
 import React, { useState, useEffect } from 'react';
 import { Dimensions, StatusBar, View } from 'react-native';
 import { AppearanceProvider } from 'react-native-appearance';

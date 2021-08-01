@@ -1,12 +1,14 @@
 //Third Party Imports
 import React, { FC, useState, useEffect } from 'react';
 import 'react-native-gesture-handler';
-import { TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View, Platform } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import GestureRecognizer from 'react-native-swipe-gestures';
-import ImagePicker, {ImageOrVideo} from 'react-native-image-crop-picker';
+import { ImageOrVideo } from 'react-native-image-crop-picker';
 import { Icon } from 'react-native-elements';
 import uuid from 'react-native-uuid';
+import RNFS from 'react-native-fs';
+import { Dimensions } from 'react-native';
 
 //First Party Imports
 import { IElevatedStateProps } from '../Interfaces/ElevatedStateProps';
@@ -14,8 +16,7 @@ import { FText } from '../Components/Text';
 import { GESTURE_CONFIG, validMediaFileExtesnions } from '../constants';
 import { MainStyles } from '../Styles/MainStyles';
 import { Neumorphic } from '../Components/Neumorphic';
-import { Dimensions } from 'react-native';
-import { urlToFile, validateFileList } from '../Helpers/Files';
+import { pickMedia, urlToFile, validateFileList, validateFilenameList } from '../Helpers/Files';
 import { useFetch } from '../Hooks/Fetch';
 import { LoadDataResponse, IndividualShiftGetResponse, GetIndivdualShiftRequest,
   LoadDataRequest } from '../Swagger';
@@ -34,10 +35,10 @@ export const Load: FC<IElevatedStateProps> = ({elevatedState, setElevatedState})
 
 
   const [trainingDataTypes, setTrainingDataTypes] = useState<string[]>([]);
-  const [files, setFiles] = useState<File[]>([]);
-  const [baseFiles, setBaseFiles] = useState<File[]>([]);
-  const [maskFiles, setMaskFiles] = useState<File[]>([]);
-  const [baseMedia, setBaseMedia] = useState<File>();
+  const [files, setFiles] = useState<string[]>([]);
+  const [baseFiles, setBaseFiles] = useState<string[]>([]);
+  const [maskFiles, setMaskFiles] = useState<string[]>([]);
+  const [baseMedia, setBaseMedia] = useState<string>();
 
 
   const [fetching, setFetching] = useState(false);
@@ -59,13 +60,12 @@ export const Load: FC<IElevatedStateProps> = ({elevatedState, setElevatedState})
         uuid: elevatedState.prebuiltShiftModel
       }
       fetchShift(requestParams)
-      console.log(shiftResponse)
 
       if(!shiftResponse || !shiftResponse.shift || !shiftResponse.shift!.baseMediaFilename) return;
 
       const apiPrefix = getCDNPrefix(shiftResponse.shift!.baseMediaFilename!)
-      setBaseMedia(await urlToFile(`${apiPrefix}${shiftResponse.shift!.baseMediaFilename!}`, shiftResponse.shift!.baseMediaFilename!))
-      setElevatedState((prev) => ({...prev, prebuiltShiftModel: ""}))
+      setBaseMedia(`${apiPrefix}${shiftResponse.shift!.baseMediaFilename!}`)
+      setElevatedState((prev) => ({...prev, prebuiltShiftModel: ""})) //Remove to test loading of prebuilt models
     }
 
     if(elevatedState.prebuiltShiftModel){
@@ -83,16 +83,17 @@ export const Load: FC<IElevatedStateProps> = ({elevatedState, setElevatedState})
       return;
     }
 
-    let renamedFiles: Blob[] = files.map((file: File) => {
-      return new File([file], `${uuid.v4()}.${file.name.split('.').pop()!.toLowerCase()}`, {type: file.type})
+    let renamedFiles = files.map((uri: string) => {
+      let uriParts = uri.split(".");
+      let fileType = uriParts[uriParts.length - 1];
+      return {uri, name: `${uuid.v4()}.${fileType}`, type: `image/${fileType}`,}
     })
 
     const loadDataParams: LoadDataRequest = {
       trainingDataTypes: trainingDataTypes,
-      requestFiles: renamedFiles
+      requestFiles: renamedFiles as unknown as Blob[]
     }
     console.log(loadDataParams.requestFiles)
-  
     fetchLoad(loadDataParams)
   }, [fetching]);
 
@@ -113,8 +114,6 @@ export const Load: FC<IElevatedStateProps> = ({elevatedState, setElevatedState})
       navigation.navigate("Train")
     }
     else{
-      console.log("here")
-      setElevatedState((prev) => ({...prev, prebuiltShiftModel: "PTM"}))
       //navigation.navigate("Inference")
     }
   }, [elevatedState.shiftUUID]);
@@ -139,24 +138,14 @@ export const Load: FC<IElevatedStateProps> = ({elevatedState, setElevatedState})
         break;
     }
   }
-  
-  function pickMedia(action: (media: ImageOrVideo) => void, multiple: boolean=false){
-    ImagePicker.openPicker({
-      mediaType: 'any',
-      multiple: multiple,
-    }).then((media) => {
-      action(media);
-    });
-  }
 
   async function changeBaseFiles(mediaList: ImageOrVideo[]){
-    const mediaFiles: File[] = []
+    const mediaFiles: string[] = []
     for(var index=0; index < mediaList.length; index++){
-      const mediaFile = (await urlToFile(mediaList[index].sourceURL!, mediaList[index].filename))!
-      mediaFiles.push(mediaFile)
+      mediaFiles.push(Platform.OS === 'ios' ? mediaList[index].sourceURL! : mediaList[index].path)
     }
 
-    const [filteredFiles, badExtensions] = validateFileList(mediaFiles, validMediaFileExtesnions)
+    const [filteredFiles, badExtensions] = validateFilenameList(mediaFiles, validMediaFileExtesnions)
 
     if(badExtensions.length > 0){
       setElevatedState((prev) => ({...prev,
@@ -171,13 +160,12 @@ export const Load: FC<IElevatedStateProps> = ({elevatedState, setElevatedState})
   }
 
   async function changeMaskFiles(mediaList: ImageOrVideo[]){
-    const mediaFiles: File[] = []
+    const mediaFiles: string[] = []
     for(var index=0; index < mediaList.length; index++){
-      const mediaFile = (await urlToFile(mediaList[index].sourceURL!, mediaList[index].filename))!
-      mediaFiles.push(mediaFile)
+      mediaFiles.push(Platform.OS === 'ios' ? mediaList[index].sourceURL! : mediaList[index].path)
     }
 
-    const [filteredFiles, badExtensions] = validateFileList(mediaFiles, validMediaFileExtesnions)
+    const [filteredFiles, badExtensions] = validateFilenameList(mediaFiles, validMediaFileExtesnions)
 
     if(badExtensions.length > 0){
       setElevatedState((prev) => ({...prev,
@@ -212,9 +200,9 @@ export const Load: FC<IElevatedStateProps> = ({elevatedState, setElevatedState})
               </FText>
               <Neumorphic style={[{padding: 5}, MainStyles.borderRadius2]}>
                 <View>
-                  <TouchableOpacity onPress={() => pickMedia((media) => changeBaseFiles([media]))}>
+                  <TouchableOpacity onPress={() => pickMedia(setElevatedState, (media) => changeBaseFiles([media]))}>
                     {baseMedia ?
-                    <FMedia style={MainStyles.borderRadius2} mediaSrc={baseMedia}/>
+                    <FMedia style={MainStyles.borderRadius2} srcString={baseMedia}/>
                     :
                     <Icon name="image" type="material"/>}
                   </TouchableOpacity>
@@ -225,9 +213,9 @@ export const Load: FC<IElevatedStateProps> = ({elevatedState, setElevatedState})
               </FText>
               <Neumorphic style={[{padding: 5}, MainStyles.borderRadius2]}>
                 <View>
-                  <TouchableOpacity onPress={() => pickMedia((media) => changeMaskFiles([media]))}>
+                  <TouchableOpacity onPress={() => pickMedia(setElevatedState, (media) => changeMaskFiles([media]))}>
                     {maskFiles.length > 0 ?
-                    <FMedia style={MainStyles.borderRadius2} mediaSrc={maskFiles[0]}/>
+                    <FMedia style={MainStyles.borderRadius2} srcString={maskFiles[0]}/>
                     :
                     <Icon name="image" type="material"/>}
                   </TouchableOpacity>
