@@ -214,7 +214,7 @@ Look at the shift ${shiftGetResponse?.shift!.author.username} made. Make your ow
           alignSelf: 'stretch', flexDirection: 'row', alignItems: 'center', padding: 5}]}
           onPress={onShare}>
             <FText>Share</FText>
-            <Icon name="share" type="material"/>
+            <Icon name="share" type="material" color={theme.colors.text}/>
           </FButton>
         </View>
         <View style={{flex: 1, margin: 5, alignItems: 'stretch'}}>
@@ -222,7 +222,7 @@ Look at the shift ${shiftGetResponse?.shift!.author.username} made. Make your ow
           alignSelf: 'stretch', flexDirection: 'row', alignItems: 'center', padding: 5}]}
           onPress={() => {handleDownload(shiftMediaURL, shiftMediaURL.split('.')[-1])}}>
             <FText>Download</FText>
-            <Icon name="south" type="material"/>
+            <Icon name="south" type="material" color={theme.colors.text}/>
           </FButton>
         </View>
         <View style={{flex: 1, margin: 5, alignItems: 'stretch'}}>
@@ -233,7 +233,7 @@ Look at the shift ${shiftGetResponse?.shift!.author.username} made. Make your ow
             navigation.navigate("Home")
           }}>
             <FText>Shift</FText>
-            <Icon name="east" type="material"/>
+            <Icon name="east" type="material" color={theme.colors.text}/>
           </FButton>
         </View>
       </View>
