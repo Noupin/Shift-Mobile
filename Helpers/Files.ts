@@ -1,6 +1,5 @@
 //Third Party Imports
 import { v4 as uuidv4 } from 'uuid';
-import Base64 from './Base64';
 
 
 export function fileListToList(fileList: FileList){
@@ -30,6 +29,7 @@ export function validateFileList(files: FileList | File[], extensionList: string
 
   return [validFiles, badExtensions]
 }
+
 
 export async function urlToFile(url: string, filename=uuidv4()): Promise<File | undefined>{
   var fileOptions: FilePropertyBag = {}

@@ -1,7 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 //Third Party Imports
-import React, { useState, useEffect } from 'react';
+import { View } from 'react-native';
+import { Icon } from 'react-native-elements';
+import React, { FC, useState, useEffect } from 'react';
+import CameraRoll from '@react-native-community/cameraroll';
+import RNFetchBlob from 'rn-fetch-blob';
+import { useTheme } from '@react-navigation/native';
 
 //First Party Imports
 import { useInterval } from "../Hooks/Interval";
@@ -14,11 +19,26 @@ import { InferenceOperationRequest, InferenceRequest,
 //import { Loader } from "../../Components/Loader/Loader";
 import { useFetch } from '../Hooks/Fetch';
 import { urlToFile } from "../Helpers/Files";
-import { View } from 'react-native';
+import { MainStyles } from '../Styles/MainStyles';
+import { Neumorphic } from '../Components/Neumorphic';
+import { FText } from '../Components/Text';
 
 
-export function Inference (props: IElevatedStateProps){
-	const {elevatedState, setElevatedState} = props;
+const handleDownload = async (imageURI: string, extension: string) => {
+  RNFetchBlob.config({
+    fileCache: true,
+    appendExt: extension,
+  })
+    .fetch('GET', imageURI)
+    .then(res => {
+      CameraRoll.saveToCameraRoll(res.data)
+        .catch(err => console.error(err))
+    })
+    .catch(error => console.error(error));
+};
+
+export const Inference: FC<IElevatedStateProps> = ({elevatedState, setElevatedState}) => {
+  const theme = useTheme()
 
 	const [inferenceMedia, setInferenceMedia] = useState<File>();
 	const [baseMediaString, setBaseMediaString] = useState("")
@@ -100,6 +120,34 @@ export function Inference (props: IElevatedStateProps){
 
 
 	return (
-		<View></View>
+		<View style={[MainStyles.spreadColumn, {flex: 1, alignItems: 'center',
+    justifyContent: 'center', marginTop: 10}]}>
+      <View style={{flex: 9}}>
+        <Neumorphic>
+          <FMedia mediaSrc={inferenceMedia}/>
+        </Neumorphic>
+      </View>
+      <View style={{flex: 2, justifyContent: 'center'}}>
+        <Icon name='north' type='material' color={theme.colors.text}/>
+      </View>
+      <View style={{flex: 9}}>
+        <Neumorphic>
+          <FMedia srcString={baseMediaString}/>
+        </Neumorphic>
+      </View>
+      <View style={[MainStyles.spreadRow, {margin: 10}]}>
+        <View style={{flex: 1, margin: 5, alignItems: 'stretch'}}>
+          <FButton style={[MainStyles.borderRadius2, {justifyContent: 'center',
+          alignSelf: 'stretch', flexDirection: 'row', alignItems: 'center', padding: 5}]}
+          onPress={() => {
+            const fileURL = URL.createObjectURL(inferenceMedia)
+            handleDownload(fileURL, fileURL.split(';')[0].split('/')[-1])
+          }}>
+            <FText>Download</FText>
+            <Icon name="south" type="material" color={theme.colors.text}/>
+          </FButton>
+        </View>
+      </View>
+    </View>
 	);
 }
