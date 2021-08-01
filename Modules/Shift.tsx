@@ -44,7 +44,6 @@ const handleDownload = async (imageURI: string, extension: string) => {
     .fetch('GET', imageURI)
     .then(res => {
       CameraRoll.saveToCameraRoll(res.data, 'photo')
-        .then(res => console.log(res))
         .catch(err => console.error(err))
     })
     .catch(error => console.error(error));
