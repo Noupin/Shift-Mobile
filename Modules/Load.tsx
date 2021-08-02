@@ -221,42 +221,42 @@ export const Load: FC<ILoad> = ({elevatedState, setElevatedState, startOpen=fals
           </TouchableOpacity>}
           {open && 
           <View style={{flexDirection: 'row', flex: 1}}>
-            <View style={{flexDirection: 'column', alignItems: 'center',
-            marginHorizontal: 10, flex: 1, justifyContent: 'center'}}>
-              <View style={{flex: 1, marginTop: 10, justifyContent: 'center', alignSelf: 'flex-end'}}>
-                <TouchableOpacity onPress={() => setOpen(false)}>
-                  <Neumorphic style={[MainStyles.borderRadiusC, {padding: 5}]}>
-                    <Icon name="close" type="material" color={theme.colors.text}/>
-                  </Neumorphic>
-                </TouchableOpacity>
+            <View style={{flexDirection: 'column', alignItems: 'center', marginHorizontal: 10,
+              flex: 1}}>
+              <View style={{flex: 1, marginTop: 10, marginRight: 3, justifyContent: 'center',
+                alignSelf: 'flex-end'}}>
+                <FButton style={[MainStyles.borderRadiusC, {padding: 5}]}
+                onPress={() => setOpen(false)}>
+                  <Icon name="close" type="material" color={theme.colors.text}/>
+                </FButton>
               </View>
-              <View style={[{flex: 16, justifyContent: 'space-around', alignSelf: 'stretch',
-                overflow: 'hidden', flexDirection: 'column', paddingHorizontal: 10}]}>
-                <View style={{flexShrink: 1}}>
+              <View style={[{flex: 16,
+                flexDirection: 'column', paddingHorizontal: 10}]}>
+                <View style={{flex: 1, marginBottom: safeArea.bottom}}>
                   <FText style={{textAlign: 'center', fontSize: 20, marginVertical: 5}}>
                     Base Face
                   </FText>
-                  <Neumorphic style={[{padding: 5}, MainStyles.borderRadius2]}>
-                      <TouchableOpacity onPress={() => pickMedia(setElevatedState, (media) => changeBaseFiles([media]))}>
+                  <TouchableOpacity onPress={() => pickMedia(setElevatedState, (media) => changeBaseFiles([media]))}>
+                    <Neumorphic style={[{padding: 5}, MainStyles.borderRadius2]}>
                         {baseMedia ?
                         <FMedia style={[MainStyles.borderRadius2]} srcString={baseMedia}/>
                         :
                         <Icon name="image" type="material" color={theme.colors.text}/>}
-                      </TouchableOpacity>
-                  </Neumorphic>
+                    </Neumorphic>
+                  </TouchableOpacity>
                 </View>
-                <View style={{flexShrink: 1}}>
+                <View style={{flex: 1, marginBottom: safeArea.bottom}}>
                   <FText style={{textAlign: 'center', fontSize: 20, marginVertical: 5}}>
                     Mask Face
                   </FText>
-                  <Neumorphic style={[{padding: 5}, MainStyles.borderRadius2]}>
-                      <TouchableOpacity onPress={() => pickMedia(setElevatedState, (media) => changeMaskFiles([media]))}>
-                        {maskFiles.length > 0 ?
-                        <FMedia style={[MainStyles.borderRadius2]} srcString={maskFiles[0]}/>
-                        :
-                        <Icon name="image" type="material" color={theme.colors.text}/>}
-                      </TouchableOpacity>
-                  </Neumorphic>
+                  <TouchableOpacity onPress={() => pickMedia(setElevatedState, (media) => changeMaskFiles([media]))}>
+                    <Neumorphic style={[{padding: 5}, MainStyles.borderRadius2]}>
+                      {maskFiles.length > 0 ?
+                      <FMedia style={[MainStyles.borderRadius2]} srcString={maskFiles[0]}/>
+                      :
+                      <Icon name="image" type="material" color={theme.colors.text}/>}
+                    </Neumorphic>
+                  </TouchableOpacity>
                 </View>
               </View>
               <View style={{flex: 2, marginTop: 20, flexDirection: 'row'}}>

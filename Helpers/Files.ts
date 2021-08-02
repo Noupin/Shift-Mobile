@@ -80,8 +80,8 @@ export function pickMedia(setElevatedState: React.Dispatch<React.SetStateAction<
     forceJpg: true,
   }).then((media) => {
     action(media);
-  }).catch(() => {
-    setElevatedState(prev => ({...prev, msg: "Please go to settings and allow access to photos and camera roll for the Shift App."}))
+  }).catch((err) => {
+    setElevatedState(prev => ({...prev, msg: String(err)}))
   });
 }
 
