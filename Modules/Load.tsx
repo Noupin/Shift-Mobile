@@ -1,5 +1,5 @@
 //Third Party Imports
-import React, { FC, useState, useEffect, useCallback } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import 'react-native-gesture-handler';
 import { TouchableOpacity, View, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -8,7 +8,8 @@ import { ImageOrVideo } from 'react-native-image-crop-picker';
 import { Icon } from 'react-native-elements';
 import uuid from 'react-native-uuid';
 import { Dimensions } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
+import { useTheme } from '@react-navigation/native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 //First Party Imports
 import { IElevatedStateProps } from '../Interfaces/ElevatedStateProps';
@@ -31,7 +32,9 @@ interface ILoad extends IElevatedStateProps{
 }
 
 export const Load: FC<ILoad> = ({elevatedState, setElevatedState, startOpen=false}) => {
+  const theme = useTheme()
   const navigation = useNavigation()
+  const safeArea = useSafeAreaInsets()
 
   const [open, setOpen] = useState(false)
   const windowHeight = Dimensions.get('window').height
@@ -209,51 +212,56 @@ export const Load: FC<ILoad> = ({elevatedState, setElevatedState, startOpen=fals
     config={GESTURE_CONFIG}
     style={{flex: 1}}>
       <Neumorphic style={[MainStyles.borderRadius5]}>
-        <View style={[{flex: 1, alignItems: 'center', justifyContent: 'center'}, open ? {height: windowHeight*0.88} : {height: windowHeight*0.1}]}>
+        <View style={[{flex: 1, alignItems: 'center', justifyContent: 'center'}, open ? {height: windowHeight*0.88} : {height: windowHeight*0.1+(safeArea.bottom/2)}]}>
           {!open &&
           <TouchableOpacity onPress={() => setOpen(prev => !prev)}>
-            <FText style={{fontSize: 20}}>Load</FText>
+            <FText style={{fontSize: 20, marginBottom: safeArea.bottom/2}}>
+              Load
+            </FText>
           </TouchableOpacity>}
           {open && 
-          <View style={{flexDirection: 'column', alignItems: 'center', marginHorizontal: 10}}>
-            <View style={{flex: 1}}></View>
-            <View style={{flex: 16, justifyContent: 'space-between', alignContent: 'center'}}>
-              <FText style={{textAlign: 'center', fontSize: 20}}>
-                Base Face
-              </FText>
-              <Neumorphic style={[{padding: 5}, MainStyles.borderRadius2]}>
-                <View>
-                  <TouchableOpacity onPress={() => pickMedia(setElevatedState, (media) => changeBaseFiles([media]))}>
-                    {baseMedia ?
-                    <FMedia style={MainStyles.borderRadius2} srcString={baseMedia}/>
-                    :
-                    <Icon name="image" type="material"/>}
-                  </TouchableOpacity>
-                </View>
-              </Neumorphic>
-              <FText style={{textAlign: 'center', fontSize: 20}}>
-                Mask Face
-              </FText>
-              <Neumorphic style={[{padding: 5}, MainStyles.borderRadius2]}>
-                <View>
-                  <TouchableOpacity onPress={() => pickMedia(setElevatedState, (media) => changeMaskFiles([media]))}>
-                    {maskFiles.length > 0 ?
-                    <FMedia style={MainStyles.borderRadius2} srcString={maskFiles[0]}/>
-                    :
-                    <Icon name="image" type="material"/>}
-                  </TouchableOpacity>
-                </View>
-              </Neumorphic>
-            </View>
-            <View style={{flex: 2, marginTop: 20, flexDirection: 'row'}}>
+          <View style={{flexDirection: 'row', flex: 1}}>
+            <View style={{flexDirection: 'column', alignItems: 'center', marginHorizontal: 10, flex: 1}}>
               <View style={{flex: 1}}></View>
-              <View style={{flex: 4}}>
-                <FButton onPress={() => setFetching(true)} disabled={fetching}
-                style={[{width: 'auto', padding: 10}, MainStyles.borderRadius2, MainStyles.center]}>
-                  <FText style={{fontSize: 20, fontWeight: 'bold'}}>Load</FText>
-                </FButton>
+              <View style={[{flex: 16, justifyContent: 'space-between', alignContent: 'stretch',
+              overflow: 'hidden', flexDirection: 'column'}]}>
+                <View style={{}}>
+                  <FText style={{textAlign: 'center', fontSize: 20, marginVertical: 5}}>
+                    Base Face
+                  </FText>
+                  <Neumorphic style={[{padding: 5}, MainStyles.borderRadius2]}>
+                      <TouchableOpacity onPress={() => pickMedia(setElevatedState, (media) => changeBaseFiles([media]))}>
+                        {baseMedia ?
+                        <FMedia style={[MainStyles.borderRadius2]} srcString={baseMedia}/>
+                        :
+                        <Icon name="image" type="material" color={theme.colors.text}/>}
+                      </TouchableOpacity>
+                  </Neumorphic>
+                </View>
+                <View style={{}}>
+                  <FText style={{textAlign: 'center', fontSize: 20, marginVertical: 5}}>
+                    Mask Face
+                  </FText>
+                  <Neumorphic style={[{padding: 5}, MainStyles.borderRadius2]}>
+                      <TouchableOpacity onPress={() => pickMedia(setElevatedState, (media) => changeMaskFiles([media]))}>
+                        {maskFiles.length > 0 ?
+                        <FMedia style={[MainStyles.borderRadius2]} srcString={maskFiles[0]}/>
+                        :
+                        <Icon name="image" type="material" color={theme.colors.text}/>}
+                      </TouchableOpacity>
+                  </Neumorphic>
+                </View>
               </View>
-              <View style={{flex: 1}}></View>
+              <View style={{flex: 2, marginTop: 20, flexDirection: 'row'}}>
+                <View style={{flex: 1}}></View>
+                <View style={{flex: 4}}>
+                  <FButton onPress={() => setFetching(true)} disabled={fetching}
+                  style={[{width: 'auto', padding: 10}, MainStyles.borderRadius2, MainStyles.center]}>
+                    <FText style={{fontSize: 20, fontWeight: 'bold'}}>Load</FText>
+                  </FButton>
+                </View>
+                <View style={{flex: 1}}></View>
+              </View>
             </View>
           </View>}
         </View>
