@@ -39,9 +39,9 @@ export const Load: FC<ILoad> = ({elevatedState, setElevatedState, startOpen=fals
 
   const [trainingDataTypes, setTrainingDataTypes] = useState<string[]>([]);
   const [files, setFiles] = useState<string[]>([]);
+  const [baseMedia, setBaseMedia] = useState<string>();
   const [baseFiles, setBaseFiles] = useState<string[]>([]);
   const [maskFiles, setMaskFiles] = useState<string[]>([]);
-  const [baseMedia, setBaseMedia] = useState<string>();
 
 
   const [fetching, setFetching] = useState(false);
@@ -63,7 +63,11 @@ export const Load: FC<ILoad> = ({elevatedState, setElevatedState, startOpen=fals
     });
 
     const blur = navigation.addListener('blur', () => {
+      setFetching(false)
       setShiftResponse(undefined)
+      setBaseMedia(undefined)
+      setBaseFiles([])
+      setMaskFiles([])
     });
 
     // Return the function to unsubscribe from the event so it gets removed on unmount
@@ -160,6 +164,7 @@ export const Load: FC<ILoad> = ({elevatedState, setElevatedState, startOpen=fals
   async function changeBaseFiles(mediaList: ImageOrVideo[]){
     const mediaFiles: string[] = []
     for(var index=0; index < mediaList.length; index++){
+      console.log(mediaList[index].sourceURL)
       mediaFiles.push(Platform.OS === 'ios' ? mediaList[index].sourceURL! : mediaList[index].path)
     }
 

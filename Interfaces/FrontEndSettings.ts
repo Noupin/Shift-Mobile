@@ -8,4 +8,5 @@ export interface IFrontEndSettings{
     trainView: trainViewType
     colorTheme: colorThemeType
     uiStyle: uiStyleType
+    saveToAlbum: boolean
 }

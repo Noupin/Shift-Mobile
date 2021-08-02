@@ -34,7 +34,7 @@ export const FMedia: FC<IMediaImage | IMediaVideo> = ({mediaSrc, srcString, medi
   var mediaSrcString = srcString;
 
   if(!mediaSrcString){
-    mediaSrcString = mediaSrc ? URL.createObjectURL(mediaSrc) : "";
+    mediaSrcString = mediaSrc ? URL.createObjectURL(mediaSrc) : "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
   }
 
 

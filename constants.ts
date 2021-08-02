@@ -29,6 +29,7 @@ export const DEFUALT_FRONT_END_SETTINGS: IFrontEndSettings = {
   trainView: 'basic',
   colorTheme: 'light',
   uiStyle: 'neumorphic',
+  saveToAlbum: true,
 }
 
 export const isDarkMode = {

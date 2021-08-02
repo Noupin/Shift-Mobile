@@ -1,12 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 //Third Party Imports
-import { View } from 'react-native';
+import uuid from 'react-native-uuid';
+import { Platform, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import React, { FC, useState, useEffect } from 'react';
-import CameraRoll from '@react-native-community/cameraroll';
 import RNFetchBlob from 'rn-fetch-blob';
 import { useTheme } from '@react-navigation/native';
+import CameraRoll from "@react-native-community/cameraroll";
 
 //First Party Imports
 import { useInterval } from "../Hooks/Interval";
@@ -16,26 +17,22 @@ import { IElevatedStateProps } from '../Interfaces/ElevatedStateProps';
 import { CombinedInferenceResponse } from '../Interfaces/CombinedInference';
 import { InferenceOperationRequest, InferenceRequest,
 				 InferenceStatusRequest } from '../Swagger';
-//import { Loader } from "../../Components/Loader/Loader";
 import { useFetch } from '../Hooks/Fetch';
-import { urlToFile } from "../Helpers/Files";
+import { hasAndroidPermission, urlToFile } from "../Helpers/Files";
 import { MainStyles } from '../Styles/MainStyles';
 import { Neumorphic } from '../Components/Neumorphic';
 import { FText } from '../Components/Text';
 import { API_BASE_URL } from '../constants';
 
 
-const handleDownload = async (imageURI: string, extension: string) => {
-  RNFetchBlob.config({
-    fileCache: true,
-    appendExt: extension,
-  })
-    .fetch('GET', imageURI)
-    .then(res => {
-      CameraRoll.saveToCameraRoll(res.data)
-        .catch(err => console.error(err))
-    })
-    .catch(error => console.error(error));
+const handleDownload = async (imageURI: string, saveToAblum: boolean) => {
+  if (Platform.OS === "android" && !(await hasAndroidPermission())) {
+    return;
+  }
+
+  CameraRoll.save(imageURI, saveToAblum ? { type: 'auto', album: 'Shift' } : { type: 'auto' })
+  
+  //RNFetchBlob.fs.writeFile(mediaLocation, imageURI, 'base64')
 };
 
 export const Inference: FC<IElevatedStateProps> = ({elevatedState, setElevatedState}) => {
@@ -125,16 +122,16 @@ export const Inference: FC<IElevatedStateProps> = ({elevatedState, setElevatedSt
 		<View style={[MainStyles.spreadColumn, {flex: 1, alignItems: 'center',
     justifyContent: 'center', marginTop: 10}]}>
       <View style={{flex: 9}}>
-        <Neumorphic>
-          <FMedia mediaSrc={inferenceMedia}/>
+        <Neumorphic style={[MainStyles.borderRadius2, {padding: 5}]}>
+          <FMedia mediaSrc={inferenceMedia} style={MainStyles.borderRadius2}/>
         </Neumorphic>
       </View>
       <View style={{flex: 2, justifyContent: 'center'}}>
         <Icon name='north' type='material' color={theme.colors.text}/>
       </View>
       <View style={{flex: 9}}>
-        <Neumorphic>
-          <FMedia srcString={baseMediaString}/>
+        <Neumorphic style={[MainStyles.borderRadius2, {padding: 5}]}>
+          <FMedia srcString={baseMediaString} style={MainStyles.borderRadius2}/>
         </Neumorphic>
       </View>
       <View style={[MainStyles.spreadRow, {margin: 10}]}>
@@ -142,9 +139,12 @@ export const Inference: FC<IElevatedStateProps> = ({elevatedState, setElevatedSt
           <FButton style={[MainStyles.borderRadius2, {justifyContent: 'center',
           alignSelf: 'stretch', flexDirection: 'row', alignItems: 'center', padding: 5}]}
           onPress={() => {
-            const fileURL = URL.createObjectURL(inferenceMedia)
-			const splitURL = fileURL.split(';')[0].split('/')
-            handleDownload(fileURL, splitURL[splitURL.length - 1])
+            const reader = new FileReader()
+            reader.readAsDataURL(inferenceMedia!)
+            reader.onloadend = () => {
+              handleDownload(reader.result as string, elevatedState.frontEndSettings.saveToAlbum)
+              setElevatedState(prev => ({...prev, msg: "Shift saved to the Camera Roll."}))
+            }
           }}>
             <FText>Download</FText>
             <Icon name="south" type="material" color={theme.colors.text}/>

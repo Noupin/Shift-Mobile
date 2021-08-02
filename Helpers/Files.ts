@@ -1,6 +1,8 @@
 //Third Party Imports
 import ImagePicker, { ImageOrVideo } from 'react-native-image-crop-picker';
 import uuid from 'react-native-uuid';
+import { PermissionsAndroid, Platform } from "react-native";
+import CameraRoll from "@react-native-community/cameraroll";
 
 //First Party Imports
 import Base64 from './Base64';
@@ -95,4 +97,17 @@ export function dataURItoBlob(dataURI: string) {
   const blob = new Blob([byteArray]);
 
   return blob
+}
+
+
+export async function hasAndroidPermission() {
+  const permission = PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE;
+
+  const hasPermission = await PermissionsAndroid.check(permission);
+  if (hasPermission) {
+    return true;
+  }
+
+  const status = await PermissionsAndroid.request(permission);
+  return status === 'granted';
 }
