@@ -31,6 +31,7 @@ interface ILoad extends IElevatedStateProps{
 
 export const Load: FC<ILoad> = ({elevatedState, setElevatedState, startOpen}) => {
   const navigation = useNavigation()
+  console.log(startOpen)
 
   const [open, setOpen] = useState(startOpen)
   const windowHeight = Dimensions.get('window').height

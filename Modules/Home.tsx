@@ -26,7 +26,6 @@ export const Home: FC<IHome> = ({elevatedState, setElevatedState, startLoading=f
   const navigation = useNavigation()
   const safeArea = useSafeAreaInsets()
 
-  const [loadCardMargin, setLoadCardMargin] = useState(safeArea.bottom);
   const [categoryNames, setCategoryNames] =  useState<CategoriesResponse["categories"]>([])
   const [combinedCategories, setCombinedCategories] = useState(false);
   const [initalCategoriesLoaded, setInitialCategoriesLoaded] = useState(false)
@@ -159,7 +158,7 @@ export const Home: FC<IHome> = ({elevatedState, setElevatedState, startLoading=f
           )}/>
         </View>
       </View>
-      <View style={{position: 'absolute', bottom: -loadCardMargin, left: 0, right: 0}}>
+      <View style={{position: 'absolute', bottom: -safeArea.bottom, left: 0, right: 0}}>
         <Load startOpen={startLoading} elevatedState={elevatedState} setElevatedState={setElevatedState}/>
       </View>
     </>
