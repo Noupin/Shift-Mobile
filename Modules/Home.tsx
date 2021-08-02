@@ -145,9 +145,10 @@ export const Home: FC<IHome> = ({elevatedState, setElevatedState, startLoading=f
                 {item.item.category}
               </FText>
               <FlatList horizontal data={item.item.shifts} keyExtractor={item => String(item.id)}
-              renderItem={(item) => <FShiftCard shift={item.item}/>}/>
+              renderItem={(item) => <FShiftCard shift={item.item}/>}
+              showsHorizontalScrollIndicator={false}/>
             </View>
-          )}/>
+          )} showsVerticalScrollIndicator={false}/>
         </View>
       </View>
       <View style={{position: 'absolute', bottom: -safeArea.bottom, left: 0, right: 0}}>

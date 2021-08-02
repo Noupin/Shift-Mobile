@@ -48,7 +48,8 @@ export const User: FC<IUser> = ({elevatedState, setElevatedState, username}) => 
         setOwner={setOwner} username={username}/>
       <FHorizontalDivider/>
       <FlatList data={userShifts} renderItem={(item) => <FShiftCard fillHeight={false} shift={item.item}/>}
-        keyExtractor={item => String(item.id)} style={{marginTop: 10}}/>
+        keyExtractor={item => String(item.id)} style={{marginTop: 10}}
+        showsVerticalScrollIndicator={false}/>
     </View>
   );
 }
