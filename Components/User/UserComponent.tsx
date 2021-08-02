@@ -91,7 +91,7 @@ export const UserComponent: FC<IUser> = ({elevatedState, setElevatedState, setOw
 
       await fetchDeleteUser(urlParams)
       await fetchRefresh()
-      navigation.navigate("Home")
+      navigation.navigate("Home", {startLoading: false})
     }
 
     deleteAccount()

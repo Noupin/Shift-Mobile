@@ -1,13 +1,14 @@
 //Third Party Imports
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState, useEffect, useCallback } from 'react';
 import 'react-native-gesture-handler';
 import { TouchableOpacity, View, Platform } from 'react-native';
-import { useNavigation, useTheme } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import { ImageOrVideo } from 'react-native-image-crop-picker';
 import { Icon } from 'react-native-elements';
 import uuid from 'react-native-uuid';
 import { Dimensions } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 
 //First Party Imports
 import { IElevatedStateProps } from '../Interfaces/ElevatedStateProps';
@@ -26,14 +27,13 @@ import { FButton } from '../Components/Button';
 
 
 interface ILoad extends IElevatedStateProps{
-  startOpen: boolean
+  startOpen?: boolean
 }
 
-export const Load: FC<ILoad> = ({elevatedState, setElevatedState, startOpen}) => {
+export const Load: FC<ILoad> = ({elevatedState, setElevatedState, startOpen=false}) => {
   const navigation = useNavigation()
-  console.log(startOpen)
 
-  const [open, setOpen] = useState(startOpen)
+  const [open, setOpen] = useState(false)
   const windowHeight = Dimensions.get('window').height
 
 
@@ -58,11 +58,28 @@ export const Load: FC<ILoad> = ({elevatedState, setElevatedState, startOpen}) =>
 
 
   useEffect(() => {
+    const focus = navigation.addListener('focus', () => {
+      console.log(startOpen)
+      setOpen(startOpen)
+    });
+
+    const blur = navigation.addListener('blur', () => {
+      setShiftResponse(undefined)
+    });
+
+    // Return the function to unsubscribe from the event so it gets removed on unmount
+    return () => {
+      focus()
+      blur()
+    };
+  }, [navigation]);
+
+  useEffect(() => {
     async function setMediaFromPrebuilt(){
       const requestParams: GetIndivdualShiftRequest = {
         uuid: elevatedState.prebuiltShiftModel
       }
-      fetchShift(requestParams)
+      await fetchShift(requestParams)
 
       if(!shiftResponse || !shiftResponse.shift || !shiftResponse.shift!.baseMediaFilename) return;
 

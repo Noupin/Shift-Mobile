@@ -32,7 +32,7 @@ const CustomDrawer: FC<ICustomDrawer> = ({elevatedState, setElevatedState, navig
     <SafeAreaView style={DrawerStyles.container}>
       <View style={DrawerStyles.container}>
         <View>
-          <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+          <TouchableOpacity onPress={() => navigation.navigate("Home", {startLoading: false})}>
             <FText style={DrawerStyles.button}>Home</FText>
           </TouchableOpacity>
           {elevatedState.authenticated && <>
@@ -53,7 +53,7 @@ const CustomDrawer: FC<ICustomDrawer> = ({elevatedState, setElevatedState, navig
 export const DrawerNavigator: FC<IElevatedStateProps> = ({elevatedState, setElevatedState}) => {
 
   return (
-    <Drawer.Navigator initialRouteName="Home"
+    <Drawer.Navigator initialRouteName="Home" //screenOptions={{unmountOnBlur: true}} //Forces reload for each navigation to any screen
     drawerStyle={[isDarkMode[elevatedState.frontEndSettings.colorTheme]() ? 
       {backgroundColor: DARK_THEME.colors.background} : 
       {backgroundColor: LIGHT_THEME.colors.background}]}

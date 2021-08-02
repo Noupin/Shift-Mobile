@@ -24,6 +24,7 @@ interface IHome extends IElevatedStateProps{
 
 export const Home: FC<IHome> = ({elevatedState, setElevatedState, startLoading=false}) => {
   const navigation = useNavigation()
+  console.log(startLoading)
   const safeArea = useSafeAreaInsets()
 
   const [categoryNames, setCategoryNames] =  useState<CategoriesResponse["categories"]>([])
@@ -72,12 +73,6 @@ export const Home: FC<IHome> = ({elevatedState, setElevatedState, startLoading=f
                                      ))
                                    })
 
-
-  useEffect(() => {
-    return (() => {
-      navigation.reset({routes: [{name: "Home"}]})
-    });
-  }, [])
 
   useEffect(() => {
     async function initialLoad(){
@@ -159,7 +154,7 @@ export const Home: FC<IHome> = ({elevatedState, setElevatedState, startLoading=f
         </View>
       </View>
       <View style={{position: 'absolute', bottom: -safeArea.bottom, left: 0, right: 0}}>
-        <Load startOpen={startLoading} elevatedState={elevatedState} setElevatedState={setElevatedState}/>
+        <Load key={startLoading.toString()} startOpen={startLoading} elevatedState={elevatedState} setElevatedState={setElevatedState}/>
       </View>
     </>
   );

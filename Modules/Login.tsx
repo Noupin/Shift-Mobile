@@ -91,7 +91,7 @@ export const Login: FC<IElevatedStateProps> = ({elevatedState, setElevatedState}
   useEffect(() => {
     if(!elevatedState.accessToken) return;
 
-    navigation.navigate("Home")
+    navigation.navigate("Home", {startLoading: false})
   }, [elevatedState.accessToken]);
 
   return (

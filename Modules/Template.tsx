@@ -30,7 +30,7 @@ export const Template: FC<ITemplate> = ({ children, elevatedState }) => {
           onPress={() => navigationRef.current?.dispatch(DrawerActions.openDrawer())}>
             <Icon name='menu' size={20} color={theme.colors.text}/>
           </FButton>
-          <TouchableOpacity onPress={() => navigate("Home")}>
+          <TouchableOpacity onPress={() => navigate("Home", {startLoading: false})}>
             <Image style={{height: TOP_BAR_SIZE, width: TOP_BAR_SIZE}}
               source={isDarkMode[elevatedState.frontEndSettings.colorTheme]() ?
               require('../assets/darkIcon.png') : require('../assets/lightIcon.png')}/>

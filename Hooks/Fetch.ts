@@ -70,7 +70,7 @@ export function useFetch<T, U, V>(thisArg: U,
       }
       else{
         setElevatedState((prev) => ({...prev, error: error, accessToken: ""}));
-        navigate(`Home`)
+        navigate(`Home`, {startLoading: false})
       }
     }
 

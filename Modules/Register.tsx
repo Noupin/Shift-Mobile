@@ -109,7 +109,7 @@ export const Register: FC<IElevatedStateProps> = ({elevatedState, setElevatedSta
   useEffect(() => {
     if(!elevatedState.authenticated) return;
 
-    navigation.navigate("Home")
+    navigation.navigate("Home", {startLoading: false})
   }, [elevatedState.authenticated]);
 
 

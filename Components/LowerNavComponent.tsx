@@ -32,7 +32,7 @@ export const LowerNavComponent: FC<ICustomDrawer> = ({elevatedState, setElevated
     if (!logoutResponse) return;
 
     setElevatedState((prev) => ({...prev, msg: logoutResponse.msg!, accessToken: "", authenticated: false}))
-    navigation.navigate("Home")
+    navigation.navigate("Home", {startLoading: false})
   }, [logoutResponse]);
 
 

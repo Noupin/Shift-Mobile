@@ -164,7 +164,7 @@ Look at the shift ${shiftGetResponse?.shift!.author.username} made. Make your ow
       }
 
       fetchDeleteIndividualShift(urlParams)
-      navigation.navigate("Home")
+      navigation.navigate("Home", {startLoading: false})
     }
 
     checkDelete()
