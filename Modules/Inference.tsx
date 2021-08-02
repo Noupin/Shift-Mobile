@@ -120,7 +120,7 @@ export const Inference: FC<IElevatedStateProps> = ({elevatedState, setElevatedSt
 
 	return (
 		<View style={[MainStyles.spreadColumn, {flex: 1, alignItems: 'center',
-    justifyContent: 'center', marginTop: 10}]}>
+    justifyContent: 'center', marginTop: 10, marginHorizontal: 10}]}>
       <View style={{flex: 9}}>
         <Neumorphic style={[MainStyles.borderRadius2, {padding: 5}]}>
           <FMedia mediaSrc={inferenceMedia} style={MainStyles.borderRadius2}/>

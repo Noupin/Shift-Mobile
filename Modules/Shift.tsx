@@ -208,7 +208,7 @@ Look at the shift ${shiftGetResponse?.shift!.author.username} made. Make your ow
           </View>
         </View>
       </View>
-      <View style={[MainStyles.spreadRow]}>
+      <View style={[MainStyles.spreadRow, {marginBottom: 10}]}>
         <View style={{flex: 1, margin: 5, alignItems: 'stretch'}}>
           <FButton style={[MainStyles.borderRadius2, {justifyContent: 'center',
           alignSelf: 'stretch', flexDirection: 'row', alignItems: 'center', padding: 5}]}
