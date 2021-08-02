@@ -2,12 +2,14 @@
 import 'react-native-gesture-handler';
 import React, { FC, useState, useEffect } from 'react';
 import { View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 //First Party Imports
 import { IElevatedStateProps } from '../Interfaces/ElevatedStateProps';
 import { FText } from '../Components/Text';
 import { FlatList } from 'react-native-gesture-handler';
-import { BOTTOM_SAFE_AREA_MARGIN, CATEGORIES_TO_GET, CATEGORIES_TO_REMOVE, CATEGORY_HEIGHT } from '../constants';
+import { CATEGORIES_TO_GET, CATEGORIES_TO_REMOVE, CATEGORY_HEIGHT } from '../constants';
 import { useFetch } from '../Hooks/Fetch';
 import { CategoriesResponse, Shift, NewShiftsResponse, PopularShiftsResponse,
   ShiftCategoryResponse, CategoriesRequest, CategoryRequest} from '../Swagger';
@@ -16,9 +18,15 @@ import { FShiftCard } from '../Components/ShiftCard';
 import { Load } from './Load';
 
 
-interface IHome extends IElevatedStateProps{}
+interface IHome extends IElevatedStateProps{
+  startLoading?: boolean
+}
 
-export const Home: FC<IHome> = ({elevatedState, setElevatedState}) => {
+export const Home: FC<IHome> = ({elevatedState, setElevatedState, startLoading=false}) => {
+  const navigation = useNavigation()
+  const safeArea = useSafeAreaInsets()
+
+  const [loadCardMargin, setLoadCardMargin] = useState(safeArea.bottom);
   const [categoryNames, setCategoryNames] =  useState<CategoriesResponse["categories"]>([])
   const [combinedCategories, setCombinedCategories] = useState(false);
   const [initalCategoriesLoaded, setInitialCategoriesLoaded] = useState(false)
@@ -65,6 +73,12 @@ export const Home: FC<IHome> = ({elevatedState, setElevatedState}) => {
                                      ))
                                    })
 
+
+  useEffect(() => {
+    return (() => {
+      navigation.reset({routes: [{name: "Home"}]})
+    });
+  }, [])
 
   useEffect(() => {
     async function initialLoad(){
@@ -145,8 +159,8 @@ export const Home: FC<IHome> = ({elevatedState, setElevatedState}) => {
           )}/>
         </View>
       </View>
-      <View style={{position: 'absolute', bottom: -BOTTOM_SAFE_AREA_MARGIN, left: 0, right: 0}}>
-        <Load elevatedState={elevatedState} setElevatedState={setElevatedState}/>
+      <View style={{position: 'absolute', bottom: -loadCardMargin, left: 0, right: 0}}>
+        <Load startOpen={startLoading} elevatedState={elevatedState} setElevatedState={setElevatedState}/>
       </View>
     </>
   );

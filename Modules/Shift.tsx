@@ -231,7 +231,7 @@ Look at the shift ${shiftGetResponse?.shift!.author.username} made. Make your ow
           onPress={() => {
             setElevatedState(prev => ({...prev, prebuiltShiftModel: uuid}))
             console.log(uuid)
-            navigation.navigate("Home")
+            navigation.navigate("Home", {startLoading: true})
           }}>
             <FText>Shift</FText>
             <Icon name="east" type="material" color={theme.colors.text}/>

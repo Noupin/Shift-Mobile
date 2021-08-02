@@ -13,6 +13,13 @@ target 'ShiftMobile' do
   )
 
 
+  permissions_path = '../node_modules/react-native-permissions/ios'
+
+  pod 'Permission-Camera', :path => "#{permissions_path}/Camera"
+  pod 'Permission-MediaLibrary', :path => "#{permissions_path}/MediaLibrary"
+  pod 'Permission-Microphone', :path => "#{permissions_path}/Microphone"
+  pod 'Permission-PhotoLibrary', :path => "#{permissions_path}/PhotoLibrary"
+  pod 'Permission-PhotoLibraryAddOnly', :path => "#{permissions_path}/PhotoLibraryAddOnly"
 
 
   target 'ShiftMobileTests' do
@@ -31,4 +38,5 @@ target 'ShiftMobile' do
   post_install do |installer|
     react_native_post_install(installer)
   end
+
 end

@@ -25,10 +25,14 @@ import { FMedia } from '../Components/Media';
 import { FButton } from '../Components/Button';
 
 
-export const Load: FC<IElevatedStateProps> = ({elevatedState, setElevatedState}) => {
+interface ILoad extends IElevatedStateProps{
+  startOpen: boolean
+}
+
+export const Load: FC<ILoad> = ({elevatedState, setElevatedState, startOpen}) => {
   const navigation = useNavigation()
 
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(startOpen)
   const windowHeight = Dimensions.get('window').height
 
 

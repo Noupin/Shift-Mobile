@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* ShiftMobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ShiftMobileTests.m */; };
+		03B60AD247CD9695362BB2A2 /* libPods-ShiftMobile-ShiftMobileTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BAEC56CD8D0A435918EDD07 /* libPods-ShiftMobile-ShiftMobileTests.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		BD6B1BC79FC31E6A79F1D29F /* libPods-ShiftMobile-ShiftMobileTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BB34610AB002245B7C21B7C /* libPods-ShiftMobile-ShiftMobileTests.a */; };
-		F0A1FBC102927B02AF7A163B /* libPods-ShiftMobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B69F6B0355901EB96B05D3 /* libPods-ShiftMobile.a */; };
+		BD890F4C47F7928306B1AE19 /* libPods-ShiftMobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 06203A3539B9FD450216A111 /* libPods-ShiftMobile.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,7 +31,8 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* ShiftMobileTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShiftMobileTests.m; sourceTree = "<group>"; };
 		00EF3663B143CCB3D9CDA5FA /* Pods-ShiftMobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShiftMobile.release.xcconfig"; path = "Target Support Files/Pods-ShiftMobile/Pods-ShiftMobile.release.xcconfig"; sourceTree = "<group>"; };
-		04B69F6B0355901EB96B05D3 /* libPods-ShiftMobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ShiftMobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		06203A3539B9FD450216A111 /* libPods-ShiftMobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ShiftMobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0BAEC56CD8D0A435918EDD07 /* libPods-ShiftMobile-ShiftMobileTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ShiftMobile-ShiftMobileTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07F961A680F5B00A75B9A /* ShiftMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShiftMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ShiftMobile/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ShiftMobile/AppDelegate.m; sourceTree = "<group>"; };
@@ -39,7 +40,6 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ShiftMobile/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ShiftMobile/main.m; sourceTree = "<group>"; };
 		47554F28CF4D3D7B4947E09E /* Pods-ShiftMobile-ShiftMobileTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShiftMobile-ShiftMobileTests.release.xcconfig"; path = "Target Support Files/Pods-ShiftMobile-ShiftMobileTests/Pods-ShiftMobile-ShiftMobileTests.release.xcconfig"; sourceTree = "<group>"; };
-		4BB34610AB002245B7C21B7C /* libPods-ShiftMobile-ShiftMobileTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ShiftMobile-ShiftMobileTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		817FBB2D26B2EE650065FF6C /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Regular.ttf; sourceTree = "<group>"; };
 		817FBB2E26B2EE650065FF6C /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
 		817FBB2F26B2EE650065FF6C /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
@@ -67,7 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BD6B1BC79FC31E6A79F1D29F /* libPods-ShiftMobile-ShiftMobileTests.a in Frameworks */,
+				03B60AD247CD9695362BB2A2 /* libPods-ShiftMobile-ShiftMobileTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,7 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0A1FBC102927B02AF7A163B /* libPods-ShiftMobile.a in Frameworks */,
+				BD890F4C47F7928306B1AE19 /* libPods-ShiftMobile.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,8 +117,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				04B69F6B0355901EB96B05D3 /* libPods-ShiftMobile.a */,
-				4BB34610AB002245B7C21B7C /* libPods-ShiftMobile-ShiftMobileTests.a */,
+				06203A3539B9FD450216A111 /* libPods-ShiftMobile.a */,
+				0BAEC56CD8D0A435918EDD07 /* libPods-ShiftMobile-ShiftMobileTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -208,7 +208,7 @@
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
 				C68ACAD4A1FD9F4E1D38C72A /* [CP] Embed Pods Frameworks */,
-				DE40893FFB45477046209D7F /* [CP] Copy Pods Resources */,
+				F54F866B6181AF7ECC31AA91 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -231,7 +231,7 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				D0014AFE7ECDD1551E26E94E /* [CP] Embed Pods Frameworks */,
-				9A414C4AFCF25DC75F1FB1AE /* [CP] Copy Pods Resources */,
+				7651540A2A362603CB025380 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -356,7 +356,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9A414C4AFCF25DC75F1FB1AE /* [CP] Copy Pods Resources */ = {
+		7651540A2A362603CB025380 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -407,7 +407,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ShiftMobile/Pods-ShiftMobile-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DE40893FFB45477046209D7F /* [CP] Copy Pods Resources */ = {
+		F54F866B6181AF7ECC31AA91 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
