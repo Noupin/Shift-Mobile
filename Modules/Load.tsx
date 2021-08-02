@@ -54,12 +54,11 @@ export const Load: FC<ILoad> = ({elevatedState, setElevatedState, startOpen=fals
                               elevatedState.APIInstances.Shift.getIndivdualShift,
                               elevatedState, setElevatedState, setShiftResponse)
 
-  const prevShiftUUID = elevatedState.shiftUUID
+  const prevShiftUUID = ""
 
 
   useEffect(() => {
     const focus = navigation.addListener('focus', () => {
-      console.log(startOpen)
       setOpen(startOpen)
     });
 
@@ -113,14 +112,13 @@ export const Load: FC<ILoad> = ({elevatedState, setElevatedState, startOpen=fals
       trainingDataTypes: trainingDataTypes,
       requestFiles: renamedFiles as unknown as Blob[]
     }
-    console.log(loadDataParams.requestFiles)
+
     fetchLoad(loadDataParams)
   }, [fetching]);
 
   //Update values from response
   useEffect(() => {
     if(!loadResponse) return;
-    console.log(loadResponse)
 
     setElevatedState((prev) => ({...prev, shiftUUID: loadResponse.shiftUUID!}))
     setElevatedState((prev) => ({...prev, msg: loadResponse.msg!}));
@@ -134,7 +132,7 @@ export const Load: FC<ILoad> = ({elevatedState, setElevatedState, startOpen=fals
       navigation.navigate("Train")
     }
     else{
-      //navigation.navigate("Inference")
+      navigation.navigate("Inference")
     }
   }, [elevatedState.shiftUUID]);
 

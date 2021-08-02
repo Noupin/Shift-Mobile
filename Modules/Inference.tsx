@@ -22,6 +22,7 @@ import { urlToFile } from "../Helpers/Files";
 import { MainStyles } from '../Styles/MainStyles';
 import { Neumorphic } from '../Components/Neumorphic';
 import { FText } from '../Components/Text';
+import { API_BASE_URL } from '../constants';
 
 
 const handleDownload = async (imageURI: string, extension: string) => {
@@ -103,9 +104,9 @@ export const Inference: FC<IElevatedStateProps> = ({elevatedState, setElevatedSt
 			}
 
 			if(inferenceResponse.mediaFilename!){
-				setInferenceMedia(await urlToFile(`/api/inference/content/${inferenceResponse.mediaFilename!}`,
+				setInferenceMedia(await urlToFile(`${API_BASE_URL}/api/inference/content/${inferenceResponse.mediaFilename!}`,
 													inferenceResponse.mediaFilename!))
-				setBaseMediaString(`/api/inference/content/${inferenceResponse.baseMediaFilename!}`)
+				setBaseMediaString(`${API_BASE_URL}/api/inference/content/${inferenceResponse.baseMediaFilename!}`)
 			}
 
 			setStopInference(inferenceResponse.stopped!);

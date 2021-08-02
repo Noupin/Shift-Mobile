@@ -2,7 +2,6 @@
 import 'react-native-gesture-handler';
 import React, { FC, useState, useEffect } from 'react';
 import { View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 //First Party Imports
@@ -23,8 +22,6 @@ interface IHome extends IElevatedStateProps{
 }
 
 export const Home: FC<IHome> = ({elevatedState, setElevatedState, startLoading=false}) => {
-  const navigation = useNavigation()
-  console.log(startLoading)
   const safeArea = useSafeAreaInsets()
 
   const [categoryNames, setCategoryNames] =  useState<CategoriesResponse["categories"]>([])

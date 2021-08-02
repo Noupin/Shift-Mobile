@@ -230,7 +230,6 @@ Look at the shift ${shiftGetResponse?.shift!.author.username} made. Make your ow
           alignSelf: 'stretch', flexDirection: 'row', alignItems: 'center', padding: 5}]}
           onPress={() => {
             setElevatedState(prev => ({...prev, prebuiltShiftModel: uuid}))
-            console.log(uuid)
             navigation.navigate("Home", {startLoading: true})
           }}>
             <FText>Shift</FText>
