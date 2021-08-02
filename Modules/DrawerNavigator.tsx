@@ -53,13 +53,13 @@ const CustomDrawer: FC<ICustomDrawer> = ({elevatedState, setElevatedState, navig
 export const DrawerNavigator: FC<IElevatedStateProps> = ({elevatedState, setElevatedState}) => {
 
   return (
-    <Drawer.Navigator initialRouteName="Home" //screenOptions={{unmountOnBlur: true}} //Forces reload for each navigation to any screen
+    <Drawer.Navigator initialRouteName="Home" screenOptions={{unmountOnBlur: true}} //Forces reload for each navigation to any screen
     drawerStyle={[isDarkMode[elevatedState.frontEndSettings.colorTheme]() ? 
       {backgroundColor: DARK_THEME.colors.background} : 
       {backgroundColor: LIGHT_THEME.colors.background}]}
     drawerContent={(props) =>
     <CustomDrawer elevatedState={elevatedState} setElevatedState={setElevatedState} {...props}/>}>
-      <Drawer.Screen name="Home">
+      <Drawer.Screen name="Home" options={{unmountOnBlur: false}}>
         {(props) => (
         <Template elevatedState={elevatedState} setElevatedState={setElevatedState}>
           <Home startLoading={props.route.params && (props.route.params as {startLoading: boolean}).startLoading ? (props.route.params as {startLoading: boolean}).startLoading : false}
