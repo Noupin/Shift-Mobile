@@ -1,3 +1,6 @@
+//Third Party Imports
+import CookieManager from '@react-native-cookies/cookies';
+
 //First Party Imports
 import { AuthenticateAPIFactory } from "../Helpers/Api";
 import { IElevatedStateProps } from "../Interfaces/ElevatedStateProps";
@@ -7,6 +10,10 @@ export function useRefresh(setElevatedState: IElevatedStateProps["setElevatedSta
   setLoading?: React.Dispatch<React.SetStateAction<boolean>>): () => Promise<void>{
   
   async function fetchRefresh(){
+    CookieManager.getAll()
+    .then((cookies) => {
+      console.log('CookieManager.getAll =>', cookies);
+    });
     if(setLoading) setLoading(true);
 
     try{

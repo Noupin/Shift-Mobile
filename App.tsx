@@ -1,3 +1,5 @@
+/* To Fix Gradle Issues: cd android && ./gradlew clean && ./gradlew :app:bundleRelease && cd .. */
+
 //Third Party Imports
 import 'react-native-gesture-handler';
 import 'react-native-get-random-values';

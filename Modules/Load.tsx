@@ -212,7 +212,7 @@ export const Load: FC<ILoad> = ({elevatedState, setElevatedState, startOpen=fals
     config={GESTURE_CONFIG}
     style={{flex: 1}}>
       <Neumorphic style={[MainStyles.borderRadius5]}>
-        <View style={[{flex: 1, alignItems: 'center', justifyContent: 'center'}, open ? {height: windowHeight*0.88} : {height: windowHeight*0.1+(safeArea.bottom/2)}]}>
+        <View style={[{flex: 1, alignItems: 'center', justifyContent: 'center'}, open ? {height: (windowHeight*0.92)-safeArea.bottom} : {height: windowHeight*0.1+(safeArea.bottom/2)}]}>
           {!open &&
           <TouchableOpacity onPress={() => setOpen(prev => !prev)}>
             <FText style={{fontSize: 20, marginBottom: safeArea.bottom/2}}>
