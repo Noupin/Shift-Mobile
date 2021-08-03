@@ -1,8 +1,8 @@
 //Third Party Imports
-import React, { FC, useState, useEffect } from 'react';
+import { View } from 'react-native';
 import 'react-native-gesture-handler';
 import { Dimensions, StyleSheet } from 'react-native';
-import { View } from 'react-native';
+import React, { FC, useState, useEffect } from 'react';
 import { useTheme, useNavigation } from '@react-navigation/native';
 
 //First Party Imports
@@ -14,9 +14,9 @@ import { FText } from '../Components/Text';
 import { useFetch } from '../Hooks/Fetch';
 import { LoginOperationRequest, LoginRequest, LoginResponse } from '../Swagger';
 import { Neumorphic } from '../Components/Neumorphic';
-import { add } from 'react-native-reanimated';
 import { ADDITIONAL_THEME_ATTRIBUTES } from '../constants';
 import { booleanString } from '../Types/FrontEndTypes';
+import { setRefreshTokensFromCookies } from '../Helpers/Token';
 
 
 const LoginStyle = StyleSheet.create({
@@ -71,6 +71,8 @@ export const Login: FC<IElevatedStateProps> = ({elevatedState, setElevatedState}
 
   useEffect(() => {
     if(!loginResponse) return;
+
+    setRefreshTokensFromCookies();
 
     if(loginResponse.accessToken){
       setElevatedState(prev => ({...prev, accessToken: loginResponse.accessToken!}))

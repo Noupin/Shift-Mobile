@@ -25,7 +25,7 @@ import { FButton } from './Components/Button';
 import { Neumorphic } from './Components/Neumorphic';
 import { FText } from './Components/Text';
 import { MainStyles } from './Styles/MainStyles';
-import { Template } from './Modules/Template';
+import { RefreshRequest } from './Swagger';
 
 
 export default function App() {

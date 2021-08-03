@@ -1,12 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 //Third Party Imports
-import { useNavigation } from "@react-navigation/native";
 import { useEffect, useRef } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 //First Party Imports
 import { AuthenticateAPIFactory } from "../Helpers/Api";
 import { navigate } from "../Helpers/Navigation";
 import { IElevatedStateProps } from "../Interfaces/ElevatedStateProps";
+import { RefreshRequest } from "../Swagger";
 
 
 export function useFetch<T, U, V>(thisArg: U,
@@ -44,7 +45,15 @@ export function useFetch<T, U, V>(thisArg: U,
 
   async function authenticate(){
     try{
-      const response = await AuthenticateAPIFactory("").refresh()
+      const csrfValue = await AsyncStorage.getItem("Feryvcsrftoken")
+      const refreshValue = await AsyncStorage.getItem("Feryvrefreshtoken")
+
+      const refreshTokens: RefreshRequest = {
+        feryvcsrftoken: csrfValue!,
+        feryvrefreshtoken: refreshValue!,
+      }
+
+      const response = await AuthenticateAPIFactory(`Bearer ${refreshValue!}`).refresh(refreshTokens)
       reqAgain.current = true
       setElevatedState(prev => ({...prev, accessToken: response.accessToken!}))
     }

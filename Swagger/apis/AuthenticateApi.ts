@@ -39,6 +39,11 @@ export interface LoginOperationRequest {
     body?: LoginRequest;
 }
 
+export interface RefreshRequest {
+    feryvcsrftoken?: string | null;
+    feryvrefreshtoken?: string | null;
+}
+
 export interface RegisterOperationRequest {
     body?: RegisterRequest;
 }
@@ -114,10 +119,23 @@ export class AuthenticateApi extends runtime.BaseAPI {
     /**
      * Refreshes the users access token.
      */
-    async refreshRaw(): Promise<runtime.ApiResponse<RefreshResponse>> {
+    async refreshRaw(requestParameters: RefreshRequest): Promise<runtime.ApiResponse<RefreshResponse>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters.feryvcsrftoken !== undefined && requestParameters.feryvcsrftoken !== null) {
+            headerParameters['Feryvcsrftoken'] = String(requestParameters.feryvcsrftoken);
+        }
+
+        if (requestParameters.feryvrefreshtoken !== undefined && requestParameters.feryvrefreshtoken !== null) {
+            headerParameters['Feryvrefreshtoken'] = String(requestParameters.feryvrefreshtoken);
+        }
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
+        }
+        console.log(headerParameters)
 
         const response = await this.request({
             path: `/api/authenticate/refresh`,
@@ -132,8 +150,8 @@ export class AuthenticateApi extends runtime.BaseAPI {
     /**
      * Refreshes the users access token.
      */
-    async refresh(): Promise<RefreshResponse> {
-        const response = await this.refreshRaw();
+    async refresh(requestParameters: RefreshRequest): Promise<RefreshResponse> {
+        const response = await this.refreshRaw(requestParameters);
         return await response.value();
     }
 

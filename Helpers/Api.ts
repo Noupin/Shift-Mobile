@@ -1,12 +1,11 @@
 //First Party Imports
-import { videoTypes } from "../constants";
-import { CDNApi, CategoryApi, InferenceApi, 
-    LoadApi, TrainApi, UserApi, AuthenticateApi,
-    ShiftApi, Configuration, ConfigurationParameters } from "../Swagger";
+import { API_BASE_URL, videoTypes } from "../constants";
+import { CDNApi, CategoryApi, InferenceApi, LoadApi, TrainApi, UserApi,
+  AuthenticateApi, ShiftApi, Configuration, ConfigurationParameters } from "../Swagger";
   
   
 function APIFactory<T>(API: new (config: Configuration) => T, configParams: ConfigurationParameters): T {
-  const config = new Configuration({credentials: 'same-origin', ...configParams})
+  const config = new Configuration({credentials: 'include', basePath: API_BASE_URL, ...configParams})
   return new API(config)
 }
 

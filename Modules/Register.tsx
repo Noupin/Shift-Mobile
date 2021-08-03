@@ -16,6 +16,7 @@ import { RegisterResponse, RegisterRequest, RegisterOperationRequest } from '../
 import { Neumorphic } from '../Components/Neumorphic';
 import { ADDITIONAL_THEME_ATTRIBUTES } from '../constants';
 import { booleanString } from '../Types/FrontEndTypes';
+import { setRefreshTokensFromCookies } from '../Helpers/Token';
 
 
 const RegisterStyle = StyleSheet.create({
@@ -85,6 +86,8 @@ export const Register: FC<IElevatedStateProps> = ({elevatedState, setElevatedSta
 
   useEffect(() => {
     if(!registerResponse) return;
+
+    setRefreshTokensFromCookies()
 
     if(registerResponse.accessToken){
       setElevatedState(prev => ({...prev, accessToken: registerResponse.accessToken!}))
