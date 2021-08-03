@@ -5,6 +5,7 @@ import { DefaultTheme } from '@react-navigation/native';
 //First Party Imports
 import { User } from "./Swagger";
 import { IFrontEndSettings } from "./Interfaces/FrontEndSettings";
+import { colorThemeTypeArray } from './Types/FrontEndTypes';
 
 
 export const videoTypes = ['mp4', 'webm', 'ogg']
@@ -30,6 +31,29 @@ export const DEFUALT_FRONT_END_SETTINGS: IFrontEndSettings = {
   colorTheme: 'light',
   uiStyle: 'neumorphic',
   saveToAlbum: true,
+}
+
+export const NEXT_COLOR_THEME = {
+  light: colorThemeTypeArray[0],
+  dark: colorThemeTypeArray[2],
+  adaptive: colorThemeTypeArray[1]
+}
+
+export const COLOR_THEME_ICON = {
+  light: 'light-up',
+  dark: 'moon',
+  adaptive: 'smartphone',
+}
+
+export const COLOR_THEME_ICON_TYPE = {
+  light: 'entypo',
+  dark: 'entypo',
+  adaptive: 'material',
+}
+
+export const COLOR_THEME_COLORS = {
+  light: '#DF711B',
+  dark: '#bca0dc',
 }
 
 export const isDarkMode = {
