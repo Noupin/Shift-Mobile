@@ -167,7 +167,6 @@ export const Load: FC<ILoad> = ({elevatedState, setElevatedState, startOpen=fals
   async function changeBaseFiles(mediaList: ImageOrVideo[]){
     const mediaFiles: string[] = []
     for(var index=0; index < mediaList.length; index++){
-      console.log(mediaList[index].sourceURL)
       mediaFiles.push(Platform.OS === 'ios' ? mediaList[index].sourceURL! : mediaList[index].path)
     }
 

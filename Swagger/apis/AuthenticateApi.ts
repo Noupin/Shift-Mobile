@@ -135,7 +135,6 @@ export class AuthenticateApi extends runtime.BaseAPI {
         if (this.configuration && this.configuration.apiKey) {
             headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
         }
-        console.log(headerParameters)
 
         const response = await this.request({
             path: `/api/authenticate/refresh`,

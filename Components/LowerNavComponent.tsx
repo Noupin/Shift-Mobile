@@ -1,7 +1,8 @@
 //Third Party Imports
-import React, { FC, useState, useEffect } from 'react';
 import 'react-native-gesture-handler';
+import React, { FC, useState, useEffect } from 'react';
 import { View, TouchableOpacity } from 'react-native';
+import AsyncStorage from "@react-native-async-storage/async-storage"
 import { DrawerContentComponentProps, DrawerContentOptions } from '@react-navigation/drawer';
 
 //First Party Imports
@@ -30,6 +31,9 @@ export const LowerNavComponent: FC<ICustomDrawer> = ({elevatedState, setElevated
 
   useEffect(() => {
     if (!logoutResponse) return;
+
+    AsyncStorage.removeItem("Feryvcsrftoken")
+    AsyncStorage.removeItem("Feryvrefreshtoken")
 
     setElevatedState((prev) => ({...prev, msg: logoutResponse.msg!, accessToken: "", authenticated: false}))
     navigation.navigate("Home", {startLoading: false})

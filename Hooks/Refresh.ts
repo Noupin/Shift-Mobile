@@ -21,7 +21,6 @@ export function useRefresh(setElevatedState: IElevatedStateProps["setElevatedSta
         feryvcsrftoken: csrfValue!,
         feryvrefreshtoken: refreshValue!,
       }
-      console.log(refreshTokens)
 
       const response = await AuthenticateAPIFactory(`Bearer ${refreshValue!}`).refresh(refreshTokens)
 
