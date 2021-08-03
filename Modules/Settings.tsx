@@ -4,15 +4,14 @@ import 'react-native-gesture-handler';
 import { View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { useTheme } from '@react-navigation/native';
-import { Picker } from '@react-native-picker/picker';
 
 //First Party Imports
 import { IElevatedStateProps } from '../Interfaces/ElevatedStateProps';
 import { FText } from '../Components/Text';
 import { FButton } from '../Components/Button';
-import { colorThemeTypeArray } from '../Types/FrontEndTypes';
-import { COLOR_THEME_COLORS, COLOR_THEME_ICON, COLOR_THEME_ICON_TYPE, NEXT_COLOR_THEME } from '../constants';
 import { MainStyles } from '../Styles/MainStyles';
+import { COLOR_THEME_COLORS, COLOR_THEME_ICON, COLOR_THEME_ICON_TYPE,
+  NEXT_COLOR_THEME } from '../constants';
 
 
 export const Settings: FC<IElevatedStateProps> = ({elevatedState, setElevatedState}) => {
