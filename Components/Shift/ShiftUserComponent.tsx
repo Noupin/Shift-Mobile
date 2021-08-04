@@ -10,7 +10,7 @@ import { IndividualShiftGetResponse } from '../../Swagger';
 import { MainStyles } from '../../Styles/MainStyles';
 import { Neumorphic } from '../Neumorphic';
 import { FText } from '../Text';
-import { API_BASE_URL } from '../../constants';
+import { getCDNPrefix } from '../../Helpers/Api';
 
 
 interface IShiftUser extends IndividualShiftGetResponse{}
@@ -22,11 +22,11 @@ export const ShiftUserComponent: FC<IShiftUser> = ({shift}) => {
 
   return (
     <TouchableOpacity onPress={() => navigation.navigate("User", {username: shift!.author.username})}>
-      <View style={[MainStyles.spreadRow, {width: '100%', maxHeight: 150}]}>
+      <View style={[MainStyles.spreadRow, {width: '100%', maxHeight: 100}]}>
         <View style={{flex: 1, marginHorizontal: 10}}>
           <Neumorphic style={{...MainStyles.borderRadius2, padding: 5}}>
             <FMedia style={[MainStyles.borderRadius2]}
-            srcString={`${API_BASE_URL}/api/content/image/${shift!.author.mediaFilename!}`}/>
+            srcString={`${getCDNPrefix(shift!.author.mediaFilename!)}${shift!.author.mediaFilename!}`}/>
           </Neumorphic>
         </View>
         <View style={{flex: 2}}>

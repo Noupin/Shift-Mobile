@@ -94,9 +94,9 @@ export class ApiInstances{
 
 export function getCDNPrefix(filename: string){
   if(videoTypes.indexOf(filename!.split('.').pop()!) !== -1){
-    return '/api/content/video/'
+    return `${API_BASE_URL}/api/content/video/`
   }
   else{
-    return '/api/content/image/'
+    return `${API_BASE_URL}/api/content/image/`
   }
 }

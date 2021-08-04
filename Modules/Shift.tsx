@@ -121,9 +121,9 @@ Look at the shift ${shiftGetResponse?.shift!.author.username} made. Make your ow
     if (!shiftGetResponse) return;
 
 
-    setShiftMediaURL(`${API_BASE_URL}${getCDNPrefix(shiftGetResponse.shift!.mediaFilename!)}${shiftGetResponse.shift!.mediaFilename!}`)
-    setBaseMediaURL(`${API_BASE_URL}${getCDNPrefix(shiftGetResponse.shift!.baseMediaFilename!)}${shiftGetResponse.shift!.baseMediaFilename!}`)
-    setMaskMediaURL(`${API_BASE_URL}${getCDNPrefix(shiftGetResponse.shift!.maskMediaFilename!)}${shiftGetResponse.shift!.maskMediaFilename!}`)
+    setShiftMediaURL(`${getCDNPrefix(shiftGetResponse.shift!.mediaFilename!)}${shiftGetResponse.shift!.mediaFilename!}`)
+    setBaseMediaURL(`${getCDNPrefix(shiftGetResponse.shift!.baseMediaFilename!)}${shiftGetResponse.shift!.baseMediaFilename!}`)
+    setMaskMediaURL(`${getCDNPrefix(shiftGetResponse.shift!.maskMediaFilename!)}${shiftGetResponse.shift!.maskMediaFilename!}`)
   }, [shiftGetResponse])
 
   useEffect(() => {

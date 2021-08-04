@@ -14,7 +14,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 //First Party Imports
 import { IElevatedStateProps } from '../Interfaces/ElevatedStateProps';
 import { FText } from '../Components/Text';
-import { API_BASE_URL, GESTURE_CONFIG, validMediaFileExtesnions } from '../constants';
+import { GESTURE_CONFIG, validMediaFileExtesnions } from '../constants';
 import { MainStyles } from '../Styles/MainStyles';
 import { Neumorphic } from '../Components/Neumorphic';
 import { pickMedia, validateFilenameList } from '../Helpers/Files';
@@ -89,8 +89,7 @@ export const Load: FC<ILoad> = ({elevatedState, setElevatedState, startOpen=fals
 
       if(!shiftResponse || !shiftResponse.shift || !shiftResponse.shift!.baseMediaFilename) return;
 
-      const apiPrefix = getCDNPrefix(shiftResponse.shift!.baseMediaFilename!)
-      setBaseMedia(`${API_BASE_URL}${apiPrefix}${shiftResponse.shift!.baseMediaFilename!}`)
+      setBaseMedia(`${getCDNPrefix(shiftResponse.shift!.baseMediaFilename!)}${shiftResponse.shift!.baseMediaFilename!}`)
       setElevatedState((prev) => ({...prev, prebuiltShiftModel: ""})) //Remove to test loading of prebuilt models
     }
 

@@ -12,7 +12,6 @@ import { FMedia } from './Media'
 import { navigate } from '../Helpers/Navigation';
 import { getCDNPrefix } from '../Helpers/Api';
 import { FText } from './Text';
-import { API_BASE_URL } from '../constants';
 import { MainStyles } from '../Styles/MainStyles';
 import { Platform } from 'react-native';
 
@@ -31,7 +30,7 @@ export const FShiftCard: FC<IShiftCard> = ({children, style, shift, fillHeight=t
       <Neumorphic style={{...style, padding: 5, margin: 10, ...MainStyles.borderRadius2}}>
         <View style={{position: 'relative'}}>
           <FMedia style={[MainStyles.borderRadius2, fillHeight && {height: "100%"}]}
-          srcString={`${API_BASE_URL}${getCDNPrefix(shift.mediaFilename!)}${shift.mediaFilename}`}/>
+          srcString={`${getCDNPrefix(shift.mediaFilename!)}${shift.mediaFilename}`}/>
           {Platform.OS === 'ios' ?
           <BlurView blurType={theme.dark ? "dark" : "light"}
           style={[{position: 'absolute', bottom: 0, left: 0, padding: 5}, MainStyles.borderRadius2]}>

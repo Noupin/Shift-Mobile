@@ -54,9 +54,11 @@ export const UserMediaComponent: FC<IUserMedia> = ({setElevatedState, profilePic
   if (editing){
     profileMediaComponent = (
       <View>
-        <TouchableOpacity onPress={() => pickMedia(setElevatedState, (media) => changeUserMedia([media]))}>
-          <FMedia srcString={profilePictureURL} style={[MainStyles.borderRadius2]}/>
-        </TouchableOpacity>
+        <Neumorphic style={{padding: 5, ...MainStyles.borderRadius2}}>
+          <TouchableOpacity onPress={() => pickMedia(setElevatedState, (media) => changeUserMedia([media]))}>
+            <FMedia srcString={profilePictureURL} style={[MainStyles.borderRadius2]}/>
+          </TouchableOpacity>
+        </Neumorphic>
       </View>
     )
   }

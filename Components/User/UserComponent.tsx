@@ -15,9 +15,9 @@ import { DeleteIndivdualUserRequest, GetIndivdualUserRequest, IndividualShiftDel
 import { useRefresh } from '../../Hooks/Refresh';
 import { MainStyles } from '../../Styles/MainStyles';
 import { UserMediaComponent } from './UserMediaComponent';
-import { API_BASE_URL } from '../../constants';
 import { FTextInput } from '../TextInput';
 import { UserButtonComponent } from './UserButtonsComponent';
+import { getCDNPrefix } from '../../Helpers/Api';
 
 
 const DeleteAccountAlert = async () => new Promise((resolve) => {
@@ -104,7 +104,7 @@ export const UserComponent: FC<IUser> = ({elevatedState, setElevatedState, setOw
     if(!userGetResponse || !userGetResponse.user) return;
 
     setOwner(userGetResponse.owner)
-    setProfilePictureURL(`${API_BASE_URL}/api/content/image/${userGetResponse!.user.mediaFilename}`);
+    setProfilePictureURL(`${getCDNPrefix(userGetResponse!.user.mediaFilename!)}${userGetResponse!.user.mediaFilename}`);
   }, [userGetResponse]);
 
   //Patch and Profile Picture update
