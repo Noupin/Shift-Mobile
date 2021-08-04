@@ -164,7 +164,7 @@ export const Load: FC<ILoad> = ({elevatedState, setElevatedState, startOpen=fals
     }
   }
 
-  async function changeBaseFiles(mediaList: ImageOrVideo[]){
+  function changeBaseFiles(mediaList: ImageOrVideo[]){
     const mediaFiles: string[] = []
     for(var index=0; index < mediaList.length; index++){
       mediaFiles.push(Platform.OS === 'ios' ? mediaList[index].sourceURL! : mediaList[index].path)
@@ -184,7 +184,7 @@ export const Load: FC<ILoad> = ({elevatedState, setElevatedState, startOpen=fals
     }
   }
 
-  async function changeMaskFiles(mediaList: ImageOrVideo[]){
+  function changeMaskFiles(mediaList: ImageOrVideo[]){
     const mediaFiles: string[] = []
     for(var index=0; index < mediaList.length; index++){
       mediaFiles.push(Platform.OS === 'ios' ? mediaList[index].sourceURL! : mediaList[index].path)

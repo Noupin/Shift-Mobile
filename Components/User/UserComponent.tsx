@@ -3,6 +3,7 @@ import React, { FC, useState, useEffect } from 'react';
 import 'react-native-gesture-handler';
 import { View, Alert } from 'react-native';
 import { Icon } from 'react-native-elements';
+import uuid from 'react-native-uuid';
 import { useNavigation, useTheme } from '@react-navigation/native';
 
 //First Party Imports
@@ -50,7 +51,7 @@ export const UserComponent: FC<IUser> = ({elevatedState, setElevatedState, setOw
   const [userDeleteResponse, setUserDeleteResponse] = useState<IndividualShiftDeleteResponse>();
   const [updatePictureResponse, setUpdatePictureResponse] = useState<UpdatePictureResponse>();
   const [profilePictureURL, setProfilePictureURL] = useState("");
-  const [profilePicture, setProfilePicture] = useState<File>();
+  const [profilePicture, setProfilePicture] = useState("");
 
 
   const fetchGetUser = useFetch(elevatedState.APIInstances.User,
@@ -121,23 +122,34 @@ export const UserComponent: FC<IUser> = ({elevatedState, setElevatedState, setOw
         username: username,
         body: requestBody
       }
-      fetchPatchUser(urlParams)
-      fetchRefresh()
+      await fetchPatchUser(urlParams)
+      await fetchRefresh()
     }
 
     async function updateProfilePicture(){
+      console.log(profilePicture)
       if(!profilePicture) return;
 
-      const requestParams: UpdatePictureRequest = {
-        requestFile: profilePicture
+      let uriParts = profilePicture.split(".");
+      let fileType = uriParts[uriParts.length - 1];
+
+      let renamedFile = {
+        uri: profilePicture,
+        name: `${uuid.v4()}.${fileType}`,
+        type: `image/${fileType}`
       }
-      fetchUpdateUserPicture(requestParams)
+
+      const requestParams: UpdatePictureRequest = {
+        requestFile: renamedFile as unknown as Blob
+      }
+      console.log(requestParams)
+      await fetchUpdateUserPicture(requestParams)
     }
 
     patchUser()
     updateProfilePicture()    
     setSaving(false)
-    setProfilePicture(undefined) //Try to remove
+    setProfilePicture("") //Try to remove
   }, [saving])
 
   //Patched user repsonse adn url forwarding
