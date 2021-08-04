@@ -36,7 +36,7 @@ export const Settings: FC<IElevatedStateProps> = ({elevatedState, setElevatedSta
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <FText style={{flex: 1}}>Color Theme</FText>
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <FButton style={[MainStyles.borderRadiusC, {padding: 5}]} onPress={() => {
+          <FButton style={{...MainStyles.borderRadiusC, padding: 5}} onPress={() => {
             setElevatedState(prev => ({...prev, frontEndSettings: 
               { ...prev.frontEndSettings, colorTheme: NEXT_COLOR_THEME[prev.frontEndSettings.colorTheme]}
             }))

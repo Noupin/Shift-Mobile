@@ -210,7 +210,7 @@ export const Load: FC<ILoad> = ({elevatedState, setElevatedState, startOpen=fals
     onSwipe={(direction) => onSwipe(direction)}
     config={GESTURE_CONFIG}
     style={{flex: 1}}>
-      <Neumorphic style={[MainStyles.borderRadius5]}>
+      <Neumorphic style={{...MainStyles.borderRadius5}}>
         <View style={[{flex: 1, alignItems: 'center', justifyContent: 'center'}, open ? {height: (windowHeight*0.92)-safeArea.bottom} : {height: windowHeight*0.1+(safeArea.bottom/2)}]}>
           {!open &&
           <TouchableOpacity onPress={() => setOpen(prev => !prev)}>
@@ -224,7 +224,7 @@ export const Load: FC<ILoad> = ({elevatedState, setElevatedState, startOpen=fals
               flex: 1}}>
               <View style={{flex: 1, marginTop: 10, marginRight: 3, justifyContent: 'center',
                 alignSelf: 'flex-end'}}>
-                <FButton style={[MainStyles.borderRadiusC, {padding: 5}]}
+                <FButton style={{...MainStyles.borderRadiusC, padding: 5}}
                 onPress={() => setOpen(false)}>
                   <Icon name="close" type="material" color={theme.colors.text}/>
                 </FButton>
@@ -236,7 +236,7 @@ export const Load: FC<ILoad> = ({elevatedState, setElevatedState, startOpen=fals
                     Base Face
                   </FText>
                   <TouchableOpacity onPress={() => pickMedia(setElevatedState, (media) => changeBaseFiles([media]))}>
-                    <Neumorphic style={[{padding: 5}, MainStyles.borderRadius2]}>
+                    <Neumorphic style={{padding: 5, ...MainStyles.borderRadius2}}>
                         {baseMedia ?
                         <FMedia style={[MainStyles.borderRadius2]} srcString={baseMedia}/>
                         :
@@ -249,7 +249,7 @@ export const Load: FC<ILoad> = ({elevatedState, setElevatedState, startOpen=fals
                     Mask Face
                   </FText>
                   <TouchableOpacity onPress={() => pickMedia(setElevatedState, (media) => changeMaskFiles([media]))}>
-                    <Neumorphic style={[{padding: 5}, MainStyles.borderRadius2]}>
+                    <Neumorphic style={{padding: 5, ...MainStyles.borderRadius2}}>
                       {maskFiles.length > 0 ?
                       <FMedia style={[MainStyles.borderRadius2]} srcString={maskFiles[0]}/>
                       :
@@ -262,7 +262,7 @@ export const Load: FC<ILoad> = ({elevatedState, setElevatedState, startOpen=fals
                 <View style={{flex: 1}}></View>
                 <View style={{flex: 4}}>
                   <FButton onPress={() => setFetching(true)} disabled={fetching}
-                  style={[{width: 'auto', padding: 10}, MainStyles.borderRadius2, MainStyles.center]}>
+                  style={{width: 'auto', padding: 10, ...MainStyles.borderRadius2, ...MainStyles.center}}>
                     <FText style={{fontSize: 20, fontWeight: 'bold'}}>Load</FText>
                   </FButton>
                 </View>

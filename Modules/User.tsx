@@ -2,11 +2,10 @@
 import React, { FC, useState, useEffect } from 'react';
 import 'react-native-gesture-handler';
 import { View, FlatList } from 'react-native';
-import { RouteProp, useTheme } from '@react-navigation/native';
+import { useTheme } from '@react-navigation/native';
 
 //First Party Imports
 import { IElevatedStateProps } from '../Interfaces/ElevatedStateProps';
-import { FText } from '../Components/Text';
 import { useFetch } from '../Hooks/Fetch';
 import { Shift, UserShiftsRequest, UserShiftsResponse } from '../Swagger';
 import { UserComponent } from '../Components/User/UserComponent';
@@ -49,7 +48,7 @@ export const User: FC<IUser> = ({elevatedState, setElevatedState, username}) => 
       <FHorizontalDivider/>
       <FlatList data={userShifts} renderItem={(item) => <FShiftCard fillHeight={false} shift={item.item}/>}
         keyExtractor={item => String(item.id)} style={{marginTop: 10}}
-        showsVerticalScrollIndicator={false}/>
+        showsVerticalScrollIndicator={false} contentContainerStyle={{backgroundColor: '#00000000'}}/>
     </View>
   );
 }

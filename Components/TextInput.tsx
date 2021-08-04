@@ -1,5 +1,6 @@
 //Third Party Imports
 import React, { FC, useState } from 'react';
+import { ViewProps, ViewStyle } from 'react-native';
 import 'react-native-gesture-handler';
 import { Icon } from 'react-native-elements';
 import { useTheme } from '@react-navigation/native';
@@ -14,6 +15,7 @@ import { booleanString } from '../Types/FrontEndTypes';
 interface ITextInput extends TextInputProps{
   padding?: string | number
   alignText?: TextStyle['textAlign']
+  style?: ViewStyle
 }
 
 export const FTextInput: FC<ITextInput> = ({placeholder, onChangeText, value, style,
@@ -28,7 +30,7 @@ export const FTextInput: FC<ITextInput> = ({placeholder, onChangeText, value, st
   }
 
   return ( secureTextEntry ?
-    <Neumorphic style={[style, {position: 'relative'}]}>
+    <Neumorphic style={{...style, position: 'relative'}}>
       <TextInput {...props} placeholder={placeholder} onChangeText={onChangeText}
         value={value} placeholderTextColor={placeholderTextColor} secureTextEntry={hidden}
         style={{alignSelf: 'stretch', textAlign: alignText, padding: padding, color: theme.colors.text}}/>
@@ -38,7 +40,7 @@ export const FTextInput: FC<ITextInput> = ({placeholder, onChangeText, value, st
       </View>
     </Neumorphic>
     :
-    <Neumorphic style={[style, {position: 'relative'}]}>
+    <Neumorphic style={{...style, position: 'relative'}}>
       <TextInput {...props} placeholder={placeholder} onChangeText={onChangeText}
         value={value} placeholderTextColor={placeholderTextColor} secureTextEntry={secureTextEntry}
         style={{alignSelf: 'stretch', textAlign: alignText, padding: padding, color: theme.colors.text}}/>

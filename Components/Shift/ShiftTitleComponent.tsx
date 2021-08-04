@@ -41,7 +41,7 @@ export const ShiftTitleComponent: FC<IShiftTitle> = ({editing, setShiftChanges, 
             if(value !== shift!.title){
               setShiftChanges(prev => ({...prev, title: value}))
             }
-          }} style={[MainStyles.borderRadius2, {padding: 5}]} alignText="center"/>
+          }} style={{...MainStyles.borderRadius2, padding: 7}} alignText="center"/>
           <View style={{position: 'absolute', top: 0, bottom: 0, right: 0, marginRight: 10,
           justifyContent: 'center', flexDirection: 'row', alignItems: 'center'}}>
             {shift!.verified ?

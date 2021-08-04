@@ -26,7 +26,7 @@ export const Template: FC<ITemplate> = ({ children, elevatedState }) => {
     <SafeAreaView style={[MainStyles.container, {width: "100%"}]}>
       <View style={[MainStyles.container, {width: "100%"}]}>
         <View style={HeaderBarStyle.container}>
-          <FButton style={[MainStyles.borderRadiusC, {padding: 5}]}
+          <FButton style={{...MainStyles.borderRadiusC, padding: 5}}
           onPress={() => navigationRef.current?.dispatch(DrawerActions.openDrawer())}>
             <Icon name='menu' size={20} color={theme.colors.text}/>
           </FButton>
@@ -35,7 +35,7 @@ export const Template: FC<ITemplate> = ({ children, elevatedState }) => {
               source={isDarkMode[elevatedState.frontEndSettings.colorTheme]() ?
               require('../assets/darkIcon.png') : require('../assets/lightIcon.png')}/>
           </TouchableOpacity>
-          <FButton style={[MainStyles.borderRadiusC, {padding: 5}]}
+          <FButton style={{...MainStyles.borderRadiusC, padding: 5}}
           onPress={() => navigate("Settings")}>
             <Icon name='settings' size={20} color={theme.colors.text}/>
           </FButton>

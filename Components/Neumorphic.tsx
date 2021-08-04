@@ -1,18 +1,17 @@
 //Third Party Imports
 import React, { FC } from "react";
-import { View } from "react-native";
-import { ViewProps } from "react-native";
-import { StyleSheet } from 'react-native';
 import { useTheme } from '@react-navigation/native';
+import { NeomorphFlex, NeomorphFlexProps } from 'react-native-neomorph-shadows';
 
 //First Party Imports
 import { ADDITIONAL_THEME_ATTRIBUTES } from "../constants";
 import { booleanString } from "../Types/FrontEndTypes";
+import { MainStyles } from "../Styles/MainStyles";
 
 
-interface INeurmorphic extends ViewProps{
+interface INeurmorphic extends NeomorphFlexProps{
   radius?: number
-  offset?: number
+  borderRadius?: {borderRadius: number}
   backgroundColor?: string
   upperShadow?: string
   bottomShadow?: string
@@ -20,8 +19,10 @@ interface INeurmorphic extends ViewProps{
 }
 
 
-export const Neumorphic: FC<INeurmorphic> = ({children, style, radius=5, offset=5, includeTheme=true,
-  backgroundColor='#ececec', upperShadow='rgba(255, 255, 255, 0.4)', bottomShadow='rgba(0, 0, 0, 0.05)'}) => {
+export const Neumorphic: FC<INeurmorphic> = ({children, style, radius=4,
+  includeTheme=true, backgroundColor='#ececec', upperShadow='rgba(255, 255, 255, 0.4)',
+  bottomShadow='rgba(0, 0, 0, 0.05)', borderRadius=MainStyles.borderRadius2}) => {
+
   const theme = useTheme()
 
   if(includeTheme){
@@ -31,40 +32,11 @@ export const Neumorphic: FC<INeurmorphic> = ({children, style, radius=5, offset=
     if(bottomShadow === 'rgba(0, 0, 0, 0.05)') bottomShadow = additionalTheme.dimShadow
   }
 
-  const styles = StyleSheet.create({
-    inner: {
-      backgroundColor: backgroundColor
-    },
-    topShadow: {
-      shadowOffset: {
-        width: -offset,
-        height: -offset,
-      },
-      shadowOpacity: 1,
-      shadowRadius: radius,
-      shadowColor: upperShadow,
-    },
-    bottomShadow: {
-      shadowOffset: {
-        width: offset,
-        height: offset,
-      },
-      shadowOpacity: 1,
-      shadowRadius: radius,
-      shadowColor: bottomShadow,
-    },
-  });
 
   return (
-    <View style={styles.topShadow}>
-      <View style={styles.bottomShadow}>
-        <View style={[
-          styles.inner,
-          style
-        ]}>
-          {children}
-        </View>
-      </View>
-    </View>
+    <NeomorphFlex key={String(theme.dark)} style={{backgroundColor: backgroundColor,
+      shadowRadius: radius, ...borderRadius, ...style}}>
+      {children}
+    </NeomorphFlex>
   );
 }

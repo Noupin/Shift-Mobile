@@ -28,12 +28,12 @@ export const ShiftButtonsComponent: FC<IShiftButtons> = ({editing, setEditing, s
   let shiftButtonsComponent = (
     <View style={[MainStyles.spreadRow]}>
       <View style={{flex: 1, alignItems: 'stretch', margin: 10}}>
-        <FButton onPress={() => setEditing(true)} style={[{padding: 7}, MainStyles.borderRadius2]}>
+        <FButton onPress={() => setEditing(true)} style={{padding: 7, ...MainStyles.borderRadius2}}>
           <FText style={{textAlign: 'center'}}>Edit</FText>
         </FButton>
       </View>
       <View style={{flex: 1, alignItems: 'stretch', margin: 10}}>
-        <FButton onPress={deleteShift} style={[{padding: 7}, MainStyles.borderRadius2]}>
+        <FButton onPress={deleteShift} style={{padding: 7, ...MainStyles.borderRadius2}}>
           <FText style={{textAlign: 'center', color: additionalTheme.errorText}}>Delete</FText>
         </FButton>
       </View>
@@ -44,7 +44,7 @@ export const ShiftButtonsComponent: FC<IShiftButtons> = ({editing, setEditing, s
     shiftButtonsComponent = (
       <View style={[MainStyles.spreadRow]}>
         <View style={{flex: 1, alignItems: 'stretch', margin: 10}}>
-          <FButton style={[{padding: 7}, MainStyles.borderRadius2]}
+          <FButton style={{padding: 7, ...MainStyles.borderRadius2}}
           onPress={() => {
             setEditing(false);
             setSaving(true)
@@ -53,7 +53,7 @@ export const ShiftButtonsComponent: FC<IShiftButtons> = ({editing, setEditing, s
           </FButton>
         </View>
         <View style={{flex: 1, alignItems: 'stretch', margin: 10}}>
-          <FButton style={[{padding: 7}, MainStyles.borderRadius2]}
+          <FButton style={{padding: 7, ...MainStyles.borderRadius2}}
           onPress={() => setEditing(false)}>
             <FText style={{textAlign: 'center', color: additionalTheme.errorText}}>Cancel</FText>
           </FButton>

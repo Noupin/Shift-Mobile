@@ -1,11 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 //Third Party Imports
-import uuid from 'react-native-uuid';
 import { Platform, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import React, { FC, useState, useEffect } from 'react';
-import RNFetchBlob from 'rn-fetch-blob';
 import { useTheme } from '@react-navigation/native';
 import CameraRoll from "@react-native-community/cameraroll";
 
@@ -122,7 +120,7 @@ export const Inference: FC<IElevatedStateProps> = ({elevatedState, setElevatedSt
 		<View style={[MainStyles.spreadColumn, {flex: 1, alignItems: 'center',
     justifyContent: 'center', marginTop: 10, marginHorizontal: 10}]}>
       <View style={{flex: 9}}>
-        <Neumorphic style={[MainStyles.borderRadius2, {padding: 5}]}>
+        <Neumorphic style={{...MainStyles.borderRadius2, padding: 5}}>
           <FMedia mediaSrc={inferenceMedia} style={MainStyles.borderRadius2}/>
         </Neumorphic>
       </View>
@@ -130,14 +128,14 @@ export const Inference: FC<IElevatedStateProps> = ({elevatedState, setElevatedSt
         <Icon name='north' type='material' color={theme.colors.text}/>
       </View>
       <View style={{flex: 9}}>
-        <Neumorphic style={[MainStyles.borderRadius2, {padding: 5}]}>
+        <Neumorphic style={{...MainStyles.borderRadius2, padding: 5}}>
           <FMedia srcString={baseMediaString} style={MainStyles.borderRadius2}/>
         </Neumorphic>
       </View>
       <View style={[MainStyles.spreadRow, {margin: 10}]}>
         <View style={{flex: 1, margin: 5, alignItems: 'stretch'}}>
-          <FButton style={[MainStyles.borderRadius2, {justifyContent: 'center',
-          alignSelf: 'stretch', flexDirection: 'row', alignItems: 'center', padding: 5}]}
+          <FButton style={{...MainStyles.borderRadius2, justifyContent: 'center',
+          alignSelf: 'stretch', flexDirection: 'row', alignItems: 'center', padding: 5}}
           onPress={() => {
             const reader = new FileReader()
             reader.readAsDataURL(inferenceMedia!)

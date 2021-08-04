@@ -26,7 +26,7 @@ interface IUserMedia{
 
 export const UserMediaComponent: FC<IUserMedia> = ({setElevatedState, profilePictureURL, editing, setProfilePicture, setProfilePictureURL}): ReactElement => {
   let profileMediaComponent = (
-    <Neumorphic style={[{padding: 5}, MainStyles.borderRadius2]}>
+    <Neumorphic style={{padding: 5, ...MainStyles.borderRadius2}}>
       <FMedia srcString={profilePictureURL} style={[MainStyles.borderRadius2]}/>
     </Neumorphic>
   );

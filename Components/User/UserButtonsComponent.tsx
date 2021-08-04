@@ -32,16 +32,16 @@ export const UserButtonComponent: FC<IUserButtons> = ({editing, setEditing, setS
     <View style={[MainStyles.spreadRow, {marginBottom: 10}]}>
       <View style={{flex: 1, alignItems: 'stretch'}}>
         <FButton onPress={() => setEditing(true)}
-        style={[MainStyles.borderRadius2, {justifyContent: 'center', alignSelf: 'stretch',
-        flexDirection: 'row', marginHorizontal: 10, alignItems: 'center', padding: 5}]}>
+        style={{...MainStyles.borderRadius2, justifyContent: 'center', alignSelf: 'stretch',
+        flexDirection: 'row', marginHorizontal: 10, alignItems: 'center', padding: 5}}>
           <FText>Edit</FText>
           <Icon name="edit" type="material" color={theme.colors.text}/>
         </FButton>
       </View>
       <View style={{flex: 1, alignItems: 'stretch'}}>
         <FButton onPress={() => setDeleting(true)}
-        style={[MainStyles.borderRadius2, {justifyContent: 'center', alignSelf: 'stretch',
-        flexDirection: 'row', marginHorizontal: 10, alignItems: 'center', padding: 5}]}>
+        style={{...MainStyles.borderRadius2, justifyContent: 'center', alignSelf: 'stretch',
+        flexDirection: 'row', marginHorizontal: 10, alignItems: 'center', padding: 5}}>
           <FText style={{color: additionalTheme.errorText}}>Delete</FText>
           <Icon name="delete" type="material" color={additionalTheme.errorText}/>
         </FButton>
@@ -55,8 +55,8 @@ export const UserButtonComponent: FC<IUserButtons> = ({editing, setEditing, setS
         <View style={[MainStyles.spreadRow, {marginTop: 10, marginBottom: 15}]}>
           <View style={{flex: 1, alignItems: 'stretch'}}>
             <FButton onPress={() => navigation.navigate("ChangePassword")}
-            style={[MainStyles.borderRadius2, {justifyContent: 'center', alignSelf: 'stretch',
-            flexDirection: 'row', marginHorizontal: 10, alignItems: 'center', padding: 7}]}>
+            style={{...MainStyles.borderRadius2, justifyContent: 'center', alignSelf: 'stretch',
+            flexDirection: 'row', marginHorizontal: 10, alignItems: 'center', padding: 7}}>
               <FText>Change Password</FText>
             </FButton>
           </View>
@@ -66,15 +66,15 @@ export const UserButtonComponent: FC<IUserButtons> = ({editing, setEditing, setS
             <FButton onPress={() => {
                 setEditing(false)
                 setSaving(true)
-              }} style={[MainStyles.borderRadius2, {justifyContent: 'center', alignSelf: 'stretch',
-              flexDirection: 'row', marginHorizontal: 10, alignItems: 'center', padding: 7}]}>
+              }} style={{...MainStyles.borderRadius2, justifyContent: 'center', alignSelf: 'stretch',
+              flexDirection: 'row', marginHorizontal: 10, alignItems: 'center', padding: 7}}>
               <FText>Save</FText>
               <Icon name="save" type="material" color={theme.colors.text}/>
             </FButton>
           </View>
           <View style={{flex: 1, alignItems: 'stretch'}}>
-            <FButton onPress={() => setEditing(false)} style={[MainStyles.borderRadius2, {justifyContent: 'center', alignSelf: 'stretch',
-              flexDirection: 'row', marginHorizontal: 10, alignItems: 'center', padding: 7}]}>
+            <FButton onPress={() => setEditing(false)} style={{...MainStyles.borderRadius2, justifyContent: 'center', alignSelf: 'stretch',
+              flexDirection: 'row', marginHorizontal: 10, alignItems: 'center', padding: 7}}>
               <FText style={{color: additionalTheme.errorText}}>Cancel</FText>
               <Icon name="block" type="material" color={additionalTheme.errorText}/>
             </FButton>

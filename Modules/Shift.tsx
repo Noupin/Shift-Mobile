@@ -181,9 +181,9 @@ Look at the shift ${shiftGetResponse?.shift!.author.username} made. Make your ow
       <ShiftButtonsComponent editing={editing} setEditing={setEditing}
         setSaving={setSaving} deleteShift={deleteShift}/>
       : <></>}
-      <View style={[MainStyles.spreadColumn, {flex: 1}]}>
+      <View style={[MainStyles.spreadColumn, {flex: 1, marginTop: 5}]}>
         <View style={{flex: 3}}>
-          <Neumorphic style={[{padding: 5}, MainStyles.borderRadius2]}>
+          <Neumorphic style={{padding: 5, ...MainStyles.borderRadius2}}>
             <FMedia style={MainStyles.borderRadius2} srcString={shiftMediaURL}/>
           </Neumorphic>
         </View>
@@ -197,12 +197,12 @@ Look at the shift ${shiftGetResponse?.shift!.author.username} made. Make your ow
         </View>
         <View style={[MainStyles.spreadRow, {flex: 2, margin: 5}]}>
           <View style={{flex:1}}>
-            <Neumorphic style={[{padding: 5, marginHorizontal: 5}, MainStyles.borderRadius2]}>
+            <Neumorphic style={{padding: 5, marginHorizontal: 5, ...MainStyles.borderRadius2}}>
               <FMedia style={MainStyles.borderRadius2} srcString={baseMediaURL}/>
             </Neumorphic>
           </View>
           <View style={{flex:1}}>
-            <Neumorphic style={[{padding: 5, marginHorizontal: 5}, MainStyles.borderRadius2]}>
+            <Neumorphic style={{padding: 5, marginHorizontal: 5, ...MainStyles.borderRadius2}}>
               <FMedia style={MainStyles.borderRadius2} srcString={maskMediaURL}/>
             </Neumorphic>
           </View>
@@ -210,24 +210,24 @@ Look at the shift ${shiftGetResponse?.shift!.author.username} made. Make your ow
       </View>
       <View style={[MainStyles.spreadRow, {marginBottom: 10}]}>
         <View style={{flex: 1, margin: 5, alignItems: 'stretch'}}>
-          <FButton style={[MainStyles.borderRadius2, {justifyContent: 'center',
-          alignSelf: 'stretch', flexDirection: 'row', alignItems: 'center', padding: 5}]}
+          <FButton style={{...MainStyles.borderRadius2, justifyContent: 'center',
+          alignSelf: 'stretch', flexDirection: 'row', alignItems: 'center', padding: 5}}
           onPress={onShare}>
             <FText>Share</FText>
             <Icon name="share" type="material" color={theme.colors.text}/>
           </FButton>
         </View>
         <View style={{flex: 1, margin: 5, alignItems: 'stretch'}}>
-          <FButton style={[MainStyles.borderRadius2, {justifyContent: 'center',
-          alignSelf: 'stretch', flexDirection: 'row', alignItems: 'center', padding: 5}]}
+          <FButton style={{...MainStyles.borderRadius2, justifyContent: 'center',
+          alignSelf: 'stretch', flexDirection: 'row', alignItems: 'center', padding: 5}}
           onPress={() => {handleDownload(shiftMediaURL, shiftMediaURL.split('.')[-1])}}>
             <FText>Download</FText>
             <Icon name="south" type="material" color={theme.colors.text}/>
           </FButton>
         </View>
         <View style={{flex: 1, margin: 5, alignItems: 'stretch'}}>
-          <FButton style={[MainStyles.borderRadius2, {justifyContent: 'center',
-          alignSelf: 'stretch', flexDirection: 'row', alignItems: 'center', padding: 5}]}
+          <FButton style={{...MainStyles.borderRadius2, justifyContent: 'center',
+          alignSelf: 'stretch', flexDirection: 'row', alignItems: 'center', padding: 5}}
           onPress={() => {
             setElevatedState(prev => ({...prev, prebuiltShiftModel: uuid}))
             navigation.navigate("Home", {startLoading: true})

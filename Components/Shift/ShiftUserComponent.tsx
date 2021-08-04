@@ -24,7 +24,7 @@ export const ShiftUserComponent: FC<IShiftUser> = ({shift}) => {
     <TouchableOpacity onPress={() => navigation.navigate("User", {username: shift!.author.username})}>
       <View style={[MainStyles.spreadRow, {width: '100%', maxHeight: 150}]}>
         <View style={{flex: 1, marginHorizontal: 10}}>
-          <Neumorphic style={[MainStyles.borderRadius2, {padding: 5}]}>
+          <Neumorphic style={{...MainStyles.borderRadius2, padding: 5}}>
             <FMedia style={[MainStyles.borderRadius2]}
             srcString={`${API_BASE_URL}/api/content/image/${shift!.author.mediaFilename!}`}/>
           </Neumorphic>

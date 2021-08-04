@@ -209,7 +209,7 @@ export const UserComponent: FC<IUser> = ({elevatedState, setElevatedState, setOw
             <View style={{flexDirection: 'column', flex: 2, marginLeft: 10}}>
               <View>
                 <FTextInput placeholder="Username" defaultValue={username} padding={10}
-                  style={[{marginVertical: 10}, MainStyles.center, MainStyles.borderRadius2]}
+                  style={{marginVertical: 10, ...MainStyles.center, ...MainStyles.borderRadius2}}
                   autoCapitalize="none" autoCorrect={false} alignText="left"
                   onChangeText={(value) => {
                     if(value !== userGetResponse.user!.username){
@@ -225,7 +225,7 @@ export const UserComponent: FC<IUser> = ({elevatedState, setElevatedState, setOw
                 </View>
               </View>
               <FTextInput placeholder="Email" value={userGetResponse.user!.email!} padding={10}
-                style={[{marginVertical: 10}, MainStyles.center, MainStyles.borderRadius2]}
+                style={{marginVertical: 10, ...MainStyles.center, ...MainStyles.borderRadius2}}
                 autoCapitalize="none" autoCorrect={false} alignText="left"
                 onChangeText={(value) => {
                   if(value !== userGetResponse.user!.email){

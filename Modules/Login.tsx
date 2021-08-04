@@ -99,8 +99,8 @@ export const Login: FC<IElevatedStateProps> = ({elevatedState, setElevatedState}
   return (
       <View style={[LoginStyle.container]}>
         {loginErrorMessage !== "" ?
-        <Neumorphic style={[{ margin: 10, padding: 15, flexDirection: 'row', backgroundColor: additionalTheme.errorBackground,
-        justifyContent: 'space-between', width: Dimensions.get('window').width*0.9}, MainStyles.borderRadius2]}>
+        <Neumorphic style={{ margin: 10, padding: 15, flexDirection: 'row', backgroundColor: additionalTheme.errorBackground,
+        justifyContent: 'space-between', width: Dimensions.get('window').width*0.9, ...MainStyles.borderRadius2}}>
           <View style={{flexShrink: 1}}>
             <FText>
               {loginErrorMessage}
@@ -109,7 +109,7 @@ export const Login: FC<IElevatedStateProps> = ({elevatedState, setElevatedState}
           <Neumorphic>
             <FButton onPress={() => {
               setLoginErrorMessage("")
-            }} style={[{padding: 10}, MainStyles.borderRadius2]}>
+            }} style={{padding: 10, ...MainStyles.borderRadius2, backgroundColor: additionalTheme.errorBackground}}>
               <FText>Close</FText>
             </FButton>
           </Neumorphic>
@@ -120,8 +120,10 @@ export const Login: FC<IElevatedStateProps> = ({elevatedState, setElevatedState}
             <View style={{flex: 1}}></View>
             <View style={{flex: 4}}>
               <FTextInput placeholder="Username/Email" onChangeText={setUsernameOrEmail}
-                style={[{marginVertical: 10}, MainStyles.textCenter, MainStyles.borderRadius2,
-                loginErrors.username && {backgroundColor: additionalTheme.errorBackground}]}
+                style={loginErrors.username ?
+                {marginVertical: 10, ...MainStyles.textCenter, ...MainStyles.borderRadius2,
+                backgroundColor: additionalTheme.errorBackground} :
+                {marginVertical: 10, ...MainStyles.textCenter, ...MainStyles.borderRadius2}}
                 autoCapitalize="none" autoCorrect={false} alignText="center" padding={10}
                 value={usernameOrEmail}/>
             </View>
@@ -131,8 +133,10 @@ export const Login: FC<IElevatedStateProps> = ({elevatedState, setElevatedState}
             <View style={{flex: 1}}></View>
             <View style={{flex: 4}}>
               <FTextInput placeholder="Password" onChangeText={setPassword} value={password}
-                style={[{marginVertical: 10}, MainStyles.textCenter, MainStyles.borderRadius2,
-                loginErrors.password && {backgroundColor: additionalTheme.errorBackground}]}
+                style={loginErrors.password ?
+                {marginVertical: 10, ...MainStyles.textCenter,
+                ...MainStyles.borderRadius2, backgroundColor: additionalTheme.errorBackground} :
+                {marginVertical: 10, ...MainStyles.textCenter, ...MainStyles.borderRadius2}}
                 autoCapitalize="none" autoCorrect={false} alignText="center" padding={10}
                 secureTextEntry={true}/>
             </View>
@@ -142,14 +146,14 @@ export const Login: FC<IElevatedStateProps> = ({elevatedState, setElevatedState}
             <View style={{flex: 1}}></View>
             <View style={{flex: 2}}>
               <FButton onPress={() => setFetching(true)}
-              style={[{padding: 10, marginTop: 20}, MainStyles.borderRadius2, MainStyles.center]}>
+              style={{padding: 10, marginTop: 20, ...MainStyles.borderRadius2, ...MainStyles.center}}>
                 <FText>Login</FText>
               </FButton>
             </View>
             <View style={{flex: 1}}></View>
           </View>
         </View>
-        <FButton onPress={() => navigation.navigate("Register")} style={[{padding: 15, marginTop: 10}, MainStyles.borderRadius2]}>
+        <FButton onPress={() => navigation.navigate("Register")} style={{padding: 15, marginTop: 10, ...MainStyles.borderRadius2}}>
           <FText>Don't Have An Account?</FText>
         </FButton>
       </View>
