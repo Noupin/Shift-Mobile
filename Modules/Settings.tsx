@@ -12,6 +12,7 @@ import { FButton } from '../Components/Button';
 import { MainStyles } from '../Styles/MainStyles';
 import { COLOR_THEME_COLORS, COLOR_THEME_ICON, COLOR_THEME_ICON_TYPE,
   NEXT_COLOR_THEME } from '../constants';
+import { Neumorphic } from '../Components/Neumorphic';
 
 
 export const Settings: FC<IElevatedStateProps> = ({elevatedState, setElevatedState}) => {
@@ -32,10 +33,10 @@ export const Settings: FC<IElevatedStateProps> = ({elevatedState, setElevatedSta
 
   return (
     <View style={{flex: 1, alignItems: "center", marginHorizontal: 10}}>
-      <FText>Settings</FText>
-      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+      <FText style={{marginBottom: 15, fontWeight: 'bold', fontSize: 25}}>Settings</FText>
+      <Neumorphic style={{flexDirection: 'row', alignItems: 'center', padding: 10, marginHorizontal: 15}}>
         <FText style={{flex: 1}}>Color Theme</FText>
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'flex-end', marginRight: 5}}>
           <FButton style={{...MainStyles.borderRadiusC, padding: 5}} onPress={() => {
             setElevatedState(prev => ({...prev, frontEndSettings: 
               { ...prev.frontEndSettings, colorTheme: NEXT_COLOR_THEME[prev.frontEndSettings.colorTheme]}
@@ -45,7 +46,7 @@ export const Settings: FC<IElevatedStateProps> = ({elevatedState, setElevatedSta
               color={getColorThemeIconColor()}/>
           </FButton>
         </View>
-      </View>
+      </Neumorphic>
     </View>
   );
 }
